@@ -13,7 +13,7 @@ namespace Museum.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chilly", "Cool",  "Warm", "Hot", "Sweltering", "Scorching"
+            "Freezing", "Bracing", "Chilly", "Cool",  "Warm", "Hot"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
