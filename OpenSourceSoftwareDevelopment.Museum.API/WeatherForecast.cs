@@ -1,6 +1,6 @@
 using System;
 
-namespace Museum
+namespace OpenSourceSoftwareDevelopment.Museum.API
 {
     public class WeatherForecast
     {
