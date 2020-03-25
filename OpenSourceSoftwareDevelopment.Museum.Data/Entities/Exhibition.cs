@@ -6,11 +6,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     public class Exhibition
     {
-        public int id { get; set; }
-        public string excibitionName { get; set; }
-        public int auditoriumId { get; set; }
-        public string typeOfExhibition { get; set; }
-        public DateTime startTime { get; set; }
-        public DateTime endTime { get; set; }
+        public int Id { get; set; }
+        public string ExcibitionName { get; set; }
+        public int AuditoriumId { get; set; }
+        public string TypeOfExhibition { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }

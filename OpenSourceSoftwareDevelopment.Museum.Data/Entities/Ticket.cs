@@ -6,9 +6,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     public class Ticket
     {
-        public int ticketId { get; set; }
-        public int payment { get; set; }
-        public int exhibitionId { get; set; }
-        public int userId { get; set; }
+        public int TicketId { get; set; }
+        public int Payment { get; set; }
+        public int ExhibitionId { get; set; }
+        public int UserId { get; set; }
     }
 }

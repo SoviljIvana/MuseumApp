@@ -6,12 +6,12 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     public class Exhibit
     {
-        public int id { get; set; }
-        public int idExhibition { get; set; }
-        public string name { get; set; }
-        public int year { get; set; }
-        public string picturePath { get; set; }
-        public int auditoriumId { get; set; }
-        public int exhibitionId { get; set; }
+        public int Id { get; set; }
+        public int IdExhibition { get; set; }
+        public string Name { get; set; }
+        public int Year { get; set; }
+        public string PicturePath { get; set; }
+        public int AuditoriumId { get; set; }
+        public int ExhibitionId { get; set; }
     }
 }
