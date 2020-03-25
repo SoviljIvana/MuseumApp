@@ -6,11 +6,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
    public class Museum
     {
-        public int museumId { get; set; }
-        public string name { get; set; }
-        public string streetAndNumber { get; set; }
-        public string city { get; set; }
-        public string email { get; set; }
-        public string phoneNumber { get; set; }
+        public int MuseumId { get; set; }
+        public string Name { get; set; }
+        public string StreetAndNumber { get; set; }
+        public string City { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

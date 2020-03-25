@@ -6,8 +6,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     public class Tag
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string type { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 }
