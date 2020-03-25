@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
-    public interface IRepository
+    public class TicketsRepository
     {
     }
 }
