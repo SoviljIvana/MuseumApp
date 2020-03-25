@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
-    public class Class1
+    class IRepository
     {
     }
 }
