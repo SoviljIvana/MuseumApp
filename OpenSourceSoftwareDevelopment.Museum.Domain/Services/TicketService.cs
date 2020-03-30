@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+using OpenSourceSoftwareDevelopment.Museum.Repositories;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
 {
-    public class TicketService
+    public class TicketService : ITicketService
     {
+        private readonly ITicketsRepository _ticketRepository;
+
+        public TicketService(ITicketsRepository ticketRepository)
+        {
+            _ticketRepository = ticketRepository;
+        }
     }
 }
