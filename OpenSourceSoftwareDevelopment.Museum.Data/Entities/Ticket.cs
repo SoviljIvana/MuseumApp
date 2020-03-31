@@ -10,5 +10,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public int Payment { get; set; }
         public int ExhibitionId { get; set; }
         public int UserId { get; set; }
+        public virtual Exhibition Exhibition { get; set; }
+        public virtual User User { get; set; }
     }
 }

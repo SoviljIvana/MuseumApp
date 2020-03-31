@@ -10,5 +10,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public int MuseumId { get; set; }
         public string NameOfAuditorium { get; set; }
         public int NumberOfSeats { get; set; }
+        public virtual Museum Museum { get; set; }
+        public virtual ICollection<Exhibition> Exhibitions { get; set; }
     }
 }

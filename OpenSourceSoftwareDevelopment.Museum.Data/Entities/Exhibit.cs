@@ -13,5 +13,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public string PicturePath { get; set; }
         public int AuditoriumId { get; set; }
         public int ExhibitionId { get; set; }
+        public virtual Exhibition Exhibition { get; set; }
+        public virtual ICollection<ExhibitTag> ExhibitionTags { get; set; }
     }
 }
