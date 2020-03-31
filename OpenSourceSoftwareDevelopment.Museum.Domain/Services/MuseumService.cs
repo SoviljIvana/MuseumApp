@@ -17,7 +17,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             _museumRepository = museumRepository;
         }
 
-        public Task<MuseumDomainModel> CreateMuseum()
+        public Task<MuseumDomainModel> CreateMuseum(MuseumDomainModel museumModel)
         {
             throw new NotImplementedException();
         }

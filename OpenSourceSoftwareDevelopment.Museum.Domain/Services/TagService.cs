@@ -17,7 +17,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             _tagRepository = tagRepository;
         }
 
-        public Task<TagDomainModel> CreateTag()
+        public Task<TagDomainModel> CreateTag(TagDomainModel tagModel)
         {
             throw new NotImplementedException();
         }

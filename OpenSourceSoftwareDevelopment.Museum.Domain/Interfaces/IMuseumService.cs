@@ -23,7 +23,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         /// 
         /// </summary>
         /// <returns></returns>
-        Task<MuseumDomainModel> CreateMuseum();
+        Task<MuseumDomainModel> CreateMuseum(MuseumDomainModel museumModel);
         /// <summary>
         /// 
         /// </summary>
