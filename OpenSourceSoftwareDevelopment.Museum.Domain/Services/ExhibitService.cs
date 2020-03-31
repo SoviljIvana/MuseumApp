@@ -17,12 +17,12 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             _exhibitRepository = exhibitRepository;
         }
 
-        public Task<ExhibitDomainModel> CreateExhibit()
+        public Task<ExhibitResultModel> CreateExhibit(ExhibitDomainModel exhibitModel)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ExhibitDomainModel> DeleteExhibit(int id)
+        public Task<ExhibitResultModel> DeleteExhibit(int id)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<ExhibitDomainModel> UpdateExhibit()
+        public Task<ExhibitResultModel> UpdateExhibit()
         {
             throw new NotImplementedException();
         }
