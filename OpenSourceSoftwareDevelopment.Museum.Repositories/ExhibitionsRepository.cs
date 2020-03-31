@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
 
-    public interface IExhibitionsRepository : IRepository<Exhibition>
+    public interface IExhibitionsRepository : IRepository<ExhibitionEntity>
     {
 
     }
@@ -20,22 +20,22 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public Exhibition Delete(object id)
+        public ExhibitionEntity Delete(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Exhibition>> GetAll()
+        public Task<IEnumerable<ExhibitionEntity>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Exhibition> GetByIdAsync(object id)
+        public Task<ExhibitionEntity> GetByIdAsync(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Exhibition Insert(Exhibition obj)
+        public ExhibitionEntity Insert(ExhibitionEntity obj)
         {
             throw new NotImplementedException();
         }
@@ -45,7 +45,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             throw new NotImplementedException();
         }
 
-        public Exhibition Update(Exhibition obj)
+        public ExhibitionEntity Update(ExhibitionEntity obj)
         {
             throw new NotImplementedException();
         }

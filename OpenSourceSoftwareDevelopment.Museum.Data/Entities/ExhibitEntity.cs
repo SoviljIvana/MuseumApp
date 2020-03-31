@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
-    public class Exhibit
+    public class ExhibitEntity
     {
         public int Id { get; set; }
         public int IdExhibition { get; set; }
@@ -13,7 +13,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public string PicturePath { get; set; }
         public int AuditoriumId { get; set; }
         public int ExhibitionId { get; set; }
-        public virtual Exhibition Exhibition { get; set; }
-        public virtual ICollection<ExhibitTag> ExhibitionTags { get; set; }
+        public virtual ExhibitionEntity Exhibition { get; set; }
+        public virtual ICollection<ExhibitTagEntity> ExhibitionTags { get; set; }
     }
 }

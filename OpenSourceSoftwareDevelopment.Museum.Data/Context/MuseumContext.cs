@@ -8,14 +8,14 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
 {
     public class MuseumContext : DbContext
     {
-        public DbSet<Auditorium> Auditoriums { get; set; }
-        public DbSet<Exhibit> Exhibits { get; set; }
-        public DbSet<Exhibition> Exhibitions { get; set; }
-        public DbSet<ExhibitTag> ExhibitTags { get; set; }
-        public DbSet<Entities.Museum> Museums { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<AuditoriumEntity> Auditoriums { get; set; }
+        public DbSet<ExhibitEntity> Exhibits { get; set; }
+        public DbSet<ExhibitionEntity> Exhibitions { get; set; }
+        public DbSet<ExhibitTagEntity> ExhibitTags { get; set; }
+        public DbSet<Entities.MuseumEntity> Museums { get; set; }
+        public DbSet<TagEntity> Tags { get; set; }
+        public DbSet<TicketEntity> Tickets { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         public MuseumContext(DbContextOptions options)
            : base(options)
@@ -30,7 +30,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
             /// Ticket -> User relation
             /// </summary>
             /// <returns></returns>
-            modelBuilder.Entity<Ticket>()
+            modelBuilder.Entity<TicketEntity>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.Tickets)
                 .HasForeignKey(x => x.UserId)
@@ -40,7 +40,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
             /// User -> Ticket relation
             /// </summary>
             /// <returns></returns>
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<UserEntity>()
                 .HasMany(x => x.Tickets)
                 .WithOne(x => x.User)
                 .IsRequired();

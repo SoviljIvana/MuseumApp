@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
-    public interface ITicketsRepository : IRepository<Ticket>
+    public interface ITicketsRepository : IRepository<TicketEntity>
     {
 
     }
@@ -19,22 +19,22 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public Ticket Delete(object id)
+        public TicketEntity Delete(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Ticket>> GetAll()
+        public Task<IEnumerable<TicketEntity>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Ticket> GetByIdAsync(object id)
+        public Task<TicketEntity> GetByIdAsync(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Ticket Insert(Ticket obj)
+        public TicketEntity Insert(TicketEntity obj)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +44,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             throw new NotImplementedException();
         }
 
-        public Ticket Update(Ticket obj)
+        public TicketEntity Update(TicketEntity obj)
         {
             throw new NotImplementedException();
         }
