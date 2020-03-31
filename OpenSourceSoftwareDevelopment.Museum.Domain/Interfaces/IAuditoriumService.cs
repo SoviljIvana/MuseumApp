@@ -8,33 +8,16 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
 {
     public interface IAuditoriumService
     {
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <returns></returns>
+
        Task<IEnumerable<AuditoriumDomainModel>> GetAllAuditoriums();
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="id"></param>
-       /// <returns></returns>
+    
        Task<AuditoriumDomainModel> GetAuditoriumByIdAsync(int id);
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <returns></returns>
-       Task<AuditoriumDomainModel> CreateAuditorium();
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <param name="id"></param>
-       /// <returns></returns>
-       Task<AuditoriumDomainModel> DeleteAuditorium(int id);
-       /// <summary>
-       /// 
-       /// </summary>
-       /// <returns></returns>
-       Task<AuditoriumDomainModel> UpdateAuditorium();
+   
+       Task<AuditoriumResultModel> CreateAuditorium(AuditoriumDomainModel createAuditorium);
+
+        Task<AuditoriumResultModel> DeleteAuditorium(int id);
+ 
+       Task<AuditoriumResultModel> UpdateAuditorium();
 
     }
 }
