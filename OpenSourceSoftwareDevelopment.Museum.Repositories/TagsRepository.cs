@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
-    public interface ITagsRepository : IRepository<Tag>
+    public interface ITagsRepository : IRepository<TagEntity>
     {
 
     }
@@ -19,22 +19,22 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public Tag Delete(object id)
+        public TagEntity Delete(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Tag>> GetAll()
+        public Task<IEnumerable<TagEntity>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Tag> GetByIdAsync(object id)
+        public Task<TagEntity> GetByIdAsync(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Tag Insert(Tag obj)
+        public TagEntity Insert(TagEntity obj)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +44,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             throw new NotImplementedException();
         }
 
-        public Tag Update(Tag obj)
+        public TagEntity Update(TagEntity obj)
         {
             throw new NotImplementedException();
         }

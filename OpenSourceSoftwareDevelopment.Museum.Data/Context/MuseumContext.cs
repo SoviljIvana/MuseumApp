@@ -8,14 +8,14 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
 {
     public class MuseumContext : DbContext
     {
-        public DbSet<Auditorium> Auditoriums { get; set; }
-        public DbSet<Exhibit> Exhibits { get; set; }
-        public DbSet<Exhibition> Exhibitions { get; set; }
-        public DbSet<ExhibitTag> ExhibitTags { get; set; }
-        public DbSet<Entities.Museum> Museums { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<AuditoriumEntity> Auditoriums { get; set; }
+        public DbSet<ExhibitEntity> Exhibits { get; set; }
+        public DbSet<ExhibitionEntity> Exhibitions { get; set; }
+        public DbSet<ExhibitTagEntity> ExhibitTags { get; set; }
+        public DbSet<Entities.MuseumEntity> Museums { get; set; }
+        public DbSet<TagEntity> Tags { get; set; }
+        public DbSet<TicketEntity> Tickets { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         public MuseumContext(DbContextOptions options)
            : base(options)
@@ -30,7 +30,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
             /// Ticket -> User relation
             /// </summary>
             /// <returns></returns>
-            modelBuilder.Entity<Ticket>()
+            modelBuilder.Entity<TicketEntity>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.Tickets)
                 .HasForeignKey(x => x.UserId)
@@ -40,11 +40,125 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
             /// User -> Ticket relation
             /// </summary>
             /// <returns></returns>
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<UserEntity>()
                 .HasMany(x => x.Tickets)
                 .WithOne(x => x.User)
                 .IsRequired();
 
+            /// <summary>
+            /// Ticket -> Exhibition relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<TicketEntity>()
+                .HasOne(x => x.Exhibition)
+                .WithMany(x => x.Tickets)
+                .HasForeignKey(x => x.ExhibitionId)
+                .IsRequired();
+
+            /// <summary>
+            /// Exhibition -> Ticket relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitionEntity>()
+                .HasMany(x => x.Tickets)
+                .WithOne(x => x.Exhibition)
+                .IsRequired();
+
+            /// <summary>
+            /// Exhibit -> Exhibition relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitEntity>()
+                .HasOne(x => x.Exhibition)
+                .WithMany(x => x.Exhibits)
+                .HasForeignKey(x => x.ExhibitionId)
+                .IsRequired();
+
+            /// <summary>
+            /// Exhibition -> Exhibit relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitionEntity>()
+                .HasMany(x => x.Exhibits)
+                .WithOne(x => x.Exhibition)
+                .IsRequired();
+
+            /// <summary>
+            /// Exhibit -> ExhibitTag relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitEntity>()
+                .HasMany(x => x.ExhibitionTags)
+                .WithOne(x => x.Exhibit)
+                .IsRequired();
+
+            /// <summary>
+            /// ExhibitTag -> Exhibit relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitTagEntity>()
+                .HasOne(x => x.Exhibit)
+                .WithMany(x => x.ExhibitionTags)
+                .HasForeignKey(x => x.ExhibitionId)
+                .IsRequired();
+
+            /// <summary>
+            /// ExhibitTag -> Tag relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitTagEntity>()
+                .HasOne(x => x.Tag)
+                .WithMany(x => x.ExhibitionTags)
+                .HasForeignKey(x => x.TagId)
+                .IsRequired();
+
+            /// <summary>
+            /// Tag -> ExhibitTag relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<TagEntity>()
+                .HasMany(x => x.ExhibitionTags)
+                .WithOne(x => x.Tag)
+                .IsRequired();
+
+            /// <summary>
+            /// Exhibition -> Auditorium relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitionEntity>()
+                .HasOne(x => x.Auditorium)
+                .WithMany(x => x.Exhibitions)
+                .HasForeignKey(x => x.AuditoriumId)
+                .IsRequired();
+
+            /// <summary>
+            /// Auditorium -> Exhibition relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<AuditoriumEntity>()
+                .HasMany(x => x.Exhibitions)
+                .WithOne(x => x.Auditorium)
+                .IsRequired();
+
+            /// <summary>
+            /// Auditorium -> Museum relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<AuditoriumEntity>()
+                .HasOne(x => x.Museum)
+                .WithMany(x => x.Auditoriums)
+                .HasForeignKey(x => x.MuseumId)
+                .IsRequired();
+
+            /// <summary>
+            /// Museum -> Auditorium relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<MuseumEntity>()
+                .HasMany(x => x.Auditoriums)
+                .WithOne(x => x.Museum)
+                .IsRequired();
+      
 
         }
     }

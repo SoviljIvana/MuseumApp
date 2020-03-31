@@ -5,7 +5,7 @@ using OpenSourceSoftwareDevelopment.Museum.Data.Context;
 using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
-    public interface IMuseumsRepository : IRepository<Data.Entities.Museum>
+    public interface IMuseumsRepository : IRepository<Data.Entities.MuseumEntity>
     {
 
     }
@@ -17,22 +17,22 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public Data.Entities.Museum Delete(object id)
+        public Data.Entities.MuseumEntity Delete(object id)
         {
             throw new NotImplementedException();
         }
 
-        public System.Threading.Tasks.Task<IEnumerable<Data.Entities.Museum>> GetAll()
+        public System.Threading.Tasks.Task<IEnumerable<Data.Entities.MuseumEntity>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public System.Threading.Tasks.Task<Data.Entities.Museum> GetByIdAsync(object id)
+        public System.Threading.Tasks.Task<Data.Entities.MuseumEntity> GetByIdAsync(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Data.Entities.Museum Insert(Data.Entities.Museum obj)
+        public Data.Entities.MuseumEntity Insert(Data.Entities.MuseumEntity obj)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +42,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             throw new NotImplementedException();
         }
 
-        public Data.Entities.Museum Update(Data.Entities.Museum obj)
+        public Data.Entities.MuseumEntity Update(Data.Entities.MuseumEntity obj)
         {
             throw new NotImplementedException();
         }
