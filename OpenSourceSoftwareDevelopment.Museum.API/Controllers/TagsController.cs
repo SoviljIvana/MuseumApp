@@ -7,6 +7,7 @@ using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 
 namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class TagsController : ControllerBase
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
@@ -12,7 +9,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
         public DbSet<ExhibitEntity> Exhibits { get; set; }
         public DbSet<ExhibitionEntity> Exhibitions { get; set; }
         public DbSet<ExhibitTagEntity> ExhibitTags { get; set; }
-        public DbSet<Entities.MuseumEntity> Museums { get; set; }
+        public DbSet<MuseumEntity> Museums { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
         public DbSet<TicketEntity> Tickets { get; set; }
         public DbSet<UserEntity> Users { get; set; }
