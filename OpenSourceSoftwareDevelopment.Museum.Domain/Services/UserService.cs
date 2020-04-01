@@ -22,6 +22,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
+        public Task<UserResultModel> CreateUser(UserDomainModel userModel)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<UserDomainModel> DeleteUser(int id)
         {
             throw new NotImplementedException();
@@ -38,6 +43,16 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         }
 
         public Task<UserDomainModel> UpdateUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<UserResultModel> IUserService.DeleteUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<UserResultModel> IUserService.UpdateUser()
         {
             throw new NotImplementedException();
         }

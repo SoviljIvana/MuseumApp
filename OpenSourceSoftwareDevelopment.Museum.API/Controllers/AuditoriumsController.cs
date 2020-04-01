@@ -7,15 +7,22 @@ using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 
 namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class AuditoriumsController : ControllerBase
     {
 
-        private readonly IAuditoriumService _auditoriumService;
+        //private readonly IAuditoriumService _auditoriumService;
 
-        public AuditoriumsController(IAuditoriumService auditoriumService)
+        //public AuditoriumsController(IAuditoriumService auditoriumService)
+        //{
+        //    _auditoriumService = auditoriumService;
+        //}
+
+        [HttpGet]
+        public string Get()
         {
-            _auditoriumService = auditoriumService;
+            return "Auditoriums";
         }
 
     }
