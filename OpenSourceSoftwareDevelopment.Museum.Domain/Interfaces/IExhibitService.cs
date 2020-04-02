@@ -18,5 +18,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         Task<ExhibitResultModel> DeleteExhibit(int id);
 
         Task<ExhibitResultModel> UpdateExhibit();
+      
     }
 }

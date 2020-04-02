@@ -8,7 +8,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
 {
     public interface ITicketService
     {
-
         Task<IEnumerable<TicketDomainModel>> GetAllTickets();
 
         Task<TicketDomainModel> GetTicketByIdAsync(int id);
@@ -18,5 +17,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         Task<TicketResultModel> DeleteTicket(int id);
         
         Task<TicketResultModel> UpdateTicket();
+
     }
 }

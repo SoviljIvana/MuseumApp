@@ -9,6 +9,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
     public interface IUserService
     {
 
+
         Task<IEnumerable<UserDomainModel>> GetAllUsers();
 
         Task<UserDomainModel> GetUserByIdAsync(int id);
@@ -18,5 +19,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         Task<UserResultModel> DeleteUser(int id);
 
         Task<UserResultModel> UpdateUser();
+
     }
 }

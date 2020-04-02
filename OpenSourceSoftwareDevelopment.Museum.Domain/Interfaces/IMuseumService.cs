@@ -23,7 +23,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         /// 
         /// </summary>
         /// <returns></returns>
+
         Task<MuseumDomainModel> CreateMuseum(MuseumDomainModel museumModel);
+
         /// <summary>
         /// 
         /// </summary>
