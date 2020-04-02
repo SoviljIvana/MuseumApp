@@ -22,7 +22,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<AuditoriumDomainModel>>> GetAllAuditoriums()
+        public  Task<ActionResult<IEnumerable<AuditoriumDomainModel>>> GetAllAuditoriums()
         {
             throw new NotImplementedException();
         }

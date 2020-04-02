@@ -26,7 +26,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<AuditoriumEntity>> GetAll()
+        public  Task<IEnumerable<AuditoriumEntity>> GetAll()
         {
             throw new NotImplementedException();
         }

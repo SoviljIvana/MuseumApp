@@ -80,24 +80,27 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
                 .WithOne(x => x.Exhibition)
                 .IsRequired();
 
-            /// <summary>
-            /// Exhibit -> ExhibitTag relation
-            /// </summary>
-            /// <returns></returns>
-            modelBuilder.Entity<ExhibitEntity>()
-                .HasMany(x => x.ExhibitionTags)
-                .WithOne(x => x.Exhibit)
-                .IsRequired();
 
             /// <summary>
-            /// ExhibitTag -> Exhibit relation
+            /// ExhibitTag -> Tag relation
             /// </summary>
             /// <returns></returns>
             modelBuilder.Entity<ExhibitTagEntity>()
                 .HasOne(x => x.Exhibit)
-                .WithMany(x => x.ExhibitionTags)
-                .HasForeignKey(x => x.ExhibitionId)
+                .WithMany(x => x.ExhibitTags)
+                .HasForeignKey(x => x.ExhibitId)
                 .IsRequired();
+
+            /// <summary>
+            /// Tag -> ExhibitTag relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitEntity>()
+                .HasMany(x => x.ExhibitTags)
+                .WithOne(x => x.Exhibit)
+                .IsRequired();
+
+
 
             /// <summary>
             /// ExhibitTag -> Tag relation
@@ -105,7 +108,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
             /// <returns></returns>
             modelBuilder.Entity<ExhibitTagEntity>()
                 .HasOne(x => x.Tag)
-                .WithMany(x => x.ExhibitionTags)
+                .WithMany(x => x.ExhibitTags)
                 .HasForeignKey(x => x.TagId)
                 .IsRequired();
 
@@ -114,7 +117,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
             /// </summary>
             /// <returns></returns>
             modelBuilder.Entity<TagEntity>()
-                .HasMany(x => x.ExhibitionTags)
+                .HasMany(x => x.ExhibitTags)
                 .WithOne(x => x.Tag)
                 .IsRequired();
 
