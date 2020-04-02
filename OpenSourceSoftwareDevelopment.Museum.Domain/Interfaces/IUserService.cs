@@ -8,34 +8,17 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
 {
     public interface IUserService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+
+
         Task<IEnumerable<UserDomainModel>> GetAllUsers();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<UserDomainModel> GetUserByIdAsync(int id);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task<UserDomainModel> CreateUser();
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<UserDomainModel> DeleteUser(int id);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task<UserDomainModel> UpdateUser();
+        Task<UserResultModel> CreateUser(UserDomainModel userModel);
+
+        Task<UserResultModel> DeleteUser(int id);
+
+        Task<UserResultModel> UpdateUser();
+
     }
 }

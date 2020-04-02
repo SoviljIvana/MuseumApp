@@ -23,7 +23,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         /// 
         /// </summary>
         /// <returns></returns>
-        Task<TagDomainModel> CreateTag();
+
+        Task<TagDomainModel> CreateTag(TagDomainModel tagModel);
+
         /// <summary>
         /// 
         /// </summary>

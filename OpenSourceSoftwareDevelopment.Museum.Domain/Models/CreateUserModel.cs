@@ -4,9 +4,7 @@ using System.Text;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Domain.Models
 {
-    public class EchibitionTagDomainModel
+    class CreateUserModel
     {
-        public int TagId { get; set; }
-        public int ExhibitionId { get; set; }
     }
 }

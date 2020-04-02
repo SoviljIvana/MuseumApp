@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using OpenSourceSoftwareDevelopment.Museum.Data.Context;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Services;
+using OpenSourceSoftwareDevelopment.Museum.Repositories;
 
 namespace OpenSourceSoftwareDevelopment.Museum.API
 {
@@ -19,7 +23,42 @@ namespace OpenSourceSoftwareDevelopment.Museum.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MuseumContext>(options =>
+            {
+                options
+                .UseSqlServer(Configuration.GetConnectionString("MuseumConnection"))
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
+
             services.AddControllers();
+
+            // Repositories
+            services.AddTransient<IAuditoriumsRepository, AuditoriumsRepository>();
+            services.AddTransient<IExhibitionsRepository, ExhibitionsRepository>();
+            services.AddTransient<IExhibitsRepository, ExhibitsRepository>();
+            services.AddTransient<IMuseumsRepository, MuseumsRepository>();
+            services.AddTransient<ITagsRepository, TagsRepository>();
+            services.AddTransient<IUsersRepository, UsersRepository>();
+            services.AddTransient<ITicketsRepository, TicketsRepository>();
+
+            // Business Logic
+            services.AddTransient<IAuditoriumService, AuditoriumService>();
+            services.AddTransient<IExhibitionService, ExhibitionService>();
+            services.AddTransient<IExhibitService, ExhibitService>();
+            services.AddTransient<IMuseumService, MuseumService>();
+            services.AddTransient<ITagService, TagService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITicketService, TicketService>();
+
+            // Allow Cors for client app
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy",
+                    corsBuilder => corsBuilder.WithOrigins("http://localhost:3000")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +73,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

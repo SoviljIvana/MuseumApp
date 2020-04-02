@@ -8,36 +8,15 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
 {
     public interface ITicketService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         Task<IEnumerable<TicketDomainModel>> GetAllTickets();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         Task<TicketDomainModel> GetTicketByIdAsync(int id);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task<TicketDomainModel> CreateTicket();
+        Task<TicketResultModel> CreateTicket(TicketDomainModel ticketModel);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<TicketDomainModel> DeleteTicket(int id);
+        Task<TicketResultModel> DeleteTicket(int id);
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task<TicketDomainModel> UpdateTicket();
+        Task<TicketResultModel> UpdateTicket();
+
     }
 }

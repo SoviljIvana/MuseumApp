@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
@@ -12,7 +9,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
         public DbSet<ExhibitEntity> Exhibits { get; set; }
         public DbSet<ExhibitionEntity> Exhibitions { get; set; }
         public DbSet<ExhibitTagEntity> ExhibitTags { get; set; }
-        public DbSet<Entities.MuseumEntity> Museums { get; set; }
+        public DbSet<MuseumEntity> Museums { get; set; }
         public DbSet<TagEntity> Tags { get; set; }
         public DbSet<TicketEntity> Tickets { get; set; }
         public DbSet<UserEntity> Users { get; set; }
@@ -83,24 +80,27 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
                 .WithOne(x => x.Exhibition)
                 .IsRequired();
 
-            /// <summary>
-            /// Exhibit -> ExhibitTag relation
-            /// </summary>
-            /// <returns></returns>
-            modelBuilder.Entity<ExhibitEntity>()
-                .HasMany(x => x.ExhibitionTags)
-                .WithOne(x => x.Exhibit)
-                .IsRequired();
 
             /// <summary>
-            /// ExhibitTag -> Exhibit relation
+            /// ExhibitTag -> Tag relation
             /// </summary>
             /// <returns></returns>
             modelBuilder.Entity<ExhibitTagEntity>()
                 .HasOne(x => x.Exhibit)
-                .WithMany(x => x.ExhibitionTags)
-                .HasForeignKey(x => x.ExhibitionId)
+                .WithMany(x => x.ExhibitTags)
+                .HasForeignKey(x => x.ExhibitId)
                 .IsRequired();
+
+            /// <summary>
+            /// Tag -> ExhibitTag relation
+            /// </summary>
+            /// <returns></returns>
+            modelBuilder.Entity<ExhibitEntity>()
+                .HasMany(x => x.ExhibitTags)
+                .WithOne(x => x.Exhibit)
+                .IsRequired();
+
+
 
             /// <summary>
             /// ExhibitTag -> Tag relation
@@ -108,7 +108,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
             /// <returns></returns>
             modelBuilder.Entity<ExhibitTagEntity>()
                 .HasOne(x => x.Tag)
-                .WithMany(x => x.ExhibitionTags)
+                .WithMany(x => x.ExhibitTags)
                 .HasForeignKey(x => x.TagId)
                 .IsRequired();
 
@@ -117,7 +117,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
             /// </summary>
             /// <returns></returns>
             modelBuilder.Entity<TagEntity>()
-                .HasMany(x => x.ExhibitionTags)
+                .HasMany(x => x.ExhibitTags)
                 .WithOne(x => x.Tag)
                 .IsRequired();
 
@@ -159,6 +159,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
                 .WithOne(x => x.Museum)
                 .IsRequired();
       
+
 
         }
     }
