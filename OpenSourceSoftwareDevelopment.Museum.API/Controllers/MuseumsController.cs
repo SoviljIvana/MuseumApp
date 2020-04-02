@@ -22,7 +22,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             _museumService = museumService;
         }
 
-
         [Route("get")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MuseumDomainModel>>> GetAllMuseums()
