@@ -6,7 +6,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     public class ExhibitionEntity
     {
-        public int Id { get; set; }
+        public int ExhibitionId { get; set; }
         public string ExcibitionName { get; set; }
         public int AuditoriumId { get; set; }
         public string TypeOfExhibition { get; set; }

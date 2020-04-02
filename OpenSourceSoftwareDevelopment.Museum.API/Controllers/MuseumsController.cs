@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
@@ -24,10 +25,19 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<MuseumDomainModel>>> GetAllMuseums()
+        public async Task<ActionResult<IEnumerable<MuseumDomainModel>>> GetAllMuseums()
         {
-            throw new NotImplementedException();
+            IEnumerable<MuseumDomainModel> museumDomainModel;
+            museumDomainModel = await _museumService.GetAllMuseums();
+
+            if(museumDomainModel == null)
+            {
+                return NotFound(Messages.MUSEUM_GET_ALL_ERROR);
+            }
+
+            return Ok(museumDomainModel);
         }
+
 
         [Route("get/{id}")]
         [HttpGet]

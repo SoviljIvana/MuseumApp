@@ -6,5 +6,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
 {
     public class Messages
     {
+        public const string MUSEUM_GET_ALL_ERROR = "Error occured while getting all museums, please try again.";
     }
 }

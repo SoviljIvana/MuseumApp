@@ -24,7 +24,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         }
 
 
-        public Task<IEnumerable<AuditoriumDomainModel>> GetAllAuditoriums()
+        public  Task<IEnumerable<AuditoriumDomainModel>> GetAllAuditoriums()
         {
             throw new NotImplementedException();
         }

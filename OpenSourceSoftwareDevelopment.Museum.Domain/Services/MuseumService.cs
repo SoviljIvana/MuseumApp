@@ -27,9 +27,31 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<MuseumDomainModel>> GetAllMuseums()
+        public async Task<IEnumerable<MuseumDomainModel>> GetAllMuseums()
         {
-            throw new NotImplementedException();
+            var data = await _museumRepository.GetAll();
+
+            if (data == null)
+            {
+                return null;
+            }
+
+            List<MuseumDomainModel> result = new List<MuseumDomainModel>();
+            MuseumDomainModel model;
+            foreach (var item in data)
+            {
+                model = new MuseumDomainModel
+                {
+                    MuseumId = item.MuseumId,
+                    Name = item.Name,
+                    StreetAndNumber = item.StreetAndNumber,
+                    City = item.City,
+                    Email = item.Email,
+                    PhoneNumber = item.PhoneNumber
+                };
+                result.Add(model);
+            }
+            return result;
         }
 
         public Task<MuseumDomainModel> GetMuseumByIdAsync(int id)
