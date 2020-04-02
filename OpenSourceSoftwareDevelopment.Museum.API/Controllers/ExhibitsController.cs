@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
 namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
@@ -18,5 +20,39 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             _exhibitService = exhibitService;
         }
 
+        [Route("get")]
+        [HttpGet]
+        public Task<ActionResult<IEnumerable<ExhibitDomainModel>>> GetAllExhibits()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Route("get/{id}")]
+        [HttpGet]
+        public Task<ActionResult<ExhibitDomainModel>> GetExhibitById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Route("delete/{id}")]
+        [HttpDelete]
+        public Task<ActionResult> DeleteExhibit(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Route("post/")]
+        [HttpPost]
+        public Task<ActionResult<ExhibitDomainModel>> PostExhibition(CreateExhibitModel createExhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Route("{id}")]
+        [HttpPut]
+        public Task<ActionResult> PutExhibit(int id, [FromBody]UpdateExhibitModel updateExhibit)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
