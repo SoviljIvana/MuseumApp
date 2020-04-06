@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
-   public class MuseumEntity
+    [Table("museum")]
+
+    public class MuseumEntity
     {
+        [Key]
         public int MuseumId { get; set; }
         public string Name { get; set; }
         public string StreetAndNumber { get; set; }
