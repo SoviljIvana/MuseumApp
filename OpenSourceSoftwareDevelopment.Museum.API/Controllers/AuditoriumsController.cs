@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
@@ -36,9 +37,16 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get/{id}")]
         [HttpGet]
-        public Task<ActionResult<AuditoriumDomainModel>> GetAuditoriumById(int id)
+        public async Task<ActionResult<AuditoriumDomainModel>> GetAuditoriumById(int id)
         {
-            throw new NotImplementedException();
+            AuditoriumDomainModel auditoriumDomainModel = await _auditoriumService.GetAuditoriumByIdAsync(id);
+
+            if (auditoriumDomainModel == null)
+            {
+                return NotFound(Messages.MUSEUM_GET_ALL_ERROR);
+            }
+
+            return Ok(auditoriumDomainModel);
         }
 
         [Route("delete/{id}")]

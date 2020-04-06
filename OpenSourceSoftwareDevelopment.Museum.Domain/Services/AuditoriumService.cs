@@ -49,9 +49,21 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return list;           
         }
 
-        public Task<AuditoriumDomainModel> GetAuditoriumByIdAsync(int id)
+        public async Task<AuditoriumDomainModel> GetAuditoriumByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = await _auditoriumRepository.GetByIdAsync(id);
+
+            if (data == null) return null;
+
+            AuditoriumDomainModel result;
+            result = new AuditoriumDomainModel
+            {
+                AuditoriumId = data.AuditoriumId,
+                NameOfAuditorium = data.NameOfAuditorium,
+                NumberOfSeats = data.NumberOfSeats,
+                MuseumId = data.MuseumId
+            };
+            return result;
         }
 
         Task<AuditoriumResultModel> IAuditoriumService.DeleteAuditorium(int id)
