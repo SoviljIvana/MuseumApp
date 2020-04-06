@@ -13,5 +13,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         public const string Auditorium_GET_ID_ERROR = "Error occured while getting auditorium with id: ";
 
         public const string Exhibition_GET_ID_ERROR = "Error occured while getting exhibition with id: ";
+
+        public const string Exhibit_GET_ID_ERROR = "Error occured while getting exhibit with id: ";
     }
 }

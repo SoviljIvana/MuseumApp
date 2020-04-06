@@ -32,9 +32,23 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<ExhibitDomainModel> GetExhibitByIdAsync(int id)
+        public async Task<ExhibitDomainModel> GetExhibitByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = await _exhibitRepository.GetByIdAsync(id);
+
+            if (data == null) return null;
+
+            ExhibitDomainModel result;
+            result = new ExhibitDomainModel
+            {
+                Id = data.ExhibitId,
+                Name = data.Name,
+                Year = data.Year,
+                PicturePath = data.PicturePath,
+                AuditoriumId = data.AuditoriumId,
+                ExhibitionId = data.ExhibitionId
+            };
+            return result;
         }
 
         public Task<ExhibitResultModel> UpdateExhibit()

@@ -7,7 +7,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Models
     public class ExhibitDomainModel
     {
         public int Id { get; set; }
-        public int IdExhibition { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
         public string PicturePath { get; set; }
