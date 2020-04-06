@@ -43,7 +43,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (exhibitionDomainModel == null)
             {
-                return NotFound(Messages.MUSEUM_GET_ALL_ERROR);
+                return NotFound(Messages.Exhibition_GET_ID_ERROR + id);
             }
 
             return Ok(exhibitionDomainModel);
