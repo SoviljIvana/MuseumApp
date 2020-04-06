@@ -24,9 +24,29 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         }
 
 
-        public  Task<IEnumerable<AuditoriumDomainModel>> GetAllAuditoriums()
+        public async  Task<IEnumerable<AuditoriumDomainModel>> GetAllAuditoriums()
         {
-            throw new NotImplementedException();
+            var data = await _auditoriumRepository.GetAll();
+
+            if(data == null)
+            {
+                return null;
+            }
+            List<AuditoriumDomainModel> list = new List<AuditoriumDomainModel>();
+
+            AuditoriumDomainModel model;
+            foreach (var item in data)
+            {
+                model = new AuditoriumDomainModel
+                {
+                    AuditoriumId = item.AuditoriumId,
+                    NameOfAuditorium = item.NameOfAuditorium,
+                    NumberOfSeats = item.NumberOfSeats,
+                    MuseumId = item.MuseumId
+                };
+                list.Add(model);
+            }
+            return list;           
         }
 
         public Task<AuditoriumDomainModel> GetAuditoriumByIdAsync(int id)
