@@ -12,7 +12,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
     {
         [Key]
         public int ExhibitionId { get; set; }
-        public string ExcibitionName { get; set; }
+        public string ExhibitionName { get; set; }
         public int AuditoriumId { get; set; }
         public string TypeOfExhibition { get; set; }
         public DateTime StartTime { get; set; }
