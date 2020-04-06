@@ -40,9 +40,16 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get/{id}")]
         [HttpGet]
-        public Task<ActionResult<MuseumDomainModel>> GetMuseumById(int id)
+        public async Task<ActionResult<MuseumDomainModel>> GetMuseumById(int id)
         {
-            throw new NotImplementedException();
+            MuseumDomainModel museumDomainModel = await _museumService.GetMuseumByIdAsync(id);
+
+            if (museumDomainModel == null)
+            {
+                return NotFound(Messages.MUSEUM_GET_ALL_ERROR);
+            }
+
+            return Ok(museumDomainModel);
         }
 
         [Route("delete/{id}")]
