@@ -22,9 +22,16 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public  Task<ActionResult<IEnumerable<AuditoriumDomainModel>>> GetAllAuditoriums()
+        public  async Task<ActionResult<IEnumerable<AuditoriumDomainModel>>> GetAllAuditoriums()
         {
-            throw new NotImplementedException();
+            IEnumerable<AuditoriumDomainModel> auditoriumDomainModel;
+            auditoriumDomainModel = await _auditoriumService.GetAllAuditoriums();
+
+            if(auditoriumDomainModel == null)
+            {
+                return NotFound();
+            }
+            return Ok(auditoriumDomainModel);
         }
 
         [Route("get/{id}")]
