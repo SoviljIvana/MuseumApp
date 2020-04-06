@@ -7,5 +7,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
     public class Messages
     {
         public const string MUSEUM_GET_ALL_ERROR = "Error occured while getting all museums, please try again.";
+
+        public const string Museum_GET_ID_ERROR = "Error occured while getting museum with id: ";
+
+        public const string Auditorium_GET_ID_ERROR = "Error occured while getting auditorium with id: ";
+
+        public const string Exhibition_GET_ID_ERROR = "Error occured while getting exhibition with id: ";
     }
 }

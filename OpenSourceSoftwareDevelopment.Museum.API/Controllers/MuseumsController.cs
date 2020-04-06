@@ -46,7 +46,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (museumDomainModel == null)
             {
-                return NotFound(Messages.MUSEUM_GET_ALL_ERROR);
+                return NotFound(Messages.Museum_GET_ID_ERROR);
             }
 
             return Ok(museumDomainModel);
