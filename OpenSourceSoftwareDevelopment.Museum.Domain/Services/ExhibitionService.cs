@@ -53,9 +53,23 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             }return list;
         }
 
-        public Task<ExhibitionDomainModel> GetExhibitionByIdAsync(int id)
+        public async Task<ExhibitionDomainModel> GetExhibitionByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = await _exhibitionRepository.GetByIdAsync(id);
+
+            if (data == null) return null;
+
+            ExhibitionDomainModel result;
+            result = new ExhibitionDomainModel
+            {
+                ExhibitionId = data.ExhibitionId,
+                ExhibitionName = data.ExhibitionName,
+                AuditoriumId = data.AuditoriumId,
+                TypeOfExhibition = data.TypeOfExhibition,
+                StartTime = data.StartTime,
+                EndTime = data.EndTime
+            };
+            return result;
         }
 
         public Task<ExhibitionResultModel> UpdateExhibition()

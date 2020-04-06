@@ -32,9 +32,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             return data;
         }
 
-        public Task<ExhibitionEntity> GetByIdAsync(object id)
+        public async Task<ExhibitionEntity> GetByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Exhibitions.FindAsync(id);
+            return data;
         }
 
         public ExhibitionEntity Insert(ExhibitionEntity obj)
