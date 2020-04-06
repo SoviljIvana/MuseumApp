@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenSourceSoftwareDevelopment.Museum.API.ServiceExtensions;
 using OpenSourceSoftwareDevelopment.Museum.Data.Context;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Services;
@@ -31,6 +32,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.API
             });
 
             services.AddControllers();
+            services.AddOpenApi();
+
 
             // Repositories
             services.AddTransient<IAuditoriumsRepository, AuditoriumsRepository>();
@@ -76,6 +79,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.API
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseOpenApi();
+
+            app.UseSwaggerUi3();
 
             app.UseCors("CorsPolicy");
 

@@ -27,7 +27,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         public async Task<ActionResult<IEnumerable<MuseumDomainModel>>> GetAllMuseums()
         {
             IEnumerable<MuseumDomainModel> museumDomainModel;
-            museumDomainModel = await _museumService.GetAllMuseums();
+            museumDomainModel = await _museumService.GetAllMuseums(); //puca
 
             if(museumDomainModel == null)
             {

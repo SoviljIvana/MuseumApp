@@ -26,7 +26,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public async Task<IEnumerable<MuseumEntity>> GetAll()
         {
-            return await _museumContext.Museums.ToListAsync();
+            var data = await _museumContext.Museums.ToListAsync();
+            return data;
         }
 
         public System.Threading.Tasks.Task<Data.Entities.MuseumEntity> GetByIdAsync(object id)
