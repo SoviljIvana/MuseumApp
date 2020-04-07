@@ -27,9 +27,30 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<ExhibitDomainModel>> GetAllExhibits()
+        public async Task<IEnumerable<ExhibitDomainModel>> GetAllExhibits()
         {
-            throw new NotImplementedException();
+            var data = await _exhibitRepository.GetAll();
+            if(data == null)
+            {
+                return null;
+            }
+            List<ExhibitDomainModel> list = new List<ExhibitDomainModel>();
+            ExhibitDomainModel exhibitDomainModel;
+
+            foreach (var item in data)
+            {
+                exhibitDomainModel = new ExhibitDomainModel
+                {
+                    ExhibitionId = item.ExhibitionId,
+                    Name = item.Name,
+                    Year = item.Year,
+                    ExhibitId = item.ExhibitId,
+                    PicturePath = item.PicturePath,
+                    AuditoriumId = item.AuditoriumId
+                };
+                list.Add(exhibitDomainModel);
+            }
+            return list;
         }
 
         public async Task<ExhibitDomainModel> GetExhibitByIdAsync(int id)
@@ -41,7 +62,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             ExhibitDomainModel result;
             result = new ExhibitDomainModel
             {
-                Id = data.ExhibitId,
+                ExhibitId = data.ExhibitId,
                 Name = data.Name,
                 Year = data.Year,
                 PicturePath = data.PicturePath,
