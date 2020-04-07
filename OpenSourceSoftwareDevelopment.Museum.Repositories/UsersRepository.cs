@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenSourceSoftwareDevelopment.Museum.Data.Context;
 using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<UserEntity>> GetAll()
+        public async Task<IEnumerable<UserEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Users.ToListAsync();
+            return data;
         }
 
         public Task<UserEntity> GetByIdAsync(object id)

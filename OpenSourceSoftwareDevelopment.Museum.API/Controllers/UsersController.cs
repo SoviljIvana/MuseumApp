@@ -22,9 +22,14 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<UserDomainModel>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<UserDomainModel>>> GetAllUsers()
         {
-            throw new NotImplementedException();
+            IEnumerable<UserDomainModel> userDomainModel = await _userService.GetAllUsers();
+            if(userDomainModel == null)
+            {
+                return NotFound();
+            }
+            return Ok(userDomainModel);
         }
 
         [Route("get/{id}")]

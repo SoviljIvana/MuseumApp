@@ -23,9 +23,14 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<TicketDomainModel>>> GetAllTickets()
+        public async Task<ActionResult<IEnumerable<TicketDomainModel>>> GetAllTickets()
         {
-            throw new NotImplementedException();
+            IEnumerable<TicketDomainModel> ticketDomainModel = await _ticketService.GetAllTickets();
+            if(ticketDomainModel == null)
+            {
+                return NotFound();
+            }
+            return Ok(ticketDomainModel);
         }
 
         [Route("get/{id}")]
