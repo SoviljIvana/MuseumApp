@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { Switch, NavLink, Route,} from 'react-router-dom';
-import {  Badge, Navbar,Nav, NavDropdown, Table  } from 'react-bootstrap';
+import { Navbar, NavDropdown, Table  } from 'react-bootstrap';
 import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
-import ShowAllExhibitions from './ExhibitionsActions/ShowAllExhibitions';
+import ShowAllExhibitions from './ExhibitionActions/ShowAllExhibitions';
 
 class Dashboard extends Component {
     render() {

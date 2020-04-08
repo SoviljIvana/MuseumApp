@@ -29,7 +29,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (exhibitDomainModel == null)
             {
-                return NotFound();
+                return NotFound(Messages.EXHIBITS_GET_ALL_ERROR);
 
             }
             return Ok(exhibitDomainModel);
@@ -44,7 +44,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (exhibitDomainModel == null)
             {
-                return NotFound(Messages.Exhibit_GET_ID_ERROR + id);
+                return NotFound(Messages.EXHIBIT_GET_ID_ERROR + id);
             }
 
             return Ok(exhibitDomainModel);

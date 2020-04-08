@@ -29,7 +29,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             IEnumerable<TicketDomainModel> ticketDomainModel = await _ticketService.GetAllTickets();
             if(ticketDomainModel == null)
             {
-                return NotFound();
+                return NotFound(Messages.TICKET_GET_ALL_ERROR);
             }
             return Ok(ticketDomainModel);
         }
@@ -42,7 +42,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (ticketDomainModel == null)
             {
-                return NotFound(Messages.Ticket_GET_ID_ERROR + id);
+                return NotFound(Messages.TICKET_GET_ID_ERROR + id);
             }
 
             return Ok(ticketDomainModel);

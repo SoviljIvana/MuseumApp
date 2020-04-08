@@ -29,7 +29,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             exhibitionDomainModel = await _exhibitionService.GetAllExhibitions();
             if(exhibitionDomainModel == null)
             {
-                return NotFound();
+                return NotFound(Messages.EXHIBITIONS_GET_ALL_ERROR);
             }
             return Ok(exhibitionDomainModel);
 
@@ -43,7 +43,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (exhibitionDomainModel == null)
             {
-                return NotFound(Messages.Exhibition_GET_ID_ERROR + id);
+                return NotFound(Messages.EXHIBITION_GET_ID_ERROR + id);
             }
 
             return Ok(exhibitionDomainModel);
