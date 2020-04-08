@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
@@ -27,7 +28,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             IEnumerable<UserDomainModel> userDomainModel = await _userService.GetAllUsers();
             if(userDomainModel == null)
             {
-                return NotFound();
+                return NotFound(Messages.USERS_GET_ALL_ERROR);
             }
             return Ok(userDomainModel);
         }

@@ -30,7 +30,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if(auditoriumDomainModel == null)
             {
-                return NotFound();
+                return NotFound(Messages.AUDITORIUM_GET_ALL_ERROR);
             }
             return Ok(auditoriumDomainModel);
         }
@@ -43,7 +43,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (auditoriumDomainModel == null)
             {
-                return NotFound(Messages.Auditorium_GET_ID_ERROR + id);
+                return NotFound(Messages.AUDITORIUM_GET_ID_ERROR + id);
             }
 
             return Ok(auditoriumDomainModel);

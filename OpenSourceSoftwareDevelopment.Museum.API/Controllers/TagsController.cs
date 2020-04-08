@@ -35,7 +35,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (tagDomainModel == null)
             {
-                return NotFound(Messages.Tag_GET_ID_ERROR + id);
+                return NotFound(Messages.TAG_GET_ID_ERROR + id);
             }
 
             return Ok(tagDomainModel);
