@@ -32,9 +32,20 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<TagDomainModel> GetTagByIdAsync(int id)
+        public async Task<TagDomainModel> GetTagByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = await _tagRepository.GetByIdAsync(id);
+
+            if (data == null) return null;
+
+            TagDomainModel result;
+            result = new TagDomainModel
+            {
+                Id = data.TagId,
+                Name = data.Name,
+                Type = data.Type
+            };
+            return result;
         }
 
         public Task<TagDomainModel> UpdateTag()

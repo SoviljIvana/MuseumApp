@@ -29,9 +29,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<TagEntity> GetByIdAsync(object id)
+        public async Task<TagEntity> GetByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Tags.FindAsync(id);
+            return data;
         }
 
         public TagEntity Insert(TagEntity obj)
