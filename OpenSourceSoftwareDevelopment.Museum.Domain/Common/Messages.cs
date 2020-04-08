@@ -17,5 +17,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         public const string Exhibit_GET_ID_ERROR = "Error occured while getting exhibit with id: ";
 
         public const string Tag_GET_ID_ERROR = "Error occured while getting tag with id: ";
+
+        public const string Ticket_GET_ID_ERROR = "Error occured while getting ticket with id: ";
     }
 }

@@ -33,9 +33,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             return data;
         }
 
-        public Task<TicketEntity> GetByIdAsync(object id)
+        public async Task<TicketEntity> GetByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Tickets.FindAsync(id);
+            return data;
         }
 
         public TicketEntity Insert(TicketEntity obj)

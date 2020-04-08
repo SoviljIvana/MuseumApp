@@ -56,9 +56,21 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
 
         }
 
-        public Task<TicketDomainModel> GetTicketByIdAsync(int id)
+        public async Task<TicketDomainModel> GetTicketByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var data = await _ticketRepository.GetByIdAsync(id);
+
+            if (data == null) return null;
+
+            TicketDomainModel result;
+            result = new TicketDomainModel
+            {
+                TicketId = data.TicketId,
+                ExhibitionId = data.ExhibitionId,
+                Payment = data.Payment,
+                UserId = data.UserId
+            };
+            return result;
         }
 
         public Task<TicketDomainModel> UpdateTicket()
