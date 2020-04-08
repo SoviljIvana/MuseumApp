@@ -21,7 +21,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         }
         public ExhibitEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            ExhibitEntity entity = _museumContext.Exhibits.Find(id);
+            var result = _museumContext.Exhibits.Remove(entity);
+            return result.Entity;
         }
 
         public async Task<IEnumerable<ExhibitEntity>> GetAll()

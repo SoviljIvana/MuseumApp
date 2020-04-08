@@ -24,7 +24,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public AuditoriumEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            AuditoriumEntity entity = _museumContext.Auditoriums.Find(id);
+            var result = _museumContext.Auditoriums.Remove(entity);
+            return result.Entity;
+
         }
 
         public async Task<IEnumerable<AuditoriumEntity>> GetAll()

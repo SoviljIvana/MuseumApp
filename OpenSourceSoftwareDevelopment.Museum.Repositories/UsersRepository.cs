@@ -22,7 +22,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         }
         public UserEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            UserEntity entity = _museumContext.Users.Find(id);
+            var result = _museumContext.Users.Remove(entity);
+            return result.Entity;
         }
 
         public async Task<IEnumerable<UserEntity>> GetAll()
