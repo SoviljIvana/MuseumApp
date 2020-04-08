@@ -19,9 +19,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public Data.Entities.MuseumEntity Delete(object id)
+
+        public MuseumEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            MuseumEntity entity = _museumContext.Museums.Find(id);
+            var result = _museumContext.Museums.Remove(entity);
+            return result.Entity;
+
         }
 
         public async Task<IEnumerable<MuseumEntity>> GetAll()

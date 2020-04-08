@@ -22,7 +22,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         }
         public TicketEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            TicketEntity entity = _museumContext.Tickets.Find(id);
+            var result = _museumContext.Tickets.Remove(entity);
+            return result.Entity;
         }
 
         public async Task<IEnumerable<TicketEntity>> GetAll()
