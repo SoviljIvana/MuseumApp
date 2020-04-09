@@ -5,6 +5,7 @@ import { Navbar, NavDropdown, Table  } from 'react-bootstrap';
 import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
 import ShowAllExhibitions from './ExhibitionActions/ShowAllExhibitions';
+import EditAuditorium from './AuditoriumActions/EditAuditorium';
 
 class Dashboard extends Component {
     render() {
@@ -22,12 +23,14 @@ class Dashboard extends Component {
                 <NavDropdown title="Exhibition" id="basic-nav-dropdown">
                     <NavLink activeClassName="active-link" to='/dashboard/ShowAllExhibitions'><h6>all exhibitions</h6></NavLink>
                 </NavDropdown>
+            
                 </Navbar>
                     <Col className="pt-2 app-content-main">
                     <Switch>
                         <Route path="/dashboard/ShowAllMuseums" component={ShowAllMuseums} />
                         <Route path="/dashboard/ShowAllAuditoriums" component={ShowAllAuditoriums} />
                         <Route path="/dashboard/ShowAllExhibitions" component={ShowAllExhibitions} />
+                        <Route path="/dashboard/EditAuditorium/:id" component={EditAuditorium} />
                        </Switch>
                 </Col>
                 </Table>
