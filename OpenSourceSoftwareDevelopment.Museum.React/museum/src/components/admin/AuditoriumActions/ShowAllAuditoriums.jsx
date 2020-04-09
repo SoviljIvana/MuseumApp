@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../../AppSettings';
-import { Row, Table } from 'react-bootstrap';
+import { Row, Table, Button } from 'react-bootstrap';
 import Spinner from '../../Spinner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit} from '@fortawesome/free-solid-svg-icons';
 
 class ShowAllAuditoriums extends Component{
     constructor(props){
         super(props);
         this.state = {
             auditoriums: [],
-            isLoading: true
+            isLoading: true,
         }
+        this.editAuditorium = this.editAuditorium.bind(this);
     }
 
     componentDidMount(){
@@ -50,8 +53,12 @@ class ShowAllAuditoriums extends Component{
                     <td>{auditorium.museumId}</td>
                     <td>{auditorium.nameOfAuditorium}</td>
                     <td>{auditorium.numberOfSeats}</td>
-                            </tr>
+                 <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.editAuditorium(auditorium.auditoriumId)}>see details</Button></tr>
             })
+        }
+
+        editAuditorium(id){
+            this.props.history.push(`editauditorium/${id}`);
         }
 
         render(){
