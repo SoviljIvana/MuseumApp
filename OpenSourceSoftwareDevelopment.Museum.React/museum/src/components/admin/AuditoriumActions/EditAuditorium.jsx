@@ -52,10 +52,10 @@ class EditAuditorium extends React.Component {
     }
 
     render() {
-        const {id, museumId, nameOfAuditorium, numberOfSeats} = this.state;
+        const {auditoriumId, museumId, nameOfAuditorium, numberOfSeats} = this.state;
         return (
             <Container>
-                <FormText className="text-danger"><h3>Auditorium id: {id}</h3></FormText>
+                <FormText className="text-danger"><h3>Auditorium id: {auditoriumId}</h3></FormText>
                 <FormText className="text-danger"><h3>Museum id: {museumId}</h3></FormText>
                 <FormText className="text-danger"><h3>Name of auditorium: {nameOfAuditorium}</h3></FormText>
                 <FormText className="text-danger"><h3>Number of seats: {numberOfSeats}</h3></FormText>

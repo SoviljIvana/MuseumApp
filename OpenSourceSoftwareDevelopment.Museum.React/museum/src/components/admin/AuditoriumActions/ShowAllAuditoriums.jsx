@@ -3,8 +3,6 @@ import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../../AppSettings';
 import { Row, Table, Button } from 'react-bootstrap';
 import Spinner from '../../Spinner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit} from '@fortawesome/free-solid-svg-icons';
 
 class ShowAllAuditoriums extends Component{
     constructor(props){
