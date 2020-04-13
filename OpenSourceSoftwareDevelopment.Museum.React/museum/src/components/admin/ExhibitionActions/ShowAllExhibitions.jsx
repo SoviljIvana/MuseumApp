@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../../AppSettings';
-import { Row, Table } from 'react-bootstrap';
+import { Row, Table, Button } from 'react-bootstrap';
 import Spinner from '../../Spinner';
 
 class ShowAllExhibitions extends Component{
@@ -11,6 +11,8 @@ class ShowAllExhibitions extends Component{
             exhibitions: [],
             isLoading: true
         }
+        this.exhibitionDetails = this.exhibitionDetails.bind(this);
+
     }
 
     componentDidMount(){
@@ -52,8 +54,14 @@ class ShowAllExhibitions extends Component{
                     <td>{exhibition.typeOfExhibition}</td>
                     <td>{exhibition.startTime}</td>
                     <td>{exhibition.endTime}</td>
+                    <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
+                    <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+               <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td> 
                             </tr>
             })
+        }
+        exhibitionDetails(id){
+            this.props.history.push(`exhibitionDetails/${id}`);
         }
 
         render(){
@@ -61,12 +69,15 @@ class ShowAllExhibitions extends Component{
             const rowsData = this.fillTableWithDaata();
             const table = (<Table>
                                 <thead>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Auditorium Id</th>
-                                <th>Type of exhibition</th>
-                                <th>Start time</th>
-                                <th>End time</th>
+                                <th>ID</th>
+                                <th>NAZIV</th>
+                                <th>SALA ID</th>
+                                <th>VRSTA IZLOŽBE</th>
+                                <th>DATUM OTVARANJA IZLOŽBE</th>
+                                <th>DATUM ZATVARANJA IZLOŽBE</th>
+                                <th>VIDI DETALJE</th>
+                                <th>IZMENA</th>
+                                <th>BRISANJE</th>
                                 </thead>
                                 <tbody>
                                     {rowsData}
