@@ -19,19 +19,25 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public Data.Entities.MuseumEntity Delete(object id)
+
+        public MuseumEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            MuseumEntity entity = _museumContext.Museums.Find(id);
+            var result = _museumContext.Museums.Remove(entity);
+            return result.Entity;
+
         }
 
         public async Task<IEnumerable<MuseumEntity>> GetAll()
         {
-            return await _museumContext.Museums.ToListAsync();
+            var data = await _museumContext.Museums.ToListAsync();
+            return data;
         }
 
-        public System.Threading.Tasks.Task<Data.Entities.MuseumEntity> GetByIdAsync(object id)
+        public async Task<MuseumEntity> GetByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Museums.FindAsync(id);
+            return data;
         }
 
         public Data.Entities.MuseumEntity Insert(Data.Entities.MuseumEntity obj)

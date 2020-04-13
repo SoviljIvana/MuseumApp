@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
@@ -22,16 +23,28 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<UserDomainModel>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<UserDomainModel>>> GetAllUsers()
         {
-            throw new NotImplementedException();
+            IEnumerable<UserDomainModel> userDomainModel = await _userService.GetAllUsers();
+            if(userDomainModel == null)
+            {
+                return NotFound(Messages.USERS_GET_ALL_ERROR);
+            }
+            return Ok(userDomainModel);
         }
 
         [Route("get/{id}")]
         [HttpGet]
-        public Task<ActionResult<UserDomainModel>> GetUserById(int id)
+        public async Task<ActionResult<UserDomainModel>> GetUserById(int id)
         {
-            throw new NotImplementedException();
+            UserDomainModel userDomainModels = await _userService.GetUserByIdAsync(id);
+            if(userDomainModels == null)
+            {
+                return NotFound(Messages.USERS_GET_ID_ERROR);
+            }
+            return Ok(userDomainModels);
+            
+           
         }
 
         [Route("delete/{id}")]

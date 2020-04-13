@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
@@ -19,18 +20,31 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         {
             _tagService = tagService;
         }
+
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<TagDomainModel>>> GetAllTags()
+        public async Task<ActionResult<IEnumerable<TagDomainModel>>> GetAllTags()
         {
-            throw new NotImplementedException();
-        }
+           IEnumerable<TagDomainModel> tagDomainModel = await _tagService.GetAllTags();
+            if(tagDomainModel == null)
+            {
+                return NotFound(Messages.TAGS_GET_ALL_ERROR);
+            }
+            return Ok(tagDomainModel);
+           }
 
         [Route("get/{id}")]
         [HttpGet]
-        public Task<ActionResult<TagDomainModel>> GetTagById(int id)
+        public async Task<ActionResult<TagDomainModel>> GetTagById(int id)
         {
-            throw new NotImplementedException();
+            TagDomainModel tagDomainModel = await _tagService.GetTagByIdAsync(id);
+
+            if (tagDomainModel == null)
+            {
+                return NotFound(Messages.TAG_GET_ID_ERROR + id);
+            }
+
+            return Ok(tagDomainModel);
         }
 
         [Route("delete/{id}")]

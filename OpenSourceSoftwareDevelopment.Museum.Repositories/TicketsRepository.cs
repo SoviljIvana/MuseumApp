@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenSourceSoftwareDevelopment.Museum.Data.Context;
 using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,17 +22,21 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         }
         public TicketEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            TicketEntity entity = _museumContext.Tickets.Find(id);
+            var result = _museumContext.Tickets.Remove(entity);
+            return result.Entity;
         }
 
-        public Task<IEnumerable<TicketEntity>> GetAll()
+        public async Task<IEnumerable<TicketEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Tickets.ToListAsync();
+            return data;
         }
 
-        public Task<TicketEntity> GetByIdAsync(object id)
+        public async Task<TicketEntity> GetByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Tickets.FindAsync(id);
+            return data;
         }
 
         public TicketEntity Insert(TicketEntity obj)

@@ -30,14 +30,47 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<TicketDomainModel>> GetAllTickets()
+        public async Task<IEnumerable<TicketDomainModel>> GetAllTickets()
         {
-            throw new System.NotImplementedException();
+            var data = await _ticketRepository.GetAll();
+            if(data == null)
+            {
+                return null;
+            }
+
+            List<TicketDomainModel> list = new List<TicketDomainModel>();
+            TicketDomainModel ticketModel;
+
+            foreach(var item in data)
+            {
+                ticketModel = new TicketDomainModel
+                {
+                    TicketId = item.TicketId,
+                    ExhibitionId = item.ExhibitionId,
+                    Payment = item.Payment,
+                    UserId = item.UserId
+                };
+                list.Add(ticketModel);
+            };
+            return list;
+
         }
 
-        public Task<TicketDomainModel> GetTicketByIdAsync(int id)
+        public async Task<TicketDomainModel> GetTicketByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var data = await _ticketRepository.GetByIdAsync(id);
+
+            if (data == null) return null;
+
+            TicketDomainModel result;
+            result = new TicketDomainModel
+            {
+                TicketId = data.TicketId,
+                ExhibitionId = data.ExhibitionId,
+                Payment = data.Payment,
+                UserId = data.UserId
+            };
+            return result;
         }
 
         public Task<TicketDomainModel> UpdateTicket()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
@@ -22,16 +23,30 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<ExhibitionDomainModel>>> GetAllExhibitions()
+        public async Task<ActionResult<IEnumerable<ExhibitionDomainModel>>> GetAllExhibitions()
         {
-            throw new NotImplementedException();
+            IEnumerable<ExhibitionDomainModel> exhibitionDomainModel;
+            exhibitionDomainModel = await _exhibitionService.GetAllExhibitions();
+            if(exhibitionDomainModel == null)
+            {
+                return NotFound(Messages.EXHIBITIONS_GET_ALL_ERROR);
+            }
+            return Ok(exhibitionDomainModel);
+
         }
 
         [Route("get/{id}")]
         [HttpGet]
-        public Task<ActionResult<ExhibitionDomainModel>> GetExhibitionById(int id)
+        public async Task<ActionResult<ExhibitionDomainModel>> GetExhibitionById(int id)
         {
-            throw new NotImplementedException();
+            ExhibitionDomainModel exhibitionDomainModel = await _exhibitionService.GetExhibitionByIdAsync(id);
+
+            if (exhibitionDomainModel == null)
+            {
+                return NotFound(Messages.EXHIBITION_GET_ID_ERROR + id);
+            }
+
+            return Ok(exhibitionDomainModel);
         }
 
         [Route("delete/{id}")]

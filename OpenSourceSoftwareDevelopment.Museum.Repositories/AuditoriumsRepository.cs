@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenSourceSoftwareDevelopment.Museum.Data.Context;
 using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -23,17 +24,22 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public AuditoriumEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            AuditoriumEntity entity = _museumContext.Auditoriums.Find(id);
+            var result = _museumContext.Auditoriums.Remove(entity);
+            return result.Entity;
+
         }
 
-        public  Task<IEnumerable<AuditoriumEntity>> GetAll()
+        public async Task<IEnumerable<AuditoriumEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Auditoriums.ToListAsync();
+            return data;
         }
 
-        public Task<AuditoriumEntity> GetByIdAsync(object id)
+        public async Task<AuditoriumEntity> GetByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Auditoriums.FindAsync(id);
+            return data;
         }
 
         public AuditoriumEntity Insert(AuditoriumEntity obj)

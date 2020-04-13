@@ -1,15 +1,15 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Data.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenSourceSoftwareDevelopment.Museum.Data.Context;
 using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
     public interface IExhibitsRepository : IRepository<ExhibitEntity>
     {
-
+ 
     }
     public class ExhibitsRepository : IExhibitsRepository
     {
@@ -21,17 +21,21 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         }
         public ExhibitEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            ExhibitEntity entity = _museumContext.Exhibits.Find(id);
+            var result = _museumContext.Exhibits.Remove(entity);
+            return result.Entity;
         }
 
-        public Task<IEnumerable<ExhibitEntity>> GetAll()
+        public async Task<IEnumerable<ExhibitEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Exhibits.ToListAsync();
+            return data;
         }
 
-        public Task<ExhibitEntity> GetByIdAsync(object id)
+        public async Task<ExhibitEntity> GetByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Exhibits.FindAsync(id);
+            return data;
         }
 
         public ExhibitEntity Insert(ExhibitEntity obj)

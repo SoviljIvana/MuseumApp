@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
@@ -23,16 +24,28 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<TicketDomainModel>>> GetAllTickets()
+        public async Task<ActionResult<IEnumerable<TicketDomainModel>>> GetAllTickets()
         {
-            throw new NotImplementedException();
+            IEnumerable<TicketDomainModel> ticketDomainModel = await _ticketService.GetAllTickets();
+            if(ticketDomainModel == null)
+            {
+                return NotFound(Messages.TICKET_GET_ALL_ERROR);
+            }
+            return Ok(ticketDomainModel);
         }
 
         [Route("get/{id}")]
         [HttpGet]
-        public Task<ActionResult<TicketDomainModel>> GetTicketById(int id)
+        public async Task<ActionResult<TicketDomainModel>> GetTicketById(int id)
         {
-            throw new NotImplementedException();
+            TicketDomainModel ticketDomainModel = await _ticketService.GetTicketByIdAsync(id);
+
+            if (ticketDomainModel == null)
+            {
+                return NotFound(Messages.TICKET_GET_ID_ERROR + id);
+            }
+
+            return Ok(ticketDomainModel);
         }
 
         [Route("delete/{id}")]

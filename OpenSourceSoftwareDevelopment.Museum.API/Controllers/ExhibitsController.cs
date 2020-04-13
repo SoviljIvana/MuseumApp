@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
@@ -22,16 +23,31 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<ExhibitDomainModel>>> GetAllExhibits()
+        public async Task<ActionResult<IEnumerable<ExhibitDomainModel>>> GetAllExhibits()
         {
-            throw new NotImplementedException();
+            IEnumerable<ExhibitDomainModel> exhibitDomainModel = await _exhibitService.GetAllExhibits();
+
+            if (exhibitDomainModel == null)
+            {
+                return NotFound(Messages.EXHIBITS_GET_ALL_ERROR);
+
+            }
+            return Ok(exhibitDomainModel);
+
         }
 
         [Route("get/{id}")]
         [HttpGet]
-        public Task<ActionResult<ExhibitDomainModel>> GetExhibitById(int id)
+        public async Task<ActionResult<ExhibitDomainModel>> GetExhibitById(int id)
         {
-            throw new NotImplementedException();
+            ExhibitDomainModel exhibitDomainModel = await _exhibitService.GetExhibitByIdAsync(id);
+
+            if (exhibitDomainModel == null)
+            {
+                return NotFound(Messages.EXHIBIT_GET_ID_ERROR + id);
+            }
+
+            return Ok(exhibitDomainModel);
         }
 
         [Route("delete/{id}")]

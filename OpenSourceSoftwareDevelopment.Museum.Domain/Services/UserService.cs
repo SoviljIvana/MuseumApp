@@ -32,14 +32,55 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<UserDomainModel>> GetAllUsers()
+        public async Task<IEnumerable<UserDomainModel>> GetAllUsers()
         {
-            throw new NotImplementedException();
+            var data = await _userRepository.GetAll();
+            if(data == null)
+            {
+                return null;
+            }
+
+            List<UserDomainModel> list = new List<UserDomainModel>();
+            UserDomainModel userDomainModel;
+       
+        
+        foreach(var item in data)
+            {
+                userDomainModel = new UserDomainModel
+                {
+                    UserId = item.UserId,
+                    Username = item.Username,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    Password = item.Password,
+                    YearOfBirth = item.YearOfBirth
+                };
+
+                list.Add(userDomainModel);
+            }
+
+
+            return list;
         }
 
-        public Task<UserDomainModel> GetUserByIdAsync(int id)
+        public async Task<UserDomainModel> GetUserByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = await _userRepository.GetByIdAsync(id);
+            if(data == null)
+            {
+                return null;
+            }
+
+            UserDomainModel result = new UserDomainModel
+            {
+                UserId = data.UserId,
+                Username = data.Username,
+                Password = data.Password,
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                YearOfBirth = data.YearOfBirth
+            };
+            return result;
         }
 
         public Task<UserDomainModel> UpdateUser()

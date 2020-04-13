@@ -54,9 +54,23 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        public Task<MuseumDomainModel> GetMuseumByIdAsync(int id)
+        public async Task<MuseumDomainModel> GetMuseumByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = await _museumRepository.GetByIdAsync(id);
+            
+            if (data == null) return null;
+
+            MuseumDomainModel result;
+            result = new MuseumDomainModel
+            {
+                MuseumId = data.MuseumId,
+                Name = data.Name,
+                StreetAndNumber = data.StreetAndNumber,
+                City = data.City,
+                Email = data.Email,
+                PhoneNumber = data.PhoneNumber
+            };
+            return result;
         }
 
         public Task<MuseumDomainModel> UpdateMuseum()
