@@ -28,7 +28,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
            IEnumerable<TagDomainModel> tagDomainModel = await _tagService.GetAllTags();
             if(tagDomainModel == null)
             {
-                return NotFound();
+                return NotFound(Messages.TAGS_GET_ALL_ERROR);
             }
             return Ok(tagDomainModel);
            }
