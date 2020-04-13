@@ -20,12 +20,18 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         {
             _tagService = tagService;
         }
+
         [Route("get")]
         [HttpGet]
-        public Task<ActionResult<IEnumerable<TagDomainModel>>> GetAllTags()
+        public async Task<ActionResult<IEnumerable<TagDomainModel>>> GetAllTags()
         {
-            throw new NotImplementedException();
-        }
+           IEnumerable<TagDomainModel> tagDomainModel = await _tagService.GetAllTags();
+            if(tagDomainModel == null)
+            {
+                return NotFound();
+            }
+            return Ok(tagDomainModel);
+           }
 
         [Route("get/{id}")]
         [HttpGet]

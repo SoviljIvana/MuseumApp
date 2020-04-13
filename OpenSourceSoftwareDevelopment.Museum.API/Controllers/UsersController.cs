@@ -35,9 +35,16 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("get/{id}")]
         [HttpGet]
-        public Task<ActionResult<UserDomainModel>> GetUserById(int id)
+        public async Task<ActionResult<UserDomainModel>> GetUserById(int id)
         {
-            throw new NotImplementedException();
+            UserDomainModel userDomainModels = await _userService.GetUserByIdAsync(id);
+            if(userDomainModels == null)
+            {
+                return NotFound();
+            }
+            return Ok(userDomainModels);
+            
+           
         }
 
         [Route("delete/{id}")]

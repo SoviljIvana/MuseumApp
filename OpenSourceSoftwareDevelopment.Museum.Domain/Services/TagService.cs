@@ -27,9 +27,30 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TagDomainModel>> GetAllTags()
+        public async Task<IEnumerable<TagDomainModel>> GetAllTags()
         {
-            throw new NotImplementedException();
+            var data = await _tagRepository.GetAll();
+
+            if(data == null)
+            {
+                return null;
+            }
+            TagDomainModel tagDomainModel;
+            List<TagDomainModel> list = new List<TagDomainModel>();
+
+            foreach(var item in data)
+            {
+                tagDomainModel = new TagDomainModel
+                {
+                    Id = item.TagId,
+                    Name = item.Name,
+                    Type = item.Type
+                };
+
+                list.Add(tagDomainModel);
+            }
+            return list;
+            
         }
 
         public async Task<TagDomainModel> GetTagByIdAsync(int id)
