@@ -63,9 +63,24 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return list;
         }
 
-        public Task<UserDomainModel> GetUserByIdAsync(int id)
+        public async Task<UserDomainModel> GetUserByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = await _userRepository.GetByIdAsync(id);
+            if(data == null)
+            {
+                return null;
+            }
+
+            UserDomainModel result = new UserDomainModel
+            {
+                UserId = data.UserId,
+                Username = data.Username,
+                Password = data.Password,
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                YearOfBirth = data.YearOfBirth
+            };
+            return result;
         }
 
         public Task<UserDomainModel> UpdateUser()

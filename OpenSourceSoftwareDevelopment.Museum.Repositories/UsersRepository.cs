@@ -33,9 +33,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             return data;
         }
 
-        public Task<UserEntity> GetByIdAsync(object id)
+        public async Task<UserEntity> GetByIdAsync(object id)
         {
-            throw new NotImplementedException();
+            var data = await _museumContext.Users.FindAsync(id);
+            return data;
         }
 
         public UserEntity Insert(UserEntity obj)
