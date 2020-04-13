@@ -40,7 +40,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             UserDomainModel userDomainModels = await _userService.GetUserByIdAsync(id);
             if(userDomainModels == null)
             {
-                return NotFound();
+                return NotFound(Messages.USERS_GET_ID_ERROR);
             }
             return Ok(userDomainModels);
             
