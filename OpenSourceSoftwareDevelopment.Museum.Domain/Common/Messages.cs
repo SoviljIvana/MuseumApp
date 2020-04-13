@@ -13,6 +13,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         //auditorium
         public const string AUDITORIUM_GET_ID_ERROR = "Error occured while getting auditorium with id: ";
         public const string AUDITORIUM_GET_ALL_ERROR = "Error occured while getting all auditoriums, please try again.";
+        public const string AUDITORIUM_DELETE_ERROR = "Cannot delete autitorium: ";
+        public const string AUDITORIUM_NOT_FOUND_ERROR = "Auditorium not found: ";
 
         //ticket
         public const string TICKET_GET_ALL_ERROR = "Error occured while getting all tickets, please try again.";
