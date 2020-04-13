@@ -11,7 +11,7 @@ class ShowAllAuditoriums extends Component{
             auditoriums: [],
             isLoading: true,
         }
-        this.editAuditorium = this.editAuditorium.bind(this);
+        this.auditoriumDetails = this.auditoriumDetails.bind(this);
     }
 
     componentDidMount(){
@@ -51,12 +51,16 @@ class ShowAllAuditoriums extends Component{
                     <td>{auditorium.museumId}</td>
                     <td>{auditorium.nameOfAuditorium}</td>
                     <td>{auditorium.numberOfSeats}</td>
-                 <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.editAuditorium(auditorium.auditoriumId)}>see details</Button></tr>
-            })
+               <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.auditoriumDetails(auditorium.auditoriumId)}>vidi detalje</Button></td> 
+               <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+               <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td> 
+  </tr>
+        
+        })
         }
 
-        editAuditorium(id){
-            this.props.history.push(`editauditorium/${id}`);
+        auditoriumDetails(id){
+            this.props.history.push(`auditoriumDetails/${id}`);
         }
 
         render(){
@@ -64,10 +68,13 @@ class ShowAllAuditoriums extends Component{
             const rowsData = this.fillTableWithDaata();
             const table = (<Table>
                                 <thead>
-                                <th>Id</th>
-                                <th>Museum id</th>
-                                <th>Name of auditorium</th>
-                                <th>Number of seats</th>
+                                <th>ID</th>
+                                <th>MUZEJ ID</th>
+                                <th>NAZIV AUDITORIUMA</th>
+                                <th>BROS SEDIŠTA</th>
+                                <th>DETALJI</th>
+                                <th>IZMENA</th>
+                                <th>BRISANJE</th>
                                 </thead>
                                 <tbody>
                                     {rowsData}

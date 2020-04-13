@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../../AppSettings';
-import { Row, Table } from 'react-bootstrap';
+import { Row, Table, Button } from 'react-bootstrap';
 import Spinner from '../../Spinner';
 
 class ShowAllMuseums extends Component{
@@ -11,6 +11,7 @@ class ShowAllMuseums extends Component{
             museums: [],
             isLoading: true
         }
+        this.museumDetails = this.museumDetails.bind(this);
     }
 
     componentDidMount(){
@@ -52,21 +53,29 @@ class ShowAllMuseums extends Component{
                     <td>{museum.city}</td>
                     <td>{museum.email}</td>
                     <td>{museum.phoneNubmer}</td>
+                    <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.museumDetails(museum.museumId)}>vidi detalje</Button></td> 
+                    <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+               <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td> 
                             </tr>
             })
         }
-
+        museumDetails(id){
+            this.props.history.push(`museumDetails/${id}`);
+        }
         render(){
             const {isLoading} = this.state;
             const rowsData = this.fillTableWithDaata();
             const table = (<Table>
                                 <thead>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Street</th>
-                                <th>City</th>
-                                <th>Email</th>
-                                <th>Phone number</th>
+                                <th>ID</th>
+                                <th>NAZIV</th>
+                                <th>ULICA I BROJ</th>
+                                <th>GRAD</th>
+                                <th>E-MAIL ADRESA</th>
+                                <th>BROJ TELEFONA</th>
+                                <th>VIDI DETALJE</th>
+                                <th>IZMENA</th>
+                                <th>BRISANJE</th>
                                 </thead>
                                 <tbody>
                                     {rowsData}
