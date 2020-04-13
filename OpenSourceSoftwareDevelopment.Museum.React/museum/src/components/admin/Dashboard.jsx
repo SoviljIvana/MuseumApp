@@ -5,9 +5,18 @@ import { Navbar, NavDropdown, Table  } from 'react-bootstrap';
 import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
 import ShowAllExhibitions from './ExhibitionActions/ShowAllExhibitions';
+import ShowAllExhibits from './ExhibitActions/ShowAllExhibits'
+import ShowAllTags from './TagActions/ShowAllTags'
+import ShowAllTickets from './TicketActions/ShowAllTickets'
+import ShowAllUsers from './UserActions/ShowAllUsers'
+
 import AuditoriumDetails from './AuditoriumActions/AuditoriumDetails';
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
-import MuseumDetails from './MuseumActions/MuseumDetails'
+import MuseumDetails from './MuseumActions/MuseumDetails';
+import ExhibitDetails from './ExhibitActions/ExhibitDetails';
+import TagDetails from './TagActions/TagDetails';
+import TicketDetails from './TicketActions/TicketDetails';
+import UserDetails from './UserActions/UserDetails';
 
 class Dashboard extends Component {
     render() {
@@ -26,15 +35,38 @@ class Dashboard extends Component {
                     <NavLink activeClassName="active-link" to='/dashboard/ShowAllExhibitions'><h6>Lista izložba</h6></NavLink>
                 </NavDropdown>
             
+                <NavDropdown title="Eksponati" id="basic-nav-dropdown">
+                    <NavLink activeClassName="active-link" to='/dashboard/ShowAllExhibits'><h6>Lista eksponata</h6></NavLink>
+                </NavDropdown>
+
+                <NavDropdown title="Tagovi" id="basic-nav-dropdown">
+                    <NavLink activeClassName="active-link" to='/dashboard/ShowAllTags'><h6>Lista tagova</h6></NavLink>
+                </NavDropdown>
+
+                <NavDropdown title="Karte" id="basic-nav-dropdown">
+                    <NavLink activeClassName="active-link" to='/dashboard/ShowAllTickets'><h6>Lista karata</h6></NavLink>
+                </NavDropdown>
+
+                <NavDropdown title="Korisnici" id="basic-nav-dropdown">
+                    <NavLink activeClassName="active-link" to='/dashboard/ShowAllUsers'><h6>Lista korisnika</h6></NavLink>
+                </NavDropdown>
                 </Navbar>
                     <Col className="pt-2 app-content-main">
                     <Switch>
                         <Route path="/dashboard/ShowAllMuseums" component={ShowAllMuseums} />
                         <Route path="/dashboard/ShowAllAuditoriums" component={ShowAllAuditoriums} />
                         <Route path="/dashboard/ShowAllExhibitions" component={ShowAllExhibitions} />
+                        <Route path="/dashboard/ShowAllExhibits" component={ShowAllExhibits} />
+                        <Route path="/dashboard/ShowAllTags" component={ShowAllTags} />
+                        <Route path="/dashboard/ShowAllTickets" component={ShowAllTickets} />
+                        <Route path="/dashboard/ShowAllUsers" component={ShowAllUsers} />
                         <Route path="/dashboard/AuditoriumDetails/:id" component={AuditoriumDetails} />
                         <Route path="/dashboard/ExhibitionDetails/:id" component={ExhibitionDetails} />
                         <Route path="/dashboard/MuseumDetails/:id" component={MuseumDetails} />
+                        <Route path="/dashboard/ExhibitDetails/:id" component={ExhibitDetails} />
+                       <Route path="/dashboard/TagDetails/:id" component={TagDetails} />
+                       <Route path="/dashboard/TicketDetails/:id" component={TicketDetails} />
+                       <Route path="/dashboard/UserDetails/:id" component={UserDetails} />
 
                        </Switch>
                 </Col>
