@@ -16,6 +16,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
         public DateTime YearOfBirth { get; set; }
         public virtual ICollection<TicketEntity> Tickets { get; set; }
     }
