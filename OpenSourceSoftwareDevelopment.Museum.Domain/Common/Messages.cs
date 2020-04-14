@@ -29,6 +29,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         //exhibit
         public const string EXHIBITS_GET_ALL_ERROR = "Error occured while getting all exhibits, please try again.";
         public const string EXHIBIT_GET_ID_ERROR = "Error occured while getting exhibit with id: ";
+        public const string EXHIBITS_EMPTY_LIST = "List of exhibits are empty and you can't delete.";
+        public const string EXHIBIT_DOES_NOT_LIST = "Does not exist exhibit with this id. ";
+
 
         //tag
         public const string TAG_GET_ID_ERROR = "Error occured while getting tag with id: ";
