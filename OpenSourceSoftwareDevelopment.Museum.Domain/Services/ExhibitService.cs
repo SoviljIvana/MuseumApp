@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
 using System;
@@ -11,7 +12,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
     public class ExhibitService : IExhibitService
     {
         private readonly IExhibitsRepository _exhibitRepository;
-        
+
         public ExhibitService(IExhibitsRepository exhibitRepository)
         {
             _exhibitRepository = exhibitRepository;
@@ -22,15 +23,55 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<ExhibitResultModel> DeleteExhibit(int id)
+        public async Task<ExhibitResultModel> DeleteExhibit(int id)
         {
-            throw new NotImplementedException();
+            var listOfExhibits = await _exhibitRepository.GetAll();
+            var existing = await _exhibitRepository.GetByIdAsync(id);
+            int counterId = 0;
+
+            if (listOfExhibits == null)
+            {
+                return new ExhibitResultModel
+                {
+                    ErrorMessage = Messages.EXHIBITS_EMPTY_LIST,
+                    IsSuccessful = false
+                };
+            }
+            else
+            {
+                foreach (var item in listOfExhibits)
+                {
+                    if (item.ExhibitId == id)
+                    {
+                        _exhibitRepository.Delete(id);
+                        counterId += 1;
+                    }
+                }
+
+                if (counterId == 0)
+                {
+                    return new ExhibitResultModel
+                    {
+                        ErrorMessage = Messages.EXHIBIT_DOES_NOT_LIST,
+                        IsSuccessful = false
+                    };
+                }
+                _exhibitRepository.Save();
+
+                ExhibitResultModel result = new ExhibitResultModel
+                {
+                    ErrorMessage = null,
+                    IsSuccessful = true,
+                };
+
+                return result;
+            }
         }
 
         public async Task<IEnumerable<ExhibitDomainModel>> GetAllExhibits()
         {
             var data = await _exhibitRepository.GetAll();
-            if(data == null)
+            if (data == null)
             {
                 return null;
             }

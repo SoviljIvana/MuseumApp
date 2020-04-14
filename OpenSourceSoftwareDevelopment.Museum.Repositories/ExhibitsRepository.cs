@@ -29,6 +29,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         public async Task<IEnumerable<ExhibitEntity>> GetAll()
         {
             var data = await _museumContext.Exhibits.ToListAsync();
+            if(data.Count == 0)
+            {
+                return null;
+            }
             return data;
         }
 
@@ -45,7 +49,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _museumContext.SaveChanges();
         }
 
         public ExhibitEntity Update(ExhibitEntity obj)

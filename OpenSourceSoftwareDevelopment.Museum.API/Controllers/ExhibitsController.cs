@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
@@ -52,12 +53,23 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("delete/{id}")]
         [HttpDelete]
-        public Task<ActionResult> DeleteExhibit(int id)
+        public async Task<ActionResult<ExhibitResultModel>> DeleteExhibit(int id)
         {
-            throw new NotImplementedException();
+            ExhibitResultModel exhibitResultModel;
+            
+          
+                exhibitResultModel = await _exhibitService.DeleteExhibit(id);
+            if(exhibitResultModel == null)
+            {
+                return BadRequest();
+            }
+
+
+            return Ok( exhibitResultModel);
+
         }
 
-        [Route("post/")]
+    [Route("post/")]
         [HttpPost]
         public Task<ActionResult<ExhibitDomainModel>> PostExhibition(CreateExhibitModel createExhibit)
         {
