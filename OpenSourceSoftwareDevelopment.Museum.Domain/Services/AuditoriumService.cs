@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
 using System;
@@ -11,10 +12,12 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
     public class AuditoriumService : IAuditoriumService
     {
         private readonly IAuditoriumsRepository _auditoriumRepository;
+        private readonly IExhibitionsRepository _exhibitionsRepository;
 
-        public AuditoriumService(IAuditoriumsRepository auditoriumRepository)
+        public AuditoriumService(IAuditoriumsRepository auditoriumRepository, IExhibitionsRepository exhibitionsRepository)
         {
             _auditoriumRepository = auditoriumRepository;
+            _exhibitionsRepository = exhibitionsRepository;
         }
 
 
@@ -66,9 +69,47 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        Task<AuditoriumResultModel> IAuditoriumService.DeleteAuditorium(int id)
+        public async Task<AuditoriumResultModel> DeleteAuditoriumAsync(int id)
         {
-            throw new NotImplementedException();
+            var exhibitions = await _exhibitionsRepository.GetAll();
+            AuditoriumResultModel result;
+
+            foreach (var exhibition in exhibitions) 
+            {
+                if (exhibition.AuditoriumId == id) 
+                {
+                    result = new AuditoriumResultModel
+                    {
+                        Auditorium = null,
+                        IsSuccessful = false,
+                        ErrorMessage = Messages.AUDITORIUM_DELETE_ERROR
+                    };
+                    return result;
+                }
+            }
+
+            var deletedAuditorium = _auditoriumRepository.Delete(id);
+            if(deletedAuditorium == null)
+                return new AuditoriumResultModel
+                    {
+                        Auditorium = null,
+                        IsSuccessful = false,
+                        ErrorMessage = Messages.AUDITORIUM_NOT_FOUND_ERROR
+                    };
+
+            result = new AuditoriumResultModel
+            {
+                Auditorium = new AuditoriumDomainModel 
+                { 
+                    AuditoriumId = deletedAuditorium.AuditoriumId,
+                    NameOfAuditorium = deletedAuditorium.NameOfAuditorium,
+                    MuseumId = deletedAuditorium.MuseumId,
+                    NumberOfSeats = deletedAuditorium.NumberOfSeats
+                },
+                IsSuccessful = true,
+                ErrorMessage = ""
+            };
+            return result;
         }
 
         Task<AuditoriumResultModel> IAuditoriumService.UpdateAuditorium()

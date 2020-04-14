@@ -25,7 +25,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         public AuditoriumEntity Delete(object id)
         {
             AuditoriumEntity entity = _museumContext.Auditoriums.Find(id);
+            if (entity == null) return null;
             var result = _museumContext.Auditoriums.Remove(entity);
+            _museumContext.SaveChanges();
             return result.Entity;
 
         }
