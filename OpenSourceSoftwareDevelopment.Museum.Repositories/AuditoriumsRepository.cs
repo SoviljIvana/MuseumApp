@@ -11,7 +11,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
     public interface IAuditoriumsRepository : IRepository<AuditoriumEntity>
     {
-
+        
     }
     public class AuditoriumsRepository : IAuditoriumsRepository
     {
