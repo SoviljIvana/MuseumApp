@@ -76,13 +76,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
 
             foreach (var exhibition in exhibitions) 
             {
-                if (exhibition.AuditoriumId == id) 
+                if ((exhibition.AuditoriumId == id && exhibition.StartTime > DateTime.Now ) || (exhibition.AuditoriumId == id && exhibition.EndTime > DateTime.Now))
                 {
                     result = new AuditoriumResultModel
                     {
                         Auditorium = null,
                         IsSuccessful = false,
-                        ErrorMessage = Messages.AUDITORIUM_DELETE_ERROR
+                        ErrorMessage = Messages.EXHIBITION_IN_THE_FUTURE
                     };
                     return result;
                 }

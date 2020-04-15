@@ -54,7 +54,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         public async Task<ActionResult> DeleteAuditoriumAsync(int id)
         {
             AuditoriumResultModel auditoriumResult = await _auditoriumService.DeleteAuditoriumAsync(id);
-            if (!auditoriumResult.IsSuccessful) return BadRequest(auditoriumResult.ErrorMessage + id);
+            if (!auditoriumResult.IsSuccessful)
+            {
+                return BadRequest(auditoriumResult.ErrorMessage + id);
+            }
+
             return Ok(auditoriumResult.Auditorium);
         }
       

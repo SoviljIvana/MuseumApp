@@ -12,6 +12,7 @@ class ShowAllExhibitions extends Component{
             isLoading: true
         }
         this.exhibitionDetails = this.exhibitionDetails.bind(this);
+        this.removeExhibition = this.removeExhibition.bind(this);
 
     }
 
@@ -45,6 +46,34 @@ class ShowAllExhibitions extends Component{
               });
         }
 
+        removeExhibition(id) {
+            const requestOptions = {
+              method: 'DELETE',
+              headers: {'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+          };
+      
+          fetch(`${serviceConfig.baseURL}/api/exhibitions/delete/${id}`, requestOptions)
+              .then(response => {
+                  if (!response.ok) {
+                      return Promise.reject(response);
+                  }
+                  return response.statusText;
+              })
+              .then(result => {
+                  NotificationManager.success('Successfuly removed exhibition with ID: '+ id);
+                  const newState = this.state.exhibitions.filter(exhibition => {
+                      return exhibition.id !== id;
+                  })
+                  this.setState({auditoriums: newState});
+              })
+              .catch(response => {
+                  NotificationManager.error("Unable to remove exhibition.");
+                  this.setState({ submitted: false });
+              });
+          }
+    
+
         fillTableWithDaata() {
             return this.state.exhibitions.map(exhibition => {
                 return <tr key={exhibition.id}>
@@ -56,7 +85,7 @@ class ShowAllExhibitions extends Component{
                     <td>{exhibition.endTime}</td>
                     <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
                     <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td> 
+               <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeExhibition(exhibition.exhibitionId)} >obriši</Button> </td> 
                             </tr>
             })
         }

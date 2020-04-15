@@ -12,6 +12,7 @@ class ShowAllAuditoriums extends Component{
             isLoading: true,
         }
         this.auditoriumDetails = this.auditoriumDetails.bind(this);
+        this.removeAuditorium = this.removeAuditorium.bind(this);
     }
 
     componentDidMount(){
@@ -44,6 +45,33 @@ class ShowAllAuditoriums extends Component{
               });
         }
 
+        removeAuditorium(id) {
+            const requestOptions = {
+              method: 'DELETE',
+              headers: {'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+          };
+      
+          fetch(`${serviceConfig.baseURL}/api/auditoriums/delete/${id}`, requestOptions)
+              .then(response => {
+                  if (!response.ok) {
+                      return Promise.reject(response);
+                  }
+                  return response.statusText;
+              })
+              .then(result => {
+                  NotificationManager.success('Successfuly removed auditorium with ID: '+ id);
+                  const newState = this.state.auditoriums.filter(auditorium => {
+                      return auditorium.id !== id;
+                  })
+                  this.setState({auditoriums: newState});
+              })
+              .catch(response => {
+                  NotificationManager.error("Unable to remove auditorium.");
+                  this.setState({ submitted: false });
+              });
+          }
+
         fillTableWithDaata() {
             return this.state.auditoriums.map(auditorium => {
                 return <tr key={auditorium.id}>
@@ -53,7 +81,7 @@ class ShowAllAuditoriums extends Component{
                     <td>{auditorium.numberOfSeats}</td>
                <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.auditoriumDetails(auditorium.auditoriumId)}>vidi detalje</Button></td> 
                <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td> 
+               <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeAuditorium(auditorium.auditoriumId)}>obriši</Button> </td> 
   </tr>
         
         })
