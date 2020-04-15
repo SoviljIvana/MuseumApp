@@ -54,9 +54,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("delete/{id}")]
         [HttpDelete]
-        public Task<ActionResult> DeleteMuseum(int id)
+        public async Task<ActionResult> DeleteMuseum(int id)
         {
-            throw new NotImplementedException();
+            MuseumResaultModel museumResault = await _museumService.DeleteMuseum(id);
+            if (!museumResault.IsSuccessful) return BadRequest(museumResault.ErrorMessage + id);
+            return Ok(museumResault.Museum);
         }
 
         [Route("post/")]

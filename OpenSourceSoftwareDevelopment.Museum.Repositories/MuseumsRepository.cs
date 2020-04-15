@@ -23,7 +23,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         public MuseumEntity Delete(object id)
         {
             MuseumEntity entity = _museumContext.Museums.Find(id);
+            if (entity == null) return null;
             var result = _museumContext.Museums.Remove(entity);
+            _museumContext.SaveChanges();
             return result.Entity;
 
         }

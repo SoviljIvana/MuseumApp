@@ -9,6 +9,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         //museum
         public const string MUSEUM_GET_ALL_ERROR = "Error occured while getting all museums, please try again.";
         public const string MUSEUM_GET_ID_ERROR = "Error occured while getting museum with id: ";
+        public const string MUSEUM_DELETE_ERROR = "Cannot delete museum: ";
+        public const string MUSEUM_NOT_FOUND_ERROR = "Museum not found: ";
 
         //auditorium
         public const string AUDITORIUM_GET_ID_ERROR = "Error occured while getting auditorium with id: ";

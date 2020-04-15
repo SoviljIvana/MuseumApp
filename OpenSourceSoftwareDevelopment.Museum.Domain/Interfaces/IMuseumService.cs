@@ -31,7 +31,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<MuseumDomainModel> DeleteMuseum(int id);
+        Task<MuseumResaultModel> DeleteMuseum(int id);
         /// <summary>
         /// 
         /// </summary>
