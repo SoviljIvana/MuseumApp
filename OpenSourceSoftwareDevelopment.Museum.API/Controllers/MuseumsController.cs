@@ -57,7 +57,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         public async Task<ActionResult> DeleteMuseum(int id)
         {
             MuseumResaultModel museumResault = await _museumService.DeleteMuseum(id);
-            if (!museumResault.IsSuccessful) return BadRequest(museumResault.ErrorMessage + id);
+            if (!museumResault.IsSuccessful)
+            {
+                return BadRequest(museumResault.ErrorMessage + id);
+            }
+
             return Ok(museumResault.Museum);
         }
 

@@ -55,17 +55,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         [HttpDelete]
         public async Task<ActionResult<ExhibitResultModel>> DeleteExhibit(int id)
         {
-            ExhibitResultModel exhibitResultModel;
-            
-          
-                exhibitResultModel = await _exhibitService.DeleteExhibit(id);
-            if(exhibitResultModel == null)
+            ExhibitResultModel exhibitResult = await _exhibitService.DeleteExhibit(id);
+            if (!exhibitResult.IsSuccessful)
             {
-                return BadRequest();
+                return BadRequest(exhibitResult.ErrorMessage + id);
             }
 
-
-            return Ok( exhibitResultModel);
+            return Ok(exhibitResult.Exhibit);
 
         }
 

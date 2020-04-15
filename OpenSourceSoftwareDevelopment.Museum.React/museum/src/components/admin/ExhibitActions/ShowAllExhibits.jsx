@@ -13,6 +13,7 @@ class ShowAllExhibits extends Component {
             isLoading: true,
         }
         this.exhibitDetails = this.exhibitDetails.bind(this);
+        this.removeExhibit = this.removeExhibit.bind(this);
     }
 
     componentDidMount() {
@@ -49,6 +50,33 @@ class ShowAllExhibits extends Component {
             });
     }
 
+    removeExhibit(id) {
+        const requestOptions = {
+          method: 'DELETE',
+          headers: {'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+      };
+  
+      fetch(`${serviceConfig.baseURL}/api/exhibits/delete/${id}`, requestOptions)
+          .then(response => {
+              if (!response.ok) {
+                  return Promise.reject(response);
+              }
+              return response.statusText;
+          })
+          .then(result => {
+              NotificationManager.success('Successfuly removed exhibit with ID: '+ id);
+              const newState = this.state.exhibits.filter(exhibit => {
+                  return exhibit.id !== id;
+              })
+              this.setState({auditoriums: newState});
+          })
+          .catch(response => {
+              NotificationManager.error("Unable to remove exhibit.");
+              this.setState({ submitted: false });
+          });
+      }
+
 
     fillTableWithDaata() {
         return this.state.exhibits.map(exhibit => {
@@ -61,7 +89,7 @@ class ShowAllExhibits extends Component {
                 <td>{exhibit.exhibitionId}</td>
                 <td>  <Button width="1%" className="text-center cursor-pointer" onClick={() => this.exhibitDetails(exhibit.exhibitId)} >vidi detalje</Button></td>
                 <td> <Button width="1%" className="text-center cursor-pointer" >izmeni</Button></td>
-                <td>  <Button width="1%" className="text-center cursor-pointer" >obriši</Button> </td>
+                <td>  <Button width="1%" className="text-center cursor-pointer" onClick={() => this.removeExhibit(exhibit.exhibitId)}>obriši</Button> </td>
             </tr>
 
         })
