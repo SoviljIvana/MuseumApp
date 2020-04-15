@@ -19,10 +19,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public ExhibitEntity Delete(object id)
+        public  ExhibitEntity Delete(object id)
         {
-            ExhibitEntity entity = _museumContext.Exhibits.Find(id);
+
+            ExhibitEntity entity =  _museumContext.Exhibits.Find(id);
+            if (entity == null) return null;
             var result = _museumContext.Exhibits.Remove(entity);
+            _museumContext.SaveChanges();
             return result.Entity;
         }
 
