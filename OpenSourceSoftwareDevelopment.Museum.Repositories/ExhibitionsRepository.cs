@@ -21,10 +21,12 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public ExhibitionEntity Delete(object id)
+        public  ExhibitionEntity Delete(object id)
         {
-            ExhibitionEntity entity = _museumContext.Exhibitions.Find(id);
+            ExhibitionEntity entity =  _museumContext.Exhibitions.Find(id);
+            if (entity == null) return null;
             var result = _museumContext.Exhibitions.Remove(entity);
+            _museumContext.SaveChanges();
             return result.Entity;
         }
 

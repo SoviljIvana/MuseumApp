@@ -26,44 +26,45 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         public async Task<ExhibitResultModel> DeleteExhibit(int id)
         {
             var listOfExhibits = await _exhibitRepository.GetAll();
-            var existing = await _exhibitRepository.GetByIdAsync(id);
-            int counterId = 0;
 
             if (listOfExhibits == null)
             {
                 return new ExhibitResultModel
                 {
                     ErrorMessage = Messages.EXHIBITS_EMPTY_LIST,
-                    IsSuccessful = false
+                    IsSuccessful = false,
+                    Exhibit = null
                 };
             }
             else
             {
-                foreach (var item in listOfExhibits)
-                {
-                    if (item.ExhibitId == id)
-                    {
-                        _exhibitRepository.Delete(id);
-                        counterId += 1;
-                    }
-                }
+                var existing = _exhibitRepository.Delete(id);
 
-                if (counterId == 0)
+                if (existing == null)
                 {
                     return new ExhibitResultModel
                     {
-                        ErrorMessage = Messages.EXHIBIT_DOES_NOT_LIST,
-                        IsSuccessful = false
+                        ErrorMessage = Messages.EXHIBIT_DOES_NOT_EXIST,
+                        IsSuccessful = false,
+                        Exhibit = null
+
                     };
                 }
-                _exhibitRepository.Save();
-
+                
                 ExhibitResultModel result = new ExhibitResultModel
                 {
                     ErrorMessage = null,
                     IsSuccessful = true,
+                    Exhibit = new ExhibitDomainModel
+                    {
+                        ExhibitionId = existing.ExhibitionId,
+                        Name = existing.Name,
+                        Year = existing.Year,
+                        ExhibitId = existing.ExhibitId,
+                        PicturePath = existing.PicturePath,
+                        AuditoriumId = existing.AuditoriumId
+                    }
                 };
-
                 return result;
             }
         }
