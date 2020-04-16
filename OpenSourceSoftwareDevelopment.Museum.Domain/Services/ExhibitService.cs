@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
@@ -18,9 +19,34 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             _exhibitRepository = exhibitRepository;
         }
 
-        public Task<ExhibitResultModel> CreateExhibit(ExhibitDomainModel exhibitModel)
+        public async Task<ExhibitDomainModel> CreateExhibit(ExhibitDomainModel exhibitModel)
         {
-            throw new NotImplementedException();
+            ExhibitEntity newExhibit = new ExhibitEntity
+            {
+                ExhibitId = exhibitModel.ExhibitId,
+                ExhibitionId = exhibitModel.ExhibitionId,
+                Name = exhibitModel.Name,
+                Year = exhibitModel.Year,
+                PicturePath = exhibitModel.PicturePath,
+                AuditoriumId = exhibitModel.AuditoriumId,
+
+            };
+
+            var data =  _exhibitRepository.Insert(newExhibit);
+
+            ExhibitDomainModel domainModel = new ExhibitDomainModel
+            {
+                ExhibitId = data.ExhibitId,
+                ExhibitionId = data.ExhibitionId,
+                Name = data.Name,
+                Year = data.Year,
+                PicturePath = data.PicturePath,
+                AuditoriumId = data.AuditoriumId,
+                
+             };
+
+            return domainModel;
+            
         }
 
         public async Task<ExhibitResultModel> DeleteExhibit(int id)
