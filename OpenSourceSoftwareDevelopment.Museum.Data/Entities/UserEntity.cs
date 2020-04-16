@@ -8,7 +8,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     [Table("user")]
 
-    public class UserEntity
+    public class UserEntity:IEntity
     {
         [Key]
         public int UserId { get; set; }
@@ -19,5 +19,15 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public string Email { get; set; }
         public DateTime YearOfBirth { get; set; }
         public virtual ICollection<TicketEntity> Tickets { get; set; }
+
+        public int getId()
+        {
+            return UserId;
+        }
+
+        public int getType()
+        {
+            return 8;
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     [Table("museum")]
 
-    public class MuseumEntity
+    public class MuseumEntity:IEntity
     {
         [Key]
         public int MuseumId { get; set; }
@@ -18,5 +18,15 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public virtual ICollection<AuditoriumEntity> Auditoriums { get; set; }
+
+        public int getId()
+        {
+            return MuseumId;
+        }
+
+        public int getType()
+        {
+            return 5;
+        }
     }
 }

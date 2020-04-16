@@ -28,6 +28,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             if (entity == null) return null;
             var result = _museumContext.Auditoriums.Remove(entity);
             _museumContext.SaveChanges();
+            Entity
             return result.Entity;
 
         }
