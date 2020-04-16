@@ -49,9 +49,15 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("delete/{id}")]
         [HttpDelete]
-        public Task<ActionResult> DeleteTag(int id)
+        public async Task<ActionResult> DeleteTag(int id)
         {
-            throw new NotImplementedException();
+            TagResultModel tagResault = await _tagService.DeleteTag(id);
+            if (!tagResault.IsSuccessful)
+            {
+                return BadRequest(tagResault.ErrorMessage);
+            }
+
+            return Ok(tagResault.Tag);
         }
 
         [Route("post/")]

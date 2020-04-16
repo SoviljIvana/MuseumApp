@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
 using System;
@@ -22,9 +23,51 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<TagDomainModel> DeleteTag(int id)
+        public async Task<TagResultModel> DeleteTag(int id)
         {
-            throw new NotImplementedException();
+            var listOfTags = await _tagRepository.GetAll();
+
+            if(listOfTags == null)
+            {
+               return new TagResultModel
+                {
+                    Tag = null,
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.TAGS_EMPTY_LIST,
+                };
+            }
+
+            else
+            {
+                var existing = _tagRepository.Delete(id);
+                if(existing == null)
+                {
+                  return new TagResultModel
+                    {
+                        Tag = null,
+                        IsSuccessful = false,
+                        ErrorMessage = Messages.TAG_DOES_NOT_EXIST,
+                    };
+
+                }
+
+                TagResultModel result = new TagResultModel
+                {
+                  
+                    IsSuccessful = true,
+                    ErrorMessage = null,
+                     Tag = new TagDomainModel
+                    {
+                         Name = existing.Name,
+                         Id = existing.TagId,
+                         Type = existing.Type
+                    }
+
+                };
+                return result;
+            }
+        
+            
         }
 
         public async Task<IEnumerable<TagDomainModel>> GetAllTags()
