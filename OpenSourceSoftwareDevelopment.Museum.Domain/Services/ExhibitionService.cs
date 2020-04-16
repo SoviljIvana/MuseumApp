@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
@@ -159,6 +160,21 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         public Task<ExhibitionResultModel> UpdateExhibition()
         {
             throw new NotImplementedException();
+        }
+
+        async Task<List<IEntity>> testForDeletionAsync(int id)
+        {
+            List<IEntity> result = new List<IEntity>();
+            var tickets = await _ticketsRepository.GetAll();
+
+            foreach (var ticket in tickets)
+            {
+                if (ticket.ExhibitionId == id)
+                {
+                    return null;
+                }
+            }
+            return result;
         }
     }
 }

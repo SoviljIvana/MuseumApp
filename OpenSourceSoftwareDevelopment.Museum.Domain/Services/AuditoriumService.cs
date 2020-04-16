@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
@@ -27,11 +28,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         }
 
 
-        public async  Task<IEnumerable<AuditoriumDomainModel>> GetAllAuditoriums()
+        public async Task<IEnumerable<AuditoriumDomainModel>> GetAllAuditoriums()
         {
             var data = await _auditoriumRepository.GetAll();
 
-            if(data == null)
+            if (data == null)
             {
                 return null;
             }
@@ -49,7 +50,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 };
                 list.Add(model);
             }
-            return list;           
+            return list;
         }
 
         public async Task<AuditoriumDomainModel> GetAuditoriumByIdAsync(int id)
@@ -73,34 +74,43 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         {
             var exhibitions = await _exhibitionsRepository.GetAll();
             AuditoriumResultModel result;
+            List<IEntity> entitiesToBeDeleted = new List<IEntity>();
 
-            foreach (var exhibition in exhibitions) 
-            {
-                if ((exhibition.AuditoriumId == id && exhibition.StartTime > DateTime.Now ) || (exhibition.AuditoriumId == id && exhibition.EndTime > DateTime.Now))
+            //&& exhibition.StartTime > DateTime.Now ) || (exhibition.AuditoriumId == id && exhibition.EndTime > DateTime.Now)
+            var entities = await testForDeletionAsync(id);
+            if(entities == null)
+                return new AuditoriumResultModel
                 {
-                    result = new AuditoriumResultModel
-                    {
-                        Auditorium = null,
-                        IsSuccessful = false,
-                        ErrorMessage = Messages.EXHIBITION_IN_THE_FUTURE
-                    };
-                    return result;
+                    Auditorium = null,
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.AUDITORIUM_DELETE_ERROR
+                };
+            else
+            entitiesToBeDeleted.AddRange(entities);
+
+
+            foreach (var entity in entitiesToBeDeleted)
+            {
+                switch (entity.getType())
+                {
+                    case 3:
+                        _exhibitionsRepository.Delete(entity.getId());
+                        break;
                 }
             }
-
             var deletedAuditorium = _auditoriumRepository.Delete(id);
-            if(deletedAuditorium == null)
+            if (deletedAuditorium == null)
                 return new AuditoriumResultModel
-                    {
-                        Auditorium = null,
-                        IsSuccessful = false,
-                        ErrorMessage = Messages.AUDITORIUM_NOT_FOUND_ERROR
-                    };
+                {
+                    Auditorium = null,
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.AUDITORIUM_NOT_FOUND_ERROR
+                };
 
             result = new AuditoriumResultModel
             {
-                Auditorium = new AuditoriumDomainModel 
-                { 
+                Auditorium = new AuditoriumDomainModel
+                {
                     AuditoriumId = deletedAuditorium.AuditoriumId,
                     NameOfAuditorium = deletedAuditorium.NameOfAuditorium,
                     MuseumId = deletedAuditorium.MuseumId,
@@ -115,6 +125,22 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         Task<AuditoriumResultModel> IAuditoriumService.UpdateAuditorium()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<IEntity>> testForDeletionAsync(int id) 
+        {
+            List<IEntity> result = new List<IEntity>();
+            var exhibitions = await _exhibitionsRepository.GetAll();
+
+            foreach (var exhibition in exhibitions) 
+            {
+                if (exhibition.AuditoriumId == id)
+                {
+                    if (exhibition.EndTime > DateTime.Now) return null;
+                    else result.Add(exhibition);
+                }
+            }
+            return result;
         }
     }
 }

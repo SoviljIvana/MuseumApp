@@ -8,12 +8,22 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     [Table("tag")]
 
-    public class TagEntity
+    public class TagEntity:IEntity
     {
         [Key]
         public int TagId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public virtual ICollection<ExhibitTagEntity> ExhibitTags { get; set; }
+
+        public int getId()
+        {
+            return TagId;
+        }
+
+        public int getType()
+        {
+            return 6;
+        }
     }
 }
