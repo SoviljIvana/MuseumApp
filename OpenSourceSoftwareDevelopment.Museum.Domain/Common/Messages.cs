@@ -45,7 +45,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         //tag
         public const string TAG_GET_ID_ERROR = "Error occured while getting tag with id: ";
         public const string TAGS_GET_ALL_ERROR = "Error occured while getting all tags, please try again.";
-
+        public const string TAGS_EMPTY_LIST = "List of tags are empty and you can't delete.";
+        public const string TAG_DOES_NOT_EXIST = "Does not exist tag with this id. ";
 
 
 
