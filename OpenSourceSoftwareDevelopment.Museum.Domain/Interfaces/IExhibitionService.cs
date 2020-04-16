@@ -14,7 +14,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
 
         Task<ExhibitionDomainModel> GetExhibitionByIdAsync(int id);
 
-        Task<ExhibitionResultModel> CreateExhibition(ExhibitionDomainModel exhibitionModel);
+        Task<ExhibitionDomainModel> CreateExhibition(ExhibitionDomainModel exhibitionModel);
 
         Task<ExhibitionResultModel> DeleteExhibition(int id);
         Task<ExhibitionResultModel> UpdateExhibition();
