@@ -34,13 +34,14 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         public const string EXHIBITION_IN_THE_FUTURE = "Can not delete. Exhibition will be in the future! Try again later...";
         public const string EXHIBITION_IS_NOT_OVER = "The exhibition is not over yet";
         public const string A_TICKET_TO_THIS_EXHIBITION_WAS_PURCHASED = "A ticket to this exhibition was purchased";
-
+        public const string EXHIBITION_WITH_THIS_ID_ALREADY_EXISTS = "Exhibition with this id already exists, please try something else..";
         //exhibit
         public const string EXHIBITS_GET_ALL_ERROR = "Error occured while getting all exhibits, please try again.";
         public const string EXHIBIT_GET_ID_ERROR = "Error occured while getting exhibit with id: ";
         public const string EXHIBITS_EMPTY_LIST = "List of exhibits are empty and you can't delete.";
         public const string EXHIBIT_DOES_NOT_EXIST = "Does not exist exhibit with this id. ";
-
+        public const string AUDITORIUM_WITH_THIS_ID_DOES_NOT_EXIST = "Auditorium with this id does not exist";
+        public const string START_MUST_BE_IN_THE_FUTURE = "Start time of exhibition must be in the future and end time must be after start time";
 
         //tag
         public const string TAG_GET_ID_ERROR = "Error occured while getting tag with id: ";

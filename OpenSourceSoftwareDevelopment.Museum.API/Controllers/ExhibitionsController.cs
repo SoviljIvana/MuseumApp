@@ -74,7 +74,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             ExhibitionDomainModel exhibitionDomainModel = new ExhibitionDomainModel
             {
                 ExhibitionId = createExhibition.Id,
-                ExhibitionName = createExhibition.ExcibitionName,
+                ExhibitionName = createExhibition.ExhibitionName,
                 AuditoriumId = createExhibition.AuditoriumId,
                 TypeOfExhibition = createExhibition.TypeOfExhibition,
                 StartTime = createExhibition.StartTime,

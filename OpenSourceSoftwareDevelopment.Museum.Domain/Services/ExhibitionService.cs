@@ -14,14 +14,15 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
     {
         private readonly IExhibitionsRepository _exhibitionRepository;
         private readonly ITicketsRepository _ticketsRepository;
-
-        public ExhibitionService(IExhibitionsRepository exhibitionRepository, ITicketsRepository ticketsRepository)
+        private readonly IAuditoriumsRepository _auditoriumRepository;
+        public ExhibitionService(IExhibitionsRepository exhibitionRepository, ITicketsRepository ticketsRepository, IAuditoriumsRepository auditoriumsRepository)
         {
             _exhibitionRepository = exhibitionRepository;
             _ticketsRepository = ticketsRepository;
+            _auditoriumRepository = auditoriumsRepository;
         }
 
-        public async Task<ExhibitionDomainModel> CreateExhibition(ExhibitionDomainModel exhibitionModel)
+        public async Task<ExhibitionResultModel> CreateExhibition(ExhibitionDomainModel exhibitionModel)
         {
             ExhibitionEntity newExhibition = new ExhibitionEntity
             {
@@ -33,21 +34,63 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 EndTime = exhibitionModel.EndTime
          
             };
+            bool auditorium = false;
+            var listOfAuditoriums = await _auditoriumRepository.GetAll();
+            foreach (var item in listOfAuditoriums)
+            {
+                if(item.AuditoriumId == exhibitionModel.AuditoriumId)
+                {
+                    auditorium = true;
+                };
+            }
+            if(auditorium == false)
+            {
+                return new ExhibitionResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.AUDITORIUM_WITH_THIS_ID_DOES_NOT_EXIST,
+                    Exhibition = null
+                };
 
+            }
+            if (exhibitionModel.StartTime < DateTime.Now || exhibitionModel.EndTime < DateTime.Now || exhibitionModel.EndTime < exhibitionModel.StartTime)
+            {
+                return new ExhibitionResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.START_MUST_BE_IN_THE_FUTURE,
+                    Exhibition = null
+                };
+
+            }
             var exhibition =  _exhibitionRepository.Insert(newExhibition);
 
-            ExhibitionDomainModel exhibitionDomainModel = new ExhibitionDomainModel
+            if(exhibition == null)
             {
-                ExhibitionId = exhibition.ExhibitionId,
-                ExhibitionName = exhibition.ExhibitionName,
-                AuditoriumId = exhibition.AuditoriumId,
-                TypeOfExhibition = exhibition.TypeOfExhibition,
-                StartTime = exhibition.StartTime,
-                EndTime = exhibition.EndTime
+                return new ExhibitionResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.EXHIBITION_WITH_THIS_ID_ALREADY_EXISTS,
+                    Exhibition = null
+            };
+            }
+
+            ExhibitionResultModel result = new ExhibitionResultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Exhibition = new ExhibitionDomainModel
+                {
+                    ExhibitionId = exhibition.ExhibitionId,
+                    ExhibitionName = exhibition.ExhibitionName,
+                    AuditoriumId = exhibition.AuditoriumId,
+                    TypeOfExhibition = exhibition.TypeOfExhibition,
+                    StartTime = exhibition.StartTime,
+                    EndTime = exhibition.EndTime
+                }
             };
 
-            return exhibitionDomainModel;
-
+            return result;
         }
 
         public async Task<ExhibitionResultModel> DeleteExhibition(int id)

@@ -42,8 +42,18 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             return data;
         }
 
-        public ExhibitionEntity Insert(ExhibitionEntity obj)
+        public  ExhibitionEntity Insert(ExhibitionEntity obj)
         {
+            foreach(var item in _museumContext.Exhibitions)
+            {
+                if (obj.ExhibitionId == item.ExhibitionId)
+                {
+                    return null;
+                };
+            }
+
+         
+
             var data = _museumContext.Exhibitions.Add(obj).Entity;
             _museumContext.SaveChanges();
             return data;
