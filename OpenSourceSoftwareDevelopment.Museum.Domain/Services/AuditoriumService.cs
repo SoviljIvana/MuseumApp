@@ -74,30 +74,30 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         {
             var exhibitions = await _exhibitionsRepository.GetAll();
             AuditoriumResultModel result;
-            List<ExhibitionEntity> exhibitionsToBeDeleted = new List<ExhibitionEntity>();
+            List<IEntity> entitiesToBeDeleted = new List<IEntity>();
 
             //&& exhibition.StartTime > DateTime.Now ) || (exhibition.AuditoriumId == id && exhibition.EndTime > DateTime.Now)
-            foreach (var exhibition in exhibitions)
-            {
-                if (exhibition.AuditoriumId == id)
+            var entities = await testForDeletionAsync(id);
+            if(entities == null)
+                return new AuditoriumResultModel
                 {
-                    if (exhibition.EndTime > DateTime.Now)
-                    {
-                        result = new AuditoriumResultModel
-                        {
-                            Auditorium = null,
-                            IsSuccessful = false,
-                            ErrorMessage = Messages.EXHIBITION_IN_THE_FUTURE
-                        };
-                        return result;
-                    }
-                    else
-                    {
-                        exhibitionsToBeDeleted.Add(exhibition);
-                    }
+                    Auditorium = null,
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.AUDITORIUM_DELETE_ERROR
+                };
+            else
+            entitiesToBeDeleted.AddRange(entities);
+
+
+            foreach (var entity in entitiesToBeDeleted)
+            {
+                switch (entity.getType())
+                {
+                    case 3:
+                        _exhibitionsRepository.Delete(entity.getId());
+                        break;
                 }
             }
-
             var deletedAuditorium = _auditoriumRepository.Delete(id);
             if (deletedAuditorium == null)
                 return new AuditoriumResultModel
@@ -119,10 +119,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 IsSuccessful = true,
                 ErrorMessage = ""
             };
-            foreach (var exhibition in exhibitionsToBeDeleted)
-            {
-                _exhibitionsRepository.Delete(exhibition.ExhibitionId);
-            }
             return result;
         }
 
@@ -131,7 +127,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        async Task<List<IEntity>> testForDeletionAsync(int id) 
+        public async Task<List<IEntity>> testForDeletionAsync(int id) 
         {
             List<IEntity> result = new List<IEntity>();
             var exhibitions = await _exhibitionsRepository.GetAll();

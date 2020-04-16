@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
@@ -13,11 +14,15 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
     {
         private readonly IMuseumsRepository _museumRepository;
         private readonly IAuditoriumsRepository _auditoriumsRepository;
+        private readonly IExhibitionsRepository _exhibitionsRepository;
+        private readonly IAuditoriumService _auditoriumService;
 
-        public MuseumService(IMuseumsRepository museumRepository, IAuditoriumsRepository auditoriumsRepository)
+        public MuseumService(IMuseumsRepository museumRepository, IAuditoriumsRepository auditoriumsRepository, IAuditoriumService auditoriumService, IExhibitionsRepository exhibitionsRepository)
         {
             _museumRepository = museumRepository;
             _auditoriumsRepository = auditoriumsRepository;
+            _auditoriumService = auditoriumService;
+            _exhibitionsRepository = exhibitionsRepository;
         }
 
         public Task<MuseumDomainModel> CreateMuseum(MuseumDomainModel museumModel)
@@ -29,20 +34,41 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         {
             var auditoriums = await _auditoriumsRepository.GetAll();
             MuseumResaultModel result;
+            List<IEntity> entitiesToBeDeleted = new List<IEntity>();
 
             foreach (var auditorium in auditoriums)
             {
-                if (auditorium.AuditoriumId == id)
+                if (auditorium.MuseumId == id) 
                 {
-                    result = new MuseumResaultModel
+                    List<IEntity> entities = await _auditoriumService.testForDeletionAsync(auditorium.AuditoriumId);
+                    if (entities == null)
                     {
-                        Museum = null,
-                        IsSuccessful = false,
-                        ErrorMessage = Messages.MUSEUM_DELETE_ERROR
-                    };
-                    return result;
+                        result = new MuseumResaultModel
+                        {
+                            Museum = null,
+                            IsSuccessful = false,
+                            ErrorMessage = Messages.MUSEUM_DELETE_ERROR
+                        };
+                        return result;
+                    }
+                    else
+                    {
+                        entitiesToBeDeleted.AddRange(entities);
+                        entitiesToBeDeleted.Add(auditorium);
+                    }
                 }
             }
+
+            foreach (var entity in entitiesToBeDeleted)
+                switch (entity.getType())
+                {
+                    case 1:
+                        _auditoriumsRepository.Delete(entity.getId());
+                        break;
+                    case 3:
+                        _exhibitionsRepository.Delete(entity.getId());
+                        break;
+                }
 
             var deletedMuseum = _museumRepository.Delete(id);
             if (deletedMuseum == null)
