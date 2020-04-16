@@ -44,7 +44,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public ExhibitionEntity Insert(ExhibitionEntity obj)
         {
-            throw new NotImplementedException();
+            var data = _museumContext.Exhibitions.Add(obj).Entity;
+            _museumContext.SaveChanges();
+            return data;
         }
 
         public void Save()

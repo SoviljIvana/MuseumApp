@@ -64,9 +64,28 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("post/")]
         [HttpPost]
-        public Task<ActionResult<ExhibitionDomainModel>> PostExhibition(CreateExhibitionModel createExhibition)
+        public async Task<ActionResult> PostExhibition([FromBody]CreateExhibitionModel createExhibition)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ExhibitionDomainModel exhibitionDomainModel = new ExhibitionDomainModel
+            {
+                ExhibitionId = createExhibition.Id,
+                ExhibitionName = createExhibition.ExcibitionName,
+                AuditoriumId = createExhibition.AuditoriumId,
+                TypeOfExhibition = createExhibition.TypeOfExhibition,
+                StartTime = createExhibition.StartTime,
+                EndTime = createExhibition.EndTime
+             
+            };
+
+            var create = await _exhibitionService.CreateExhibition(exhibitionDomainModel);
+
+            return Ok(create);
+
         }
 
         [Route("{id}")]
