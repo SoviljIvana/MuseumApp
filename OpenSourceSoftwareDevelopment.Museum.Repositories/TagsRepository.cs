@@ -20,14 +20,22 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public TagEntity Delete(object id)
+        public  TagEntity Delete(object id)
         {
-            throw new NotImplementedException();
+            TagEntity entity = _museumContext.Tags.Find(id);
+            if (entity == null) return null;
+            var result = _museumContext.Tags.Remove(entity);
+            _museumContext.SaveChanges();
+            return result.Entity;
         }
 
         public async Task<IEnumerable<TagEntity>> GetAll()
         {
             var data = await _museumContext.Tags.ToListAsync();
+            if (data.Count == 0)
+            {
+                return null;
+            }
             return data;
         }
 
