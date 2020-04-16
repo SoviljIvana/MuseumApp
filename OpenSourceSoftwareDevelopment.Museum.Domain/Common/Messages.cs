@@ -41,7 +41,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         public const string EXHIBITS_EMPTY_LIST = "List of exhibits are empty and you can't delete.";
         public const string EXHIBIT_DOES_NOT_EXIST = "Does not exist exhibit with this id. ";
         public const string AUDITORIUM_WITH_THIS_ID_DOES_NOT_EXIST = "Auditorium with this id does not exist";
+        public const string EXHIBITION_WITH_THIS_ID_DOES_NOT_EXIST = "Exhibition with this id does not exist";
+
         public const string START_MUST_BE_IN_THE_FUTURE = "Start time of exhibition must be in the future and end time must be after start time";
+        public const string EXHIBIT_WITH_THIS_ID_ALREADY_EXISTS = "Exhibit with this id already exists, please try something else..";
 
         //tag
         public const string TAG_GET_ID_ERROR = "Error occured while getting tag with id: ";

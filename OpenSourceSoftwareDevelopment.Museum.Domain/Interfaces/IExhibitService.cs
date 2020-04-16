@@ -13,7 +13,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
  
         Task<ExhibitDomainModel> GetExhibitByIdAsync(int id);
 
-        Task<ExhibitDomainModel> CreateExhibit(ExhibitDomainModel exhibitModel);
+        Task<ExhibitResultModel> CreateExhibit(ExhibitDomainModel exhibitModel);
 
         Task<ExhibitResultModel> DeleteExhibit(int id);
 
