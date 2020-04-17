@@ -46,7 +46,17 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public AuditoriumEntity Insert(AuditoriumEntity obj)
         {
-            throw new NotImplementedException();
+            foreach (var item in _museumContext.Auditoriums)
+            {
+                if (obj.AuditoriumId == item.AuditoriumId)
+                {
+                    return null;
+                };
+            }
+
+            var data = _museumContext.Auditoriums.Add(obj).Entity;
+            _museumContext.SaveChanges();
+            return data;
         }
 
         public void Save()

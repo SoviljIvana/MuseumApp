@@ -14,17 +14,71 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
     {
         private readonly IAuditoriumsRepository _auditoriumRepository;
         private readonly IExhibitionsRepository _exhibitionsRepository;
+        private readonly IMuseumsRepository _museumsRepository;
 
-        public AuditoriumService(IAuditoriumsRepository auditoriumRepository, IExhibitionsRepository exhibitionsRepository)
+        public AuditoriumService(IAuditoriumsRepository auditoriumRepository, IExhibitionsRepository exhibitionsRepository, IMuseumsRepository museumsRepository)
         {
             _auditoriumRepository = auditoriumRepository;
             _exhibitionsRepository = exhibitionsRepository;
+            _museumsRepository = museumsRepository;
         }
 
 
-        public Task<AuditoriumResultModel> CreateAuditorium(AuditoriumDomainModel createAuditorium)
+        public async Task<AuditoriumResultModel> CreateAuditorium(AuditoriumDomainModel createAuditorium)
         {
-            throw new NotImplementedException();
+
+            AuditoriumEntity newAuditorium = new AuditoriumEntity
+            {
+                AuditoriumId = createAuditorium.AuditoriumId,
+                NameOfAuditorium = createAuditorium.NameOfAuditorium,
+                MuseumId = createAuditorium.MuseumId,
+                NumberOfSeats = createAuditorium.NumberOfSeats
+            };
+            bool museum = false;
+            var listOfMuseums = await _museumsRepository.GetAll();
+            foreach (var item in listOfMuseums)
+            {
+                if (item.MuseumId == createAuditorium.MuseumId)
+                {
+                    museum = true;
+                };
+            }
+            if (museum == false)
+            {
+                return new AuditoriumResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.MUSEUM_DOES_NOT_EXIST,
+                    Auditorium = null
+                };
+
+            }
+            
+            var auditorium = _auditoriumRepository.Insert(newAuditorium);
+
+            if (auditorium == null)
+            {
+                return new AuditoriumResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.AUDITORIUM_WITH_THIS_ID_ALREADY_EXISTS,
+                    Auditorium = null
+                };
+            }
+
+            AuditoriumResultModel result = new AuditoriumResultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Auditorium = new AuditoriumDomainModel
+                {
+                    AuditoriumId = auditorium.AuditoriumId,
+                    NameOfAuditorium = auditorium.NameOfAuditorium,
+                    MuseumId = auditorium.MuseumId,
+                    NumberOfSeats = auditorium.NumberOfSeats
+                }
+            };
+            return result;
         }
 
 

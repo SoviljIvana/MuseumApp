@@ -17,6 +17,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         public const string AUDITORIUM_GET_ALL_ERROR = "Error occured while getting all auditoriums, please try again.";
         public const string AUDITORIUM_DELETE_ERROR = "Cannot delete autitorium: ";
         public const string AUDITORIUM_NOT_FOUND_ERROR = "Auditorium not found: ";
+        public const string MUSEUM_DOES_NOT_EXIST = "Museum with this id does not exist";
+        public const string AUDITORIUM_WITH_THIS_ID_ALREADY_EXISTS = "Auditorium with this id already exists";
 
         //ticket
         public const string TICKET_GET_ALL_ERROR = "Error occured while getting all tickets, please try again.";
