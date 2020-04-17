@@ -44,7 +44,17 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public Data.Entities.MuseumEntity Insert(Data.Entities.MuseumEntity obj)
         {
-            throw new NotImplementedException();
+            foreach (var item in _museumContext.Museums)
+            {
+                if (obj.MuseumId == item.MuseumId)
+                {
+                    return null;
+                };
+            }
+
+            var data = _museumContext.Museums.Add(obj).Entity;
+            _museumContext.SaveChanges();
+            return data;
         }
 
         public void Save()

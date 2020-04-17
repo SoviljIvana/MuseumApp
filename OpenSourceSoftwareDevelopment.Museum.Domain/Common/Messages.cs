@@ -11,6 +11,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         public const string MUSEUM_GET_ID_ERROR = "Error occured while getting museum with id: ";
         public const string MUSEUM_DELETE_ERROR = "Cannot delete museum: ";
         public const string MUSEUM_NOT_FOUND_ERROR = "Museum not found: ";
+        public const string MUSEUM_WITH_THIS_ID_ALREADY_EXISTS = "Museum with this id already exists";
 
         //auditorium
         public const string AUDITORIUM_GET_ID_ERROR = "Error occured while getting auditorium with id: ";

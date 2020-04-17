@@ -25,9 +25,45 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             _exhibitionsRepository = exhibitionsRepository;
         }
 
-        public Task<MuseumDomainModel> CreateMuseum(MuseumDomainModel museumModel)
+        public MuseumResaultModel CreateMuseum(MuseumDomainModel museumModel)
         {
-            throw new NotImplementedException();
+            MuseumEntity newMuseum = new MuseumEntity
+            {
+                MuseumId = museumModel.MuseumId,
+                StreetAndNumber = museumModel.StreetAndNumber,
+                City = museumModel.City,
+                Email = museumModel.Email,
+                Name = museumModel.Name,
+                PhoneNumber = museumModel.PhoneNumber
+            };
+            
+            var museum = _museumRepository.Insert(newMuseum);
+
+            if (museum == null)
+            {
+                return new MuseumResaultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.MUSEUM_WITH_THIS_ID_ALREADY_EXISTS,
+                    Museum = null
+                };
+            }
+
+            MuseumResaultModel result = new MuseumResaultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Museum = new MuseumDomainModel
+                {
+                    MuseumId = museum.MuseumId,
+                    StreetAndNumber = museum.StreetAndNumber,
+                    City = museum.City,
+                    Email = museum.Email,
+                    Name = museum.Name,
+                    PhoneNumber = museum.PhoneNumber
+                }
+            };
+            return result;
         }
 
         public async Task<MuseumResaultModel> DeleteMuseum(int id)

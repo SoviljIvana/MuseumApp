@@ -67,9 +67,26 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("post/")]
         [HttpPost]
-        public Task<ActionResult<MuseumDomainModel>> PostMuseum(CreateMuseumModel createMuseum)
+        public ActionResult<MuseumDomainModel> PostMuseum(CreateMuseumModel createMuseum)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            MuseumDomainModel museumDomainModel = new MuseumDomainModel
+            {
+                MuseumId = createMuseum.MuseumId,
+                StreetAndNumber = createMuseum.StreetAndNumber,
+                City = createMuseum.City,
+                Email = createMuseum.Email,
+                Name = createMuseum.Name,
+                PhoneNumber = createMuseum.PhoneNumber
+            };
+
+            var create = _museumService.CreateMuseum(museumDomainModel);
+
+            return Ok(create);
         }
 
         [Route("{id}")]
