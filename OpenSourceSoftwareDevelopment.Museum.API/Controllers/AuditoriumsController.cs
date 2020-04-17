@@ -64,9 +64,25 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
       
         [Route("post/")]
         [HttpPost]
-        public Task<ActionResult<AuditoriumDomainModel>> PostAuditorium(CreateAuditoriumModel createAuditorium)
+        public async Task<ActionResult<AuditoriumDomainModel>> PostAuditorium(CreateAuditoriumModel createAuditorium)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            AuditoriumDomainModel auditoriumDomainModel = new AuditoriumDomainModel
+            {
+                AuditoriumId = createAuditorium.AuditoriumId,
+                NameOfAuditorium = createAuditorium.NameOfAuditorium,
+                MuseumId = createAuditorium.MuseumId,
+                NumberOfSeats = createAuditorium.NumberOfSeats
+
+            };
+
+            var create = await _auditoriumService.CreateAuditorium(auditoriumDomainModel);
+
+            return Ok(create);
         }
 
         [Route("{id}")]
