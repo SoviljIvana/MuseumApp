@@ -7,7 +7,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Models
 {
     public class CreateExhibitionModel
     {
-        public int Id { get; set; }
+        public int ExhibitionId { get; set; }
         public string ExhibitionName { get; set; }
         public int AuditoriumId { get; set; }
         public string TypeOfExhibition { get; set; }
