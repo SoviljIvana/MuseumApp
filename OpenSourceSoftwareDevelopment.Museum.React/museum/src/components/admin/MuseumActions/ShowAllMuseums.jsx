@@ -79,7 +79,7 @@ class ShowAllMuseums extends Component{
                     <td>{museum.streetAndNumber}</td>
                     <td>{museum.city}</td>
                     <td>{museum.email}</td>
-                    <td>{museum.phoneNubmer}</td>
+                    <td>{museum.phoneNumber}</td>
                     <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.museumDetails(museum.museumId)}>vidi detalje</Button></td> 
                     <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeMuseum(museum.museumId)}>obriši</Button> </td> 
