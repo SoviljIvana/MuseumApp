@@ -29,7 +29,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         //user
         public const string USERS_GET_ALL_ERROR = "Error occured while getting all users, please try again.";
         public const string USERS_GET_ID_ERROR = "Error occured while getting user with id: ";
-
+        public const string USER_DOES_NOT_EXIST = "User with this id does not exist.";
+        public const string USER_UPDATE_ERROR = "User update error";
         //exhibition
         public const string EXHIBITIONS_GET_ALL_ERROR = "Error occured while getting all exhibitions, please try again.";
         public const string EXHIBITION_GET_ID_ERROR = "Error occured while getting exhibition with id: ";

@@ -47,14 +47,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _museumContext.SaveChanges();
         }
 
         public UserEntity Update(UserEntity obj)
         {
             var updatedEntry = _museumContext.Users.Attach(obj).Entity;
             _museumContext.Entry(obj).State = EntityState.Modified;
-
             return updatedEntry;
         }
     }
