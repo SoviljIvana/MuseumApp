@@ -70,13 +70,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         {
             var auditoriums = await _auditoriumsRepository.GetAll();
             MuseumResaultModel result;
-            List<IEntity> entitiesToBeDeleted = new List<IEntity>();
+            List<int[]> entitiesToBeDeleted = new List<int[]>();
 
             foreach (var auditorium in auditoriums)
             {
                 if (auditorium.MuseumId == id) 
                 {
-                    List<IEntity> entities = await _auditoriumService.testForDeletionAsync(auditorium.AuditoriumId);
+                    List<int[]> entities = await _auditoriumService.testForDeletionAsync(auditorium.AuditoriumId);
                     if (entities == null)
                     {
                         result = new MuseumResaultModel
@@ -90,19 +90,23 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     else
                     {
                         entitiesToBeDeleted.AddRange(entities);
-                        entitiesToBeDeleted.Add(auditorium);
+                        entitiesToBeDeleted.Add(new int[] 
+                        {
+                            auditorium.AuditoriumId,
+                            1
+                        });
                     }
                 }
             }
 
             foreach (var entity in entitiesToBeDeleted)
-                switch (entity.getType())
+                switch (entity[1])
                 {
                     case 1:
-                        _auditoriumsRepository.Delete(entity.getId());
+                        _auditoriumsRepository.Delete(entity[0]);
                         break;
                     case 3:
-                        _exhibitionsRepository.Delete(entity.getId());
+                        _exhibitionsRepository.Delete(entity[0]);
                         break;
                 }
 

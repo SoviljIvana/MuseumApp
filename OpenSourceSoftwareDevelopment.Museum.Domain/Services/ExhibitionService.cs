@@ -229,9 +229,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        async Task<List<IEntity>> testForDeletionAsync(int id)
+        async Task<List<int[]>> testForDeletionAsync(int id)
         {
-            List<IEntity> result = new List<IEntity>();
+            List<int[]> result = new List<int[]>();
             var tickets = await _ticketsRepository.GetAll();
 
             foreach (var ticket in tickets)
