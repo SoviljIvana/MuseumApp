@@ -24,6 +24,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         //ticket
         public const string TICKET_GET_ALL_ERROR = "Error occured while getting all tickets, please try again.";
         public const string TICKET_GET_ID_ERROR = "Error occured while getting ticket with id: ";
+        public const string TICKET_WITH_THIS_ID_ALREADY_EXISTS = "Ticket with this id already exists";
 
         //user
         public const string USERS_GET_ALL_ERROR = "Error occured while getting all users, please try again.";
@@ -38,6 +39,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         public const string EXHIBITION_IS_NOT_OVER = "The exhibition is not over yet";
         public const string A_TICKET_TO_THIS_EXHIBITION_WAS_PURCHASED = "A ticket to this exhibition was purchased";
         public const string EXHIBITION_WITH_THIS_ID_ALREADY_EXISTS = "Exhibition with this id already exists, please try something else..";
+
         //exhibit
         public const string EXHIBITS_GET_ALL_ERROR = "Error occured while getting all exhibits, please try again.";
         public const string EXHIBIT_GET_ID_ERROR = "Error occured while getting exhibit with id: ";
@@ -45,7 +47,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Common
         public const string EXHIBIT_DOES_NOT_EXIST = "Does not exist exhibit with this id. ";
         public const string AUDITORIUM_WITH_THIS_ID_DOES_NOT_EXIST = "Auditorium with this id does not exist";
         public const string EXHIBITION_WITH_THIS_ID_DOES_NOT_EXIST = "Exhibition with this id does not exist";
-
         public const string START_MUST_BE_IN_THE_FUTURE = "Start time of exhibition must be in the future and end time must be after start time";
         public const string EXHIBIT_WITH_THIS_ID_ALREADY_EXISTS = "Exhibit with this id already exists, please try something else..";
 
