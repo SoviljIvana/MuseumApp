@@ -7,7 +7,7 @@ using System.Text;
 namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     [Table("auditorium")]
-    public class AuditoriumEntity
+    public class AuditoriumEntity:IEntity
     {
         [Key]
         public int AuditoriumId { get; set; }
@@ -16,5 +16,15 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public int NumberOfSeats { get; set; }
         public virtual MuseumEntity Museum { get; set; }
         public virtual ICollection<ExhibitionEntity> Exhibitions { get; set; }
+
+        public int getId()
+        {
+            return AuditoriumId;
+        }
+
+        public int getType()
+        {
+            return 1;
+        }
     }
 }

@@ -12,6 +12,7 @@ class ShowAllMuseums extends Component{
             isLoading: true
         }
         this.museumDetails = this.museumDetails.bind(this);
+        this.removeMuseum = this.removeMuseum.bind(this);
     }
 
     componentDidMount(){
@@ -43,7 +44,33 @@ class ShowAllMuseums extends Component{
                   this.setState({ isLoading: false });
               });
         }
-
+        removeMuseum(id) {
+            const requestOptions = {
+              method: 'DELETE',
+              headers: {'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+          };
+      
+          fetch(`${serviceConfig.baseURL}/api/museums/delete/${id}`, requestOptions)
+              .then(response => {
+                  if (!response.ok) {
+                      return Promise.reject(response);
+                  }
+                  return response.statusText;
+              })
+              .then(result => {
+                  NotificationManager.success('Successfuly removed museum with ID: '+ id);
+                  const newState = this.state.museums.filter(museum => {
+                      return museum.id !== id;
+                  })
+                  this.setState({auditoriums: newState});
+              })
+              .catch(response => {
+                  NotificationManager.error("Unable to remove museum.");
+                  this.setState({ submitted: false });
+              });
+          }
+    
         fillTableWithDaata() {
             return this.state.museums.map(museum => {
                 return <tr key={museum.id}>
@@ -52,10 +79,10 @@ class ShowAllMuseums extends Component{
                     <td>{museum.streetAndNumber}</td>
                     <td>{museum.city}</td>
                     <td>{museum.email}</td>
-                    <td>{museum.phoneNubmer}</td>
+                    <td>{museum.phoneNumber}</td>
                     <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.museumDetails(museum.museumId)}>vidi detalje</Button></td> 
                     <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td> 
+               <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeMuseum(museum.museumId)}>obriši</Button> </td> 
                             </tr>
             })
         }

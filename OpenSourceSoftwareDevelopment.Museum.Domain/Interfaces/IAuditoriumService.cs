@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
+﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,8 +16,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
    
        Task<AuditoriumResultModel> CreateAuditorium(AuditoriumDomainModel createAuditorium);
 
-        Task<AuditoriumResultModel> DeleteAuditorium(int id);
+       Task<AuditoriumResultModel> DeleteAuditoriumAsync(int id);
  
        Task<AuditoriumResultModel> UpdateAuditorium();
+
+        Task<List<IEntity>> testForDeletionAsync(int id);
     }
 }

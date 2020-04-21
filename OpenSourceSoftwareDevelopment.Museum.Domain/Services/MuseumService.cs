@@ -1,4 +1,6 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
 using System;
@@ -11,20 +13,123 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
     public class MuseumService : IMuseumService
     {
         private readonly IMuseumsRepository _museumRepository;
+        private readonly IAuditoriumsRepository _auditoriumsRepository;
+        private readonly IExhibitionsRepository _exhibitionsRepository;
+        private readonly IAuditoriumService _auditoriumService;
 
-        public MuseumService(IMuseumsRepository museumRepository)
+        public MuseumService(IMuseumsRepository museumRepository, IAuditoriumsRepository auditoriumsRepository, IAuditoriumService auditoriumService, IExhibitionsRepository exhibitionsRepository)
         {
             _museumRepository = museumRepository;
+            _auditoriumsRepository = auditoriumsRepository;
+            _auditoriumService = auditoriumService;
+            _exhibitionsRepository = exhibitionsRepository;
         }
 
-        public Task<MuseumDomainModel> CreateMuseum(MuseumDomainModel museumModel)
+        public MuseumResaultModel CreateMuseum(MuseumDomainModel museumModel)
         {
-            throw new NotImplementedException();
+            MuseumEntity newMuseum = new MuseumEntity
+            {
+                MuseumId = museumModel.MuseumId,
+                StreetAndNumber = museumModel.StreetAndNumber,
+                City = museumModel.City,
+                Email = museumModel.Email,
+                Name = museumModel.Name,
+                PhoneNumber = museumModel.PhoneNumber
+            };
+            
+            var museum = _museumRepository.Insert(newMuseum);
+
+            if (museum == null)
+            {
+                return new MuseumResaultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.MUSEUM_WITH_THIS_ID_ALREADY_EXISTS,
+                    Museum = null
+                };
+            }
+
+            MuseumResaultModel result = new MuseumResaultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Museum = new MuseumDomainModel
+                {
+                    MuseumId = museum.MuseumId,
+                    StreetAndNumber = museum.StreetAndNumber,
+                    City = museum.City,
+                    Email = museum.Email,
+                    Name = museum.Name,
+                    PhoneNumber = museum.PhoneNumber
+                }
+            };
+            return result;
         }
 
-        public Task<MuseumDomainModel> DeleteMuseum(int id)
+        public async Task<MuseumResaultModel> DeleteMuseum(int id)
         {
-            throw new NotImplementedException();
+            var auditoriums = await _auditoriumsRepository.GetAll();
+            MuseumResaultModel result;
+            List<IEntity> entitiesToBeDeleted = new List<IEntity>();
+
+            foreach (var auditorium in auditoriums)
+            {
+                if (auditorium.MuseumId == id) 
+                {
+                    List<IEntity> entities = await _auditoriumService.testForDeletionAsync(auditorium.AuditoriumId);
+                    if (entities == null)
+                    {
+                        result = new MuseumResaultModel
+                        {
+                            Museum = null,
+                            IsSuccessful = false,
+                            ErrorMessage = Messages.MUSEUM_DELETE_ERROR
+                        };
+                        return result;
+                    }
+                    else
+                    {
+                        entitiesToBeDeleted.AddRange(entities);
+                        entitiesToBeDeleted.Add(auditorium);
+                    }
+                }
+            }
+
+            foreach (var entity in entitiesToBeDeleted)
+                switch (entity.getType())
+                {
+                    case 1:
+                        _auditoriumsRepository.Delete(entity.getId());
+                        break;
+                    case 3:
+                        _exhibitionsRepository.Delete(entity.getId());
+                        break;
+                }
+
+            var deletedMuseum = _museumRepository.Delete(id);
+            if (deletedMuseum == null)
+                return new MuseumResaultModel
+                {
+                    Museum = null,
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.MUSEUM_NOT_FOUND_ERROR
+                };
+
+            result = new MuseumResaultModel
+            {
+                Museum = new MuseumDomainModel
+                {
+                    MuseumId = deletedMuseum.MuseumId,
+                    StreetAndNumber = deletedMuseum.StreetAndNumber,
+                    City = deletedMuseum.City,
+                    Email = deletedMuseum.Email,
+                    Name = deletedMuseum.Name,
+                    PhoneNumber = deletedMuseum.PhoneNumber
+                },
+                IsSuccessful = true,
+                ErrorMessage = ""
+            };
+            return result;
         }
 
         public async Task<IEnumerable<MuseumDomainModel>> GetAllMuseums()

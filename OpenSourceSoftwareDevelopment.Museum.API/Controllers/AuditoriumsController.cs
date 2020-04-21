@@ -51,16 +51,38 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("delete/{id}")]
         [HttpDelete]
-        public Task<ActionResult> DeleteAuditorium(int id)
+        public async Task<ActionResult> DeleteAuditoriumAsync(int id)
         {
-            throw new NotImplementedException();
+            AuditoriumResultModel auditoriumResult = await _auditoriumService.DeleteAuditoriumAsync(id);
+            if (!auditoriumResult.IsSuccessful)
+            {
+                return BadRequest(auditoriumResult.ErrorMessage + id);
+            }
+
+            return Ok(auditoriumResult.Auditorium);
         }
       
         [Route("post/")]
         [HttpPost]
-        public Task<ActionResult<AuditoriumDomainModel>> PostAuditorium(CreateAuditoriumModel createAuditorium)
+        public async Task<ActionResult<AuditoriumDomainModel>> PostAuditorium(CreateAuditoriumModel createAuditorium)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            AuditoriumDomainModel auditoriumDomainModel = new AuditoriumDomainModel
+            {
+                AuditoriumId = createAuditorium.AuditoriumId,
+                NameOfAuditorium = createAuditorium.NameOfAuditorium,
+                MuseumId = createAuditorium.MuseumId,
+                NumberOfSeats = createAuditorium.NumberOfSeats
+
+            };
+
+            var create = await _auditoriumService.CreateAuditorium(auditoriumDomainModel);
+
+            return Ok(create);
         }
 
         [Route("{id}")]
@@ -69,35 +91,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         {
             throw new NotImplementedException();
         }
-
-
-        //[HttpGet]
-        //public string Get()
-        //{
-        //    return "Auditoriums";
-        //}
-
-        //[Route("{name}")]
-        //[HttpDelete]
-        //public List<string> GetListOfStrings(String name)
-        //{
-        //    List<string> listOfStrings1 = new List<string>();
-        //    List<string> listOfStrings2 = new List<string>();
-
-        //    listOfStrings1.Add("Ivana");
-        //    listOfStrings1.Add("Marija");
-        //    listOfStrings1.Add("Tamara");
-
-        //    listOfStrings2.Add("Can't find name!");
-        //    for (int i = 0; i < listOfStrings1.Count; i++) {
-        //        if (name == listOfStrings1[i])
-        //        {
-        //            return listOfStrings1;
-        //      }
-
-        //    }
-        //    return listOfStrings2;
-        //}
 
     }
 }

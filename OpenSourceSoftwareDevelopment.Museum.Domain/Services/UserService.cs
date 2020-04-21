@@ -53,7 +53,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     FirstName = item.FirstName,
                     LastName = item.LastName,
                     Password = item.Password,
-                    YearOfBirth = item.YearOfBirth
+                    YearOfBirth = item.YearOfBirth,
+                    Email = item.Email
                 };
 
                 list.Add(userDomainModel);
@@ -78,7 +79,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 Password = data.Password,
                 FirstName = data.FirstName,
                 LastName = data.LastName,
-                YearOfBirth = data.YearOfBirth
+                YearOfBirth = data.YearOfBirth,
+                Email = data.Email,
             };
             return result;
         }

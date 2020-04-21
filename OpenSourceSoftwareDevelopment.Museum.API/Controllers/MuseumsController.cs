@@ -52,18 +52,42 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             return Ok(museumDomainModel);
         }
 
+
         [Route("delete/{id}")]
         [HttpDelete]
-        public Task<ActionResult> DeleteMuseum(int id)
+        public async Task<ActionResult> DeleteMuseum(int id)
         {
-            throw new NotImplementedException();
+            MuseumResaultModel museumResault = await _museumService.DeleteMuseum(id);
+            if (!museumResault.IsSuccessful)
+            {
+                return BadRequest(museumResault.ErrorMessage + id);
+            }
+
+            return Ok(museumResault.Museum);
         }
 
         [Route("post/")]
         [HttpPost]
-        public Task<ActionResult<MuseumDomainModel>> PostMuseum(CreateMuseumModel createMuseum)
+        public ActionResult<MuseumDomainModel> PostMuseum(CreateMuseumModel createMuseum)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            MuseumDomainModel museumDomainModel = new MuseumDomainModel
+            {
+                MuseumId = createMuseum.MuseumId,
+                StreetAndNumber = createMuseum.StreetAndNumber,
+                City = createMuseum.City,
+                Email = createMuseum.Email,
+                Name = createMuseum.Name,
+                PhoneNumber = createMuseum.PhoneNumber
+            };
+
+            var create = _museumService.CreateMuseum(museumDomainModel);
+
+            return Ok(create);
         }
 
         [Route("{id}")]

@@ -22,6 +22,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         }
         public UserEntity Delete(object id)
         {
+          
             UserEntity entity = _museumContext.Users.Find(id);
             var result = _museumContext.Users.Remove(entity);
             return result.Entity;
@@ -51,7 +52,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public UserEntity Update(UserEntity obj)
         {
-            throw new NotImplementedException();
+            var updatedEntry = _museumContext.Users.Attach(obj).Entity;
+            _museumContext.Entry(obj).State = EntityState.Modified;
+
+            return updatedEntry;
         }
     }
 }

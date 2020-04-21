@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
@@ -52,16 +53,44 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("delete/{id}")]
         [HttpDelete]
-        public Task<ActionResult> DeleteExhibit(int id)
+        public async Task<ActionResult<ExhibitResultModel>> DeleteExhibit(int id)
         {
-            throw new NotImplementedException();
+            ExhibitResultModel exhibitResult = await _exhibitService.DeleteExhibit(id);
+            if (!exhibitResult.IsSuccessful)
+            {
+                return BadRequest(exhibitResult.ErrorMessage + id);
+            }
+
+            return Ok(exhibitResult.Exhibit);
+
         }
 
         [Route("post/")]
         [HttpPost]
-        public Task<ActionResult<ExhibitDomainModel>> PostExhibition(CreateExhibitModel createExhibit)
+        public async Task<ActionResult> PostExhibit([FromBody]CreateExhibitModel createExhibit)
         {
-            throw new NotImplementedException();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ExhibitDomainModel exhibitDomain = new ExhibitDomainModel
+            {
+                ExhibitId = createExhibit.ExhibitId,
+                ExhibitionId = createExhibit.ExhibitionId,
+                Name = createExhibit.Name,
+                Year = createExhibit.Year,
+                PicturePath = createExhibit.PicturePath,
+                AuditoriumId = createExhibit.AuditoriumId             
+ 
+            };
+
+           var create = await _exhibitService.CreateExhibit(exhibitDomain);
+
+            return Ok(create);
+
+
         }
 
         [Route("{id}")]

@@ -11,7 +11,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
     public interface IAuditoriumsRepository : IRepository<AuditoriumEntity>
     {
-
+        
     }
     public class AuditoriumsRepository : IAuditoriumsRepository
     {
@@ -25,7 +25,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         public AuditoriumEntity Delete(object id)
         {
             AuditoriumEntity entity = _museumContext.Auditoriums.Find(id);
+            if (entity == null) return null;
             var result = _museumContext.Auditoriums.Remove(entity);
+            _museumContext.SaveChanges();
             return result.Entity;
 
         }
@@ -44,7 +46,17 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public AuditoriumEntity Insert(AuditoriumEntity obj)
         {
-            throw new NotImplementedException();
+            foreach (var item in _museumContext.Auditoriums)
+            {
+                if (obj.AuditoriumId == item.AuditoriumId)
+                {
+                    return null;
+                };
+            }
+
+            var data = _museumContext.Auditoriums.Add(obj).Entity;
+            _museumContext.SaveChanges();
+            return data;
         }
 
         public void Save()

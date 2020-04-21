@@ -12,5 +12,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public DateTime YearOfBirth { get; set; }
+        public string Email { get; set; }
     }
 }

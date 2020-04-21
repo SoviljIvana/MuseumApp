@@ -24,14 +24,14 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         /// </summary>
         /// <returns></returns>
 
-        Task<MuseumDomainModel> CreateMuseum(MuseumDomainModel museumModel);
+        MuseumResaultModel CreateMuseum(MuseumDomainModel museumModel);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<MuseumDomainModel> DeleteMuseum(int id);
+        Task<MuseumResaultModel> DeleteMuseum(int id);
         /// <summary>
         /// 
         /// </summary>

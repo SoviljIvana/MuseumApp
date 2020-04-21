@@ -19,16 +19,23 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         {
             _museumContext = museumContext;
         }
-        public ExhibitEntity Delete(object id)
+        public  ExhibitEntity Delete(object id)
         {
-            ExhibitEntity entity = _museumContext.Exhibits.Find(id);
+
+            ExhibitEntity entity =  _museumContext.Exhibits.Find(id);
+            if (entity == null) return null;
             var result = _museumContext.Exhibits.Remove(entity);
+            _museumContext.SaveChanges();
             return result.Entity;
         }
 
         public async Task<IEnumerable<ExhibitEntity>> GetAll()
         {
             var data = await _museumContext.Exhibits.ToListAsync();
+            if(data.Count == 0)
+            {
+                return null;
+            }
             return data;
         }
 
@@ -40,12 +47,24 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public ExhibitEntity Insert(ExhibitEntity obj)
         {
-            throw new NotImplementedException();
+            foreach (var item in _museumContext.Exhibits)
+            {
+                if (obj.ExhibitId == item.ExhibitId)
+                {
+                    return null;
+                };
+            }
+
+            var data = _museumContext.Exhibits.Add(obj).Entity;
+            _museumContext.SaveChanges();
+            return data;
         }
+      
+
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _museumContext.SaveChanges();
         }
 
         public ExhibitEntity Update(ExhibitEntity obj)

@@ -1,4 +1,6 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
 using System;
@@ -8,23 +10,173 @@ using System.Threading.Tasks;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
 {
-   public  class ExhibitionService : IExhibitionService
+    public class ExhibitionService : IExhibitionService
     {
         private readonly IExhibitionsRepository _exhibitionRepository;
-
-        public ExhibitionService(IExhibitionsRepository exhibitionRepository)
+        private readonly ITicketsRepository _ticketsRepository;
+        private readonly IAuditoriumsRepository _auditoriumRepository;
+        public ExhibitionService(IExhibitionsRepository exhibitionRepository, ITicketsRepository ticketsRepository, IAuditoriumsRepository auditoriumsRepository)
         {
             _exhibitionRepository = exhibitionRepository;
+            _ticketsRepository = ticketsRepository;
+            _auditoriumRepository = auditoriumsRepository;
         }
 
-        public Task<ExhibitionResultModel> CreateExhibition(ExhibitionDomainModel exhibitionModel)
+        public async Task<ExhibitionResultModel> CreateExhibition(ExhibitionDomainModel exhibitionModel)
         {
-            throw new NotImplementedException();
+            ExhibitionEntity newExhibition = new ExhibitionEntity
+            {
+                ExhibitionId = exhibitionModel.ExhibitionId,
+                ExhibitionName = exhibitionModel.ExhibitionName,
+                AuditoriumId = exhibitionModel.AuditoriumId,
+                TypeOfExhibition = exhibitionModel.TypeOfExhibition,
+                StartTime = exhibitionModel.StartTime,
+                EndTime = exhibitionModel.EndTime
+         
+            };
+            bool auditorium = false;
+            var listOfAuditoriums = await _auditoriumRepository.GetAll();
+            foreach (var item in listOfAuditoriums)
+            {
+                if(item.AuditoriumId == exhibitionModel.AuditoriumId)
+                {
+                    auditorium = true;
+                };
+            }
+            if(auditorium == false)
+            {
+                return new ExhibitionResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.AUDITORIUM_WITH_THIS_ID_DOES_NOT_EXIST,
+                    Exhibition = null
+                };
+
+            }
+            if (exhibitionModel.StartTime < DateTime.Now || exhibitionModel.EndTime < DateTime.Now || exhibitionModel.EndTime < exhibitionModel.StartTime)
+            {
+                return new ExhibitionResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.START_MUST_BE_IN_THE_FUTURE,
+                    Exhibition = null
+                };
+
+            }
+            var exhibition =  _exhibitionRepository.Insert(newExhibition);
+
+            if(exhibition == null)
+            {
+                return new ExhibitionResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.EXHIBITION_WITH_THIS_ID_ALREADY_EXISTS,
+                    Exhibition = null
+            };
+            }
+
+            ExhibitionResultModel result = new ExhibitionResultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Exhibition = new ExhibitionDomainModel
+                {
+                    ExhibitionId = exhibition.ExhibitionId,
+                    ExhibitionName = exhibition.ExhibitionName,
+                    AuditoriumId = exhibition.AuditoriumId,
+                    TypeOfExhibition = exhibition.TypeOfExhibition,
+                    StartTime = exhibition.StartTime,
+                    EndTime = exhibition.EndTime
+                }
+            };
+
+            return result;
         }
 
-        public Task<ExhibitionResultModel> DeleteExhibition(int id)
+        public async Task<ExhibitionResultModel> DeleteExhibition(int id)
         {
-            throw new NotImplementedException();
+            var listOfExhibitions = await _exhibitionRepository.GetAll();
+
+            if (listOfExhibitions == null)
+            {
+                return new ExhibitionResultModel
+                {
+                    ErrorMessage = Messages.EXHIBITIONS_LIST_IS_EMPTY,
+                    IsSuccessful = false,
+                    Exhibition = null
+                };
+            }
+            else
+            {
+                var listOfTickets = await _ticketsRepository.GetAll();
+
+                foreach(var ticket in listOfTickets) { 
+                    if(ticket.ExhibitionId == id)
+                    {
+                        return new ExhibitionResultModel
+                        {
+                            ErrorMessage = Messages.A_TICKET_TO_THIS_EXHIBITION_WAS_PURCHASED,
+                            IsSuccessful = false,
+                            Exhibition = null
+
+                        };
+                    }
+                }
+
+                var existing =  await _exhibitionRepository.GetByIdAsync(id);
+
+                if (existing == null)
+                {
+                    return new ExhibitionResultModel
+                    {
+                        ErrorMessage = Messages.EXHIBITION_DOES_NOT_EXIST,
+                        IsSuccessful = false,
+                        Exhibition = null
+
+                    };
+                }
+
+                //exhibition in the future
+                if (existing.StartTime > DateTime.Now)
+                {
+                    return new ExhibitionResultModel
+                    {
+                        ErrorMessage = Messages.EXHIBITION_IN_THE_FUTURE,
+                        IsSuccessful = false,
+                        Exhibition = null
+
+                    };
+                }
+
+                //The exhibition began but wasn't finished
+                if ((existing.EndTime == DateTime.Now) || (existing.EndTime > DateTime.Now))
+                {
+                    return new ExhibitionResultModel
+                    {
+                        ErrorMessage = Messages.EXHIBITION_IS_NOT_OVER,
+                        IsSuccessful = false,
+                        Exhibition = null
+
+                    };
+                }
+              var deletedExhibition =  _exhibitionRepository.Delete(id);
+                ExhibitionResultModel result = new ExhibitionResultModel
+                {
+                    ErrorMessage = null,
+                    IsSuccessful = true,
+                    Exhibition = new ExhibitionDomainModel
+                    {
+                        ExhibitionId = deletedExhibition.ExhibitionId,
+                        ExhibitionName = deletedExhibition.ExhibitionName,
+                        AuditoriumId = deletedExhibition.AuditoriumId,
+                        TypeOfExhibition = deletedExhibition.TypeOfExhibition,
+                        StartTime = deletedExhibition.StartTime,
+                        EndTime = deletedExhibition.EndTime
+
+                    }
+                };
+                return result;
+            }
         }
 
         public async Task<IEnumerable<ExhibitionDomainModel>> GetAllExhibitions()
@@ -75,6 +227,21 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         public Task<ExhibitionResultModel> UpdateExhibition()
         {
             throw new NotImplementedException();
+        }
+
+        async Task<List<IEntity>> testForDeletionAsync(int id)
+        {
+            List<IEntity> result = new List<IEntity>();
+            var tickets = await _ticketsRepository.GetAll();
+
+            foreach (var ticket in tickets)
+            {
+                if (ticket.ExhibitionId == id)
+                {
+                    return null;
+                }
+            }
+            return result;
         }
     }
 }

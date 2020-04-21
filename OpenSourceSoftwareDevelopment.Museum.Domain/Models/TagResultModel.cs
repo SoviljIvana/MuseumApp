@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Domain.Models
 {
-    public class TagResaultModel
+    public class TagResultModel
     {
         public TagDomainModel Tag { get; set; }
 

@@ -51,16 +51,41 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("delete/{id}")]
         [HttpDelete]
-        public Task<ActionResult> DeleteExhibition(int id)
+        public async Task<ActionResult> DeleteExhibition(int id)
         {
-            throw new NotImplementedException();
+            ExhibitionResultModel exhibitionResult = await _exhibitionService.DeleteExhibition(id);
+            if (!exhibitionResult.IsSuccessful)
+            {
+                return BadRequest(exhibitionResult.ErrorMessage + id);
+            }
+
+            return Ok(exhibitionResult.Exhibition);
         }
 
         [Route("post/")]
         [HttpPost]
-        public Task<ActionResult<ExhibitionDomainModel>> PostExhibition(CreateExhibitionModel createExhibition)
+        public async Task<ActionResult> PostExhibition([FromBody]CreateExhibitionModel createExhibition)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ExhibitionDomainModel exhibitionDomainModel = new ExhibitionDomainModel
+            {
+                ExhibitionId = createExhibition.ExhibitionId,
+                ExhibitionName = createExhibition.ExhibitionName,
+                AuditoriumId = createExhibition.AuditoriumId,
+                TypeOfExhibition = createExhibition.TypeOfExhibition,
+                StartTime = createExhibition.StartTime,
+                EndTime = createExhibition.EndTime
+             
+            };
+
+            var create = await _exhibitionService.CreateExhibition(exhibitionDomainModel);
+
+            return Ok(create);
+
         }
 
         [Route("{id}")]
