@@ -8,7 +8,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
 {
     [Table("exhibit")]
 
-    public class ExhibitEntity:IEntity
+    public class ExhibitEntity
     {
         [Key]
         public int ExhibitId { get; set; }
@@ -20,14 +20,5 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public virtual ExhibitionEntity Exhibition { get; set; }
         public virtual ICollection<ExhibitTagEntity> ExhibitTags { get; set; }
 
-        public int getId()
-        {
-            return ExhibitId;
-        }
-
-        public int getType()
-        {
-            return 2;
-        }
     }
 }
