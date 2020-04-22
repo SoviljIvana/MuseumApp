@@ -22,7 +22,7 @@ import TicketDetails from './TicketActions/TicketDetails';
 import UserDetails from './UserActions/UserDetails';
 import EditUser from './UserActions/EditUser'
 import EditAuditorium from './AuditoriumActions/EditAuditorium'
-
+import EditExhibition from './ExhibitionActions/EditExhibition'
 
 class Dashboard extends Component {
     render() {
@@ -92,7 +92,7 @@ class Dashboard extends Component {
                        <Route path="/dashboard/UserDetails/:id" component={UserDetails} />
                        <Route path="/dashboard/EditUser/:id" component={EditUser} />
                        <Route path="/dashboard/EditAuditorium/:id" component={EditAuditorium} />
-
+                       <Route path="/dashboard/EditExhibition/:id" component={EditExhibition} />
                        </Switch>
                 </Col>
                 </Table>

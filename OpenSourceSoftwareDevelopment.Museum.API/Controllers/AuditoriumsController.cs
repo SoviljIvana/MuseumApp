@@ -101,7 +101,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (auditoriumUpdate == null)
             {
-                return NotFound(Messages.USER_DOES_NOT_EXIST);
+                return NotFound(Messages.AUDITORIUM_DOES_NOT_EXIST);
             }
 
             auditoriumUpdate.NameOfAuditorium = updateAuditorium.NameOfAuditorium;

@@ -92,9 +92,40 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         [Route("{id}")]
         [HttpPut]
-        public Task<ActionResult> PutExhibition(int id, [FromBody]UpdateExhibitionModel updateExhibition)
+        public async Task<ActionResult> PutExhibition(int id, [FromBody]UpdateExhibitionModel updateExhibition)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var exhibitionUpdate = await _exhibitionService.GetExhibitionByIdAsync(id);
+
+
+            if (exhibitionUpdate == null)
+            {
+                return NotFound(Messages.EXHIBITION_DOES_NOT_EXIST);
+            }
+
+ 
+            if (updateExhibition.StartTime < DateTime.Now || updateExhibition.EndTime < DateTime.Now || updateExhibition.EndTime < updateExhibition.StartTime)
+            {
+                return BadRequest(Messages.EXHIBITION_IN_THE_FUTURE);
+
+            }
+            else
+            {
+                exhibitionUpdate.ExhibitionName = updateExhibition.ExhibitionName;
+                exhibitionUpdate.TypeOfExhibition = updateExhibition.TypeOfExhibition;
+                exhibitionUpdate.StartTime = updateExhibition.StartTime;
+                exhibitionUpdate.EndTime = updateExhibition.EndTime;
+            }
+
+            var update = await _exhibitionService.UpdateExhibition(exhibitionUpdate);
+
+            if (!update.IsSuccessful) return BadRequest(update);
+
+            return Ok(update);
         }
 
 

@@ -224,9 +224,53 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        public Task<ExhibitionResultModel> UpdateExhibition()
+        public async Task<ExhibitionResultModel> UpdateExhibition(ExhibitionDomainModel updateExhibition)
         {
-            throw new NotImplementedException();
+            var data = await _exhibitionRepository.GetByIdAsync(updateExhibition.ExhibitionId);
+
+            ExhibitionEntity exhibition = new ExhibitionEntity
+            {
+                ExhibitionId = updateExhibition.ExhibitionId,
+                AuditoriumId = updateExhibition.AuditoriumId,
+                ExhibitionName = updateExhibition.ExhibitionName,
+                TypeOfExhibition = updateExhibition.TypeOfExhibition,
+                StartTime = updateExhibition.StartTime,
+                EndTime = updateExhibition.EndTime
+            };
+
+
+            var exhibitionUpdate = _exhibitionRepository.Update(exhibition);
+
+            if (exhibitionUpdate == null)
+            {
+                return new ExhibitionResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.EXHIBITION_UPDATE_ERROR,
+                    Exhibition = null
+                };
+            }
+
+            _exhibitionRepository.Save();
+
+
+            ExhibitionResultModel result = new ExhibitionResultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Exhibition = new ExhibitionDomainModel
+                {
+                    ExhibitionId = exhibitionUpdate.ExhibitionId,
+                    AuditoriumId = exhibitionUpdate.AuditoriumId,
+                    ExhibitionName = exhibitionUpdate.ExhibitionName,
+                    TypeOfExhibition = exhibitionUpdate.TypeOfExhibition,
+                    StartTime = exhibitionUpdate.StartTime,
+                    EndTime = exhibitionUpdate.EndTime,
+
+                }
+            };
+            return result;
+
         }
 
         async Task<List<int[]>> testForDeletionAsync(int id)
