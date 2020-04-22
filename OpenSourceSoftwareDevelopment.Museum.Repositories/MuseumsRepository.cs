@@ -62,9 +62,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             throw new NotImplementedException();
         }
 
-        public Data.Entities.MuseumEntity Update(Data.Entities.MuseumEntity obj)
+        public MuseumEntity Update(MuseumEntity obj)
         {
-            throw new NotImplementedException();
+            var updatedEntry = _museumContext.Museums.Attach(obj).Entity;
+            _museumContext.Entry(obj).State = EntityState.Modified;
+            return updatedEntry;
         }
     }
 }
