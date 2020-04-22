@@ -87,14 +87,38 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             var create = _museumService.CreateMuseum(museumDomainModel);
 
+            if (!create.IsSuccessful) return BadRequest(create);
+
             return Ok(create);
         }
 
         [Route("{id}")]
         [HttpPut]
-        public Task<ActionResult> PutMuseum(int id, [FromBody]UpdateMuseumModel updateMuseum)
+        public async Task<ActionResult> PutMuseum(int id, [FromBody]UpdateMuseumModel updateMuseum)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var museumUpdate = await _museumService.GetMuseumByIdAsync(id);
+
+
+            if (museumUpdate == null)
+            {
+                return NotFound(Messages.USER_DOES_NOT_EXIST);
+            }
+
+            museumUpdate.City = updateMuseum.City;
+            museumUpdate.StreetAndNumber = updateMuseum.StreetAndNumber;
+            museumUpdate.Email = updateMuseum.Email;
+            museumUpdate.Name = updateMuseum.Name;
+            museumUpdate.PhoneNumber = updateMuseum.PhoneNumber;
+
+            var update = await _museumService.UpdateMuseum(museumUpdate);
+            if (!update.IsSuccessful) return BadRequest(update);
+
+            return Ok(update);
         }
     }
 }

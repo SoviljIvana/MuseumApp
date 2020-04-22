@@ -70,13 +70,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         {
             var auditoriums = await _auditoriumsRepository.GetAll();
             MuseumResaultModel result;
-            List<IEntity> entitiesToBeDeleted = new List<IEntity>();
+            List<int[]> entitiesToBeDeleted = new List<int[]>();
 
             foreach (var auditorium in auditoriums)
             {
                 if (auditorium.MuseumId == id) 
                 {
-                    List<IEntity> entities = await _auditoriumService.testForDeletionAsync(auditorium.AuditoriumId);
+                    List<int[]> entities = await _auditoriumService.testForDeletionAsync(auditorium.AuditoriumId);
                     if (entities == null)
                     {
                         result = new MuseumResaultModel
@@ -90,19 +90,23 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     else
                     {
                         entitiesToBeDeleted.AddRange(entities);
-                        entitiesToBeDeleted.Add(auditorium);
+                        entitiesToBeDeleted.Add(new int[] 
+                        {
+                            auditorium.AuditoriumId,
+                            1
+                        });
                     }
                 }
             }
 
             foreach (var entity in entitiesToBeDeleted)
-                switch (entity.getType())
+                switch (entity[1])
                 {
                     case 1:
-                        _auditoriumsRepository.Delete(entity.getId());
+                        _auditoriumsRepository.Delete(entity[0]);
                         break;
                     case 3:
-                        _exhibitionsRepository.Delete(entity.getId());
+                        _exhibitionsRepository.Delete(entity[0]);
                         break;
                 }
 
@@ -178,9 +182,51 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        public Task<MuseumDomainModel> UpdateMuseum()
+        public async Task<MuseumResaultModel> UpdateMuseum(MuseumDomainModel update)
         {
-            throw new NotImplementedException();
+            var data = await _museumRepository.GetByIdAsync(update.MuseumId);
+
+            MuseumEntity museum = new MuseumEntity
+            {
+                MuseumId = update.MuseumId,
+                StreetAndNumber = update.StreetAndNumber,
+                City = update.City,
+                Email = update.Email,
+                Name = update.Name,
+                PhoneNumber = update.PhoneNumber
+            };
+
+
+            var updateMuseum = _museumRepository.Update(museum);
+
+            if (updateMuseum == null)
+            {
+                return new MuseumResaultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.USER_UPDATE_ERROR,
+                    Museum = null
+                };
+            }
+
+            _museumRepository.Save();
+
+
+            MuseumResaultModel result = new MuseumResaultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Museum = new MuseumDomainModel
+                {
+                    MuseumId = updateMuseum.MuseumId,
+                    StreetAndNumber = updateMuseum.StreetAndNumber,
+                    City = updateMuseum.City,
+                    Email = updateMuseum.Email,
+                    Name = updateMuseum.Name,
+                    PhoneNumber = updateMuseum.PhoneNumber
+                }
+            };
+            return result;
         }
     }
 }

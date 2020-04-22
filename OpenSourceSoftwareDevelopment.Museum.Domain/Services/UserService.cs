@@ -1,4 +1,6 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
+﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
+using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
 using System;
@@ -85,9 +87,53 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        public Task<UserDomainModel> UpdateUser()
+        public async Task<UserResultModel> UpdateUser(UserDomainModel update)
         {
-            throw new NotImplementedException();
+            var data = await _userRepository.GetByIdAsync(update.UserId);
+
+            UserEntity user = new UserEntity
+            {
+                UserId = update.UserId,
+                FirstName = update.FirstName,
+                LastName = update.LastName,
+                Username = update.Username,
+                Password = update.Password,
+                Email = update.Email,
+                YearOfBirth = update.YearOfBirth
+            };
+
+
+            var updateUser = _userRepository.Update(user);
+
+            if (updateUser == null)
+            {
+                return new UserResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.USER_UPDATE_ERROR,
+                    User = null
+                };
+             }
+
+            _userRepository.Save();
+
+
+            UserResultModel result = new UserResultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                User = new UserDomainModel
+                {
+                    UserId = updateUser.UserId,
+                    FirstName = updateUser.FirstName,
+                    LastName = updateUser.LastName,
+                    Username = updateUser.Username,
+                    Password = updateUser.Password,
+                    Email = updateUser.Email,
+                    YearOfBirth = updateUser.YearOfBirth
+                }
+            };
+            return result;
         }
 
         Task<UserResultModel> IUserService.DeleteUser(int id)
@@ -95,9 +141,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        Task<UserResultModel> IUserService.UpdateUser()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

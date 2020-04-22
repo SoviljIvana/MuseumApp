@@ -36,6 +36,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         /// 
         /// </summary>
         /// <returns></returns>
-        Task<MuseumDomainModel> UpdateMuseum();
+        Task<MuseumResaultModel> UpdateMuseum(MuseumDomainModel update);
     }
 }

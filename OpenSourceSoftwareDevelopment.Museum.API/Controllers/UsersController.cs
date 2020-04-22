@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
@@ -61,11 +62,34 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             throw new NotImplementedException();
         }
 
-        [Route("{id}")]
+        [Route("put/{id}")]
         [HttpPut]
-        public Task<ActionResult> PutUser(int id, [FromBody]UpdateUserModel updateUser)
+        public async Task<ActionResult> PutUser(int id, [FromBody]UpdateUserModel updateUser)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userUpdate = await _userService.GetUserByIdAsync(id);
+
+
+            if(userUpdate == null)
+            {
+               return NotFound(Messages.USER_DOES_NOT_EXIST);              
+            }
+
+            userUpdate.FirstName = updateUser.FirstName;
+            userUpdate.LastName = updateUser.LastName;
+            userUpdate.Email = updateUser.Email;
+            userUpdate.YearOfBirth = updateUser.YearOfBirth;
+
+            var update = await  _userService.UpdateUser(userUpdate);
+
+            if (!update.IsSuccessful) return BadRequest(update);
+
+            return Ok(update); 
+
         }
     }
 }

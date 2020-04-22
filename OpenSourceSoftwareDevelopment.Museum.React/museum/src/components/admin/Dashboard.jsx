@@ -13,9 +13,6 @@ import AddMuseum from './MuseumActions/AddMuseum';
 import AddAuditorium from './AuditoriumActions/AddAuditorium';
 import AddExhibition from './ExhibitionActions/AddExhibition';
 import AddExhibit from './ExhibitActions/AddExhibit'
-import AddTag from './TagActions/AddTag'
-import AddTicket from './TicketActions/AddTicket'
-import AddUser from './UserActions/AddUser'
 import AuditoriumDetails from './AuditoriumActions/AuditoriumDetails';
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
 import MuseumDetails from './MuseumActions/MuseumDetails';
@@ -44,7 +41,6 @@ class Dashboard extends Component {
                 <NavDropdown title="Izložba" id="basic-nav-dropdown">
                     <NavLink activeClassName="active-link" to='/dashboard/ShowAllExhibitions'><h6>Lista izložba</h6></NavLink>
                     <NavLink activeClassName="active-link" to='/dashboard/AddExhibition'><h6>Dodaj izlozbu</h6></NavLink>
-
                 </NavDropdown>
             
                 <NavDropdown title="Eksponati" id="basic-nav-dropdown">
@@ -84,9 +80,6 @@ class Dashboard extends Component {
                         <Route path="/dashboard/AddAuditorium" component={AddAuditorium} />
                         <Route path="/dashboard/AddExhibition" component={AddExhibition} />
                         <Route path="/dashboard/AddExhibit" component={AddExhibit} />
-                        <Route path="/dashboard/AddTag" component={AddTag} />
-                        <Route path="/dashboard/AddTicket" component={AddTicket} />
-                        <Route path="/dashboard/AddUser" component={AddUser} />
                         <Route path="/dashboard/AuditoriumDetails/:id" component={AuditoriumDetails} />
                         <Route path="/dashboard/ExhibitionDetails/:id" component={ExhibitionDetails} />
                         <Route path="/dashboard/MuseumDetails/:id" component={MuseumDetails} />

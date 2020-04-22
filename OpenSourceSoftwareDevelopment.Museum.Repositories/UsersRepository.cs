@@ -31,6 +31,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         public async Task<IEnumerable<UserEntity>> GetAll()
         {
             var data = await _museumContext.Users.ToListAsync();
+            if (data.Count == 0)
+            {
+                return null;
+            }
             return data;
         }
 
@@ -47,14 +51,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _museumContext.SaveChanges();
         }
 
         public UserEntity Update(UserEntity obj)
         {
             var updatedEntry = _museumContext.Users.Attach(obj).Entity;
             _museumContext.Entry(obj).State = EntityState.Modified;
-
             return updatedEntry;
         }
     }

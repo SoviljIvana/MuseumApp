@@ -18,7 +18,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
 
         Task<UserResultModel> DeleteUser(int id);
 
-        Task<UserResultModel> UpdateUser();
+        Task<UserResultModel> UpdateUser(UserDomainModel userDomainModel);
 
     }
 }

@@ -51,7 +51,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     ErrorMessage = Messages.MUSEUM_DOES_NOT_EXIST,
                     Auditorium = null
                 };
-
             }
             
             var auditorium = _auditoriumRepository.Insert(newAuditorium);
@@ -128,7 +127,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         {
             var exhibitions = await _exhibitionsRepository.GetAll();
             AuditoriumResultModel result;
-            List<IEntity> entitiesToBeDeleted = new List<IEntity>();
+            List<int[]> entitiesToBeDeleted = new List<int[]>();
 
             //&& exhibition.StartTime > DateTime.Now ) || (exhibition.AuditoriumId == id && exhibition.EndTime > DateTime.Now)
             var entities = await testForDeletionAsync(id);
@@ -145,10 +144,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
 
             foreach (var entity in entitiesToBeDeleted)
             {
-                switch (entity.getType())
+                switch (entity[1])
                 {
                     case 3:
-                        _exhibitionsRepository.Delete(entity.getId());
+                        _exhibitionsRepository.Delete(entity[0]);
                         break;
                 }
             }
@@ -181,9 +180,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<IEntity>> testForDeletionAsync(int id) 
+        public async Task<List<int[]>> testForDeletionAsync(int id) 
         {
-            List<IEntity> result = new List<IEntity>();
+            List<int[]> result = new List<int[]>();
             var exhibitions = await _exhibitionsRepository.GetAll();
 
             foreach (var exhibition in exhibitions) 
@@ -191,7 +190,11 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 if (exhibition.AuditoriumId == id)
                 {
                     if (exhibition.EndTime > DateTime.Now) return null;
-                    else result.Add(exhibition);
+                    else result.Add(new int[] 
+                    {
+                        exhibition.ExhibitionId,
+                        3
+                    });
                 }
             }
             return result;
