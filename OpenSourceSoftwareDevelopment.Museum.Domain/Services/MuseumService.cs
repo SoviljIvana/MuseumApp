@@ -182,9 +182,51 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        public Task<MuseumDomainModel> UpdateMuseum()
+        public async Task<MuseumResaultModel> UpdateMuseum(MuseumDomainModel update)
         {
-            throw new NotImplementedException();
+            var data = await _museumRepository.GetByIdAsync(update.MuseumId);
+
+            MuseumEntity museum = new MuseumEntity
+            {
+                MuseumId = update.MuseumId,
+                StreetAndNumber = update.StreetAndNumber,
+                City = update.City,
+                Email = update.Email,
+                Name = update.Name,
+                PhoneNumber = update.PhoneNumber
+            };
+
+
+            var updateMuseum = _museumRepository.Update(museum);
+
+            if (updateMuseum == null)
+            {
+                return new MuseumResaultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.USER_UPDATE_ERROR,
+                    Museum = null
+                };
+            }
+
+            _museumRepository.Save();
+
+
+            MuseumResaultModel result = new MuseumResaultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Museum = new MuseumDomainModel
+                {
+                    MuseumId = updateMuseum.MuseumId,
+                    StreetAndNumber = updateMuseum.StreetAndNumber,
+                    City = updateMuseum.City,
+                    Email = updateMuseum.Email,
+                    Name = updateMuseum.Name,
+                    PhoneNumber = updateMuseum.PhoneNumber
+                }
+            };
+            return result;
         }
     }
 }
