@@ -87,11 +87,31 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             return Ok(create);
         }
 
-        [Route("{id}")]
+        [Route("put/{id}")]
         [HttpPut]
-        public Task<ActionResult> PutAuditorium(int id, [FromBody]UpdateAuditoriumModel updateAuditorium )
+        public async Task<ActionResult> PutAuditorium(int id, [FromBody]UpdateAuditoriumModel updateAuditorium )
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var auditoriumUpdate = await _auditoriumService.GetAuditoriumByIdAsync(id);
+
+
+            if (auditoriumUpdate == null)
+            {
+                return NotFound(Messages.AUDITORIUM_DOES_NOT_EXIST);
+            }
+
+            auditoriumUpdate.NameOfAuditorium = updateAuditorium.NameOfAuditorium;
+            auditoriumUpdate.NumberOfSeats = updateAuditorium.NumberOfSeats;
+
+            var update = await _auditoriumService.UpdateAuditorium(auditoriumUpdate);
+
+            if (!update.IsSuccessful) return BadRequest(update);
+
+            return Ok(update);
         }
 
     }

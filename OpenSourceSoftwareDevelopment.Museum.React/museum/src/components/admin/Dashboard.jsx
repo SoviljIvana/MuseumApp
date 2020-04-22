@@ -20,6 +20,10 @@ import ExhibitDetails from './ExhibitActions/ExhibitDetails';
 import TagDetails from './TagActions/TagDetails';
 import TicketDetails from './TicketActions/TicketDetails';
 import UserDetails from './UserActions/UserDetails';
+import EditUser from './UserActions/EditUser'
+import EditAuditorium from './AuditoriumActions/EditAuditorium'
+import EditExhibition from './ExhibitionActions/EditExhibition'
+import EditExhibit from './ExhibitActions/EditExhibit'
 
 class Dashboard extends Component {
     render() {
@@ -87,7 +91,10 @@ class Dashboard extends Component {
                        <Route path="/dashboard/TagDetails/:id" component={TagDetails} />
                        <Route path="/dashboard/TicketDetails/:id" component={TicketDetails} />
                        <Route path="/dashboard/UserDetails/:id" component={UserDetails} />
-
+                       <Route path="/dashboard/EditUser/:id" component={EditUser} />
+                       <Route path="/dashboard/EditAuditorium/:id" component={EditAuditorium} />
+                       <Route path="/dashboard/EditExhibition/:id" component={EditExhibition} />
+                       <Route path="/dashboard/EditExhibit/:id" component={EditExhibit} />
                        </Switch>
                 </Col>
                 </Table>

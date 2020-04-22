@@ -4,17 +4,17 @@ import { FormGroup, FormControl, Button, Container, Row, Col, FormText, } from '
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../../AppSettings';
 
-class EditUser extends React.Component {
+class EditAuditorium extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            id: 0,
-            yearOfBirth: '',            
+
+            numberOfSeats: 0,
+            nameOfAuditorium: '',
+            auditoriumId: 0,
+            museumId: '',            
             submitted: false,
             canSubmit: true
         };
@@ -24,16 +24,16 @@ class EditUser extends React.Component {
 
     componentDidMount() {
         const { id } = this.props.match.params; 
-        this.getUser(id);
+        this.getAuditorium(id);
     }
-    getUser(userId) {
+    getAuditorium(auditoriumId) {
         const requestOptions = {
             method: 'GET',
             headers: {'Content-Type': 'application/json',
                           'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
         };
     
-        fetch(`${serviceConfig.baseURL}/api/users/get/` + userId, requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/auditoriums/get/` + auditoriumId, requestOptions)
             .then(response => {
             if (!response.ok) {
                 return Promise.reject(response);
@@ -42,12 +42,11 @@ class EditUser extends React.Component {
             })
             .then(data => {
                 if (data) {
-                    this.setState({firstName: data.firstName,
-                        lastName: data.lastName,
-                        email: data.email,
-                        yearOfBirth: data.yearOfBirth,
-                        userId: data.userId,
-                                   id: data.id});
+                    this.setState({nameOfAuditorium: data.nameOfAuditorium,
+                        numberOfSeats: data.numberOfSeats,
+                        museumId: data.museumId,
+                        auditoriumId: data.auditoriumId,
+                        id: data.id});
                 }
             })
             .catch(response => {
@@ -59,43 +58,30 @@ class EditUser extends React.Component {
         const { id, value } = e.target;
         this.setState({ [id]: value });
       
-        this.validate(id, value);
-    }
-
-    validate(id, value) {
-        if (id === 'name') {
-            if (value === '') {
-                this.setState({titleError: 'Fill in cinema title', 
-                                canSubmit: false});
-            } else {
-                this.setState({titleError: '',
-                                canSubmit: true});
             }
-        }
-    }    
+
 
     handleSubmit(e) {
 
         e.preventDefault();
         this.setState({ submitted: true });
-        const {firstName, lastName, email, yearOfBirth, userId } = this.state;
-        if (firstName && lastName && email  && yearOfBirth && userId) {
-            this.updateUser();
+        const {auditoriumId, museumId, nameOfAuditorium, numberOfSeats} = this.state;
+        if (auditoriumId && museumId && nameOfAuditorium && numberOfSeats) {
+            this.updateAuditorium();
         } else {
             NotificationManager.error('Please fill in data');
             this.setState({ submitted: false });
         }
     }
  
-    updateUser() {
+    updateAuditorium() {
 
-        const { firstName, lastName, email, yearOfBirth, userId } = this.state;
+        const { auditoriumId, museumId, nameOfAuditorium, numberOfSeats} = this.state;
         const data = {
-            UserId: userId,
-            FirstName: firstName,
-            LastName: lastName, 
-            Email: email,
-            YearOfBirth: yearOfBirth
+            auditoriumId: auditoriumId,
+            museumId: museumId,
+            nameOfAuditorium: nameOfAuditorium, 
+            numberOfSeats: +numberOfSeats
         };
 
         const requestOptions = {
@@ -109,7 +95,7 @@ class EditUser extends React.Component {
 
         console.log(JSON.stringify("REQ_OPT:" + requestOptions.body));
         
-        fetch(`${serviceConfig.baseURL}/api/users/put/${userId}`, requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/auditoriums/put/${auditoriumId}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     return Promise.reject(response);
@@ -119,25 +105,23 @@ class EditUser extends React.Component {
             .then(data => {
                 if(data){
                     this.setState({
-                        firstName : data.firstName,
-                        lastName: data.lastName,
-                        email: data.email,
-                        yearOfBirth: data.yearOfBirth
+                        nameOfAuditorium : data.nameOfAuditorium,
+                        numberOfSeats: data.numberOfSeats
                     });
                 }
             })
             .then(result => {
                 this.props.history.goBack();
-                NotificationManager.success('Successfuly edited user!');
+                NotificationManager.success('Successfuly edited auditorium!');
             })
             .catch(response => {
-                NotificationManager.error("Unable to update user. ");
+                NotificationManager.error("Unable to update auditorium. ");
                 this.setState({ submitted: false });
             });
     }
 
     render() {
-        const {firstName, lastName, email, yearOfBirth, userId ,canSubmit , submitted} = this.state;
+        const {nameOfAuditorium, numberOfSeats, canSubmit , submitted} = this.state;
         return (
             <Container>
                 <Row>
@@ -146,41 +130,25 @@ class EditUser extends React.Component {
                         
                             <FormGroup>
                                 <FormControl
-                                    id="firstName"
+                                
+                                    id="nameOfAuditorium"
                                     type="text"
-                                    placeholder="firstName"
-                                    value={firstName}
+                                    placeholder="nameOfAuditorium"
+                                    value={nameOfAuditorium}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <FormControl
-                                    id="lastName"
-                                    type="text"
-                                    placeholder="lastName"
-                                    value={lastName}
+                                    id="numberOfSeats"
+                                    type="number"
+                                    placeholder="Number Of Seats"
+                                    value={numberOfSeats}
                                     onChange={this.handleChange}
+                                    max="36"
                                 />
                             </FormGroup>
-                            <FormGroup>
-                                <FormControl
-                                    id="email"
-                                    type="text"
-                                    placeholder="email"
-                                    value={email}
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <FormControl
-                                    id="yearOfBirth"
-                                    type="text"
-                                    placeholder="yearOfBirth"
-                                    value={yearOfBirth}
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit user</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit auditorium</Button>
                         </form>
                     </Col>
                 </Row>
@@ -188,4 +156,4 @@ class EditUser extends React.Component {
         );
     }
 }
-export default withRouter(EditUser);
+export default withRouter(EditAuditorium);

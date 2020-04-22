@@ -61,12 +61,14 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _museumContext.SaveChanges();
         }
 
         public ExhibitionEntity Update(ExhibitionEntity obj)
         {
-            throw new NotImplementedException();
+            var updatedEntry = _museumContext.Exhibitions.Attach(obj).Entity;
+            _museumContext.Entry(obj).State = EntityState.Modified;
+            return updatedEntry;
         }
     }
 }

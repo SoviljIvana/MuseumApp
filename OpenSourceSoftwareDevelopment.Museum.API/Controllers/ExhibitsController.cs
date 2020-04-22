@@ -95,11 +95,34 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
         }
 
-        [Route("{id}")]
+        [Route("put/{id}")]
         [HttpPut]
-        public Task<ActionResult> PutExhibit(int id, [FromBody]UpdateExhibitModel updateExhibit)
+        public  async Task<ActionResult> PutExhibit(int id, [FromBody]UpdateExhibitModel updateExhibit)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var exhibitUpdate = await _exhibitService.GetExhibitByIdAsync(id);
+
+
+            if (exhibitUpdate == null)
+            {
+                return NotFound(Messages.EXHIBIT_DOES_NOT_EXIST);
+            }
+
+
+                exhibitUpdate.Name = updateExhibit.Name;
+                exhibitUpdate.PicturePath = updateExhibit.PicturePath;
+                exhibitUpdate.Year = updateExhibit.Year;
+          
+
+            var update = await _exhibitService.UpdateExhibit(exhibitUpdate);
+
+            if (!update.IsSuccessful) return BadRequest(update);
+
+            return Ok(update);
         }
     }
 }

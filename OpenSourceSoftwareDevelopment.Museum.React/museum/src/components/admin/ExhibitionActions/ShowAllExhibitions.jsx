@@ -13,6 +13,7 @@ class ShowAllExhibitions extends Component{
         }
         this.exhibitionDetails = this.exhibitionDetails.bind(this);
         this.removeExhibition = this.removeExhibition.bind(this);
+        this.editExhibition = this.editExhibition.bind(this);
 
     }
 
@@ -84,10 +85,13 @@ class ShowAllExhibitions extends Component{
                     <td>{exhibition.startTime}</td>
                     <td>{exhibition.endTime}</td>
                     <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
-                    <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+                    <td> <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.editExhibition(exhibition.exhibitionId)} >izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeExhibition(exhibition.exhibitionId)} >obriši</Button> </td> 
                             </tr>
             })
+        }
+        editExhibition(id){
+            this.props.history.push(`editExhibition/${id}`);
         }
         exhibitionDetails(id){
             this.props.history.push(`exhibitionDetails/${id}`);

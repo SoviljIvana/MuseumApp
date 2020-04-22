@@ -4,17 +4,19 @@ import { FormGroup, FormControl, Button, Container, Row, Col, FormText, } from '
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../../AppSettings';
 
-class EditUser extends React.Component {
+class EditExhibition extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            id: 0,
-            yearOfBirth: '',            
+
+            startTime: '',
+            endTime: '',
+            typeOfExhibition: '',
+            exhibitionName: '',
+            exhibitionId: 0,
+            auditoriumId: 0,            
             submitted: false,
             canSubmit: true
         };
@@ -24,16 +26,16 @@ class EditUser extends React.Component {
 
     componentDidMount() {
         const { id } = this.props.match.params; 
-        this.getUser(id);
+        this.getExhibition(id);
     }
-    getUser(userId) {
+    getExhibition(exhibitionId) {
         const requestOptions = {
             method: 'GET',
             headers: {'Content-Type': 'application/json',
                           'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
         };
     
-        fetch(`${serviceConfig.baseURL}/api/users/get/` + userId, requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/exhibitions/get/` + exhibitionId, requestOptions)
             .then(response => {
             if (!response.ok) {
                 return Promise.reject(response);
@@ -42,12 +44,13 @@ class EditUser extends React.Component {
             })
             .then(data => {
                 if (data) {
-                    this.setState({firstName: data.firstName,
-                        lastName: data.lastName,
-                        email: data.email,
-                        yearOfBirth: data.yearOfBirth,
-                        userId: data.userId,
-                                   id: data.id});
+                    this.setState({typeOfExhibition: data.typeOfExhibition,
+                        exhibitionName: data.exhibitionName,
+                        exhibitionId: data.exhibitionId,
+                        auditoriumId: data.auditoriumId,
+                        startTime: data.startTime,
+                        endTime: data.endTime,
+                        id: data.id});
                 }
             })
             .catch(response => {
@@ -59,43 +62,32 @@ class EditUser extends React.Component {
         const { id, value } = e.target;
         this.setState({ [id]: value });
       
-        this.validate(id, value);
-    }
-
-    validate(id, value) {
-        if (id === 'name') {
-            if (value === '') {
-                this.setState({titleError: 'Fill in cinema title', 
-                                canSubmit: false});
-            } else {
-                this.setState({titleError: '',
-                                canSubmit: true});
             }
-        }
-    }    
+
 
     handleSubmit(e) {
 
         e.preventDefault();
         this.setState({ submitted: true });
-        const {firstName, lastName, email, yearOfBirth, userId } = this.state;
-        if (firstName && lastName && email  && yearOfBirth && userId) {
-            this.updateUser();
+        const {auditoriumId, exhibitionId, exhibitionName, typeOfExhibition, startTime, endTime} = this.state;
+        if (auditoriumId && exhibitionId && exhibitionName && typeOfExhibition && startTime && endTime) {
+            this.updateExhibition();
         } else {
             NotificationManager.error('Please fill in data');
             this.setState({ submitted: false });
         }
     }
  
-    updateUser() {
+    updateExhibition() {
 
-        const { firstName, lastName, email, yearOfBirth, userId } = this.state;
+        const { auditoriumId, exhibitionId, exhibitionName, typeOfExhibition, startTime, endTime} = this.state;
         const data = {
-            UserId: userId,
-            FirstName: firstName,
-            LastName: lastName, 
-            Email: email,
-            YearOfBirth: yearOfBirth
+            auditoriumId: auditoriumId,
+            exhibitionId: exhibitionId,
+            exhibitionName: exhibitionName, 
+            typeOfExhibition: typeOfExhibition,
+            startTime:startTime,
+            endTime: endTime
         };
 
         const requestOptions = {
@@ -109,7 +101,7 @@ class EditUser extends React.Component {
 
         console.log(JSON.stringify("REQ_OPT:" + requestOptions.body));
         
-        fetch(`${serviceConfig.baseURL}/api/users/put/${userId}`, requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/exhibitions/${exhibitionId}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     return Promise.reject(response);
@@ -119,25 +111,25 @@ class EditUser extends React.Component {
             .then(data => {
                 if(data){
                     this.setState({
-                        firstName : data.firstName,
-                        lastName: data.lastName,
-                        email: data.email,
-                        yearOfBirth: data.yearOfBirth
+                        exhibitionName : data.exhibitionName,
+                        typeOfExhibition: data.typeOfExhibition,
+                        startTime: data.startTime,
+                        endTime: data.endTime
                     });
                 }
             })
             .then(result => {
                 this.props.history.goBack();
-                NotificationManager.success('Successfuly edited user!');
+                NotificationManager.success('Successfuly edited exhibition!');
             })
             .catch(response => {
-                NotificationManager.error("Unable to update user. ");
+                NotificationManager.error("Unable to update exhibition. ");
                 this.setState({ submitted: false });
             });
     }
 
     render() {
-        const {firstName, lastName, email, yearOfBirth, userId ,canSubmit , submitted} = this.state;
+        const {exhibitionName, typeOfExhibition, startTime, endTime, canSubmit , submitted} = this.state;
         return (
             <Container>
                 <Row>
@@ -146,41 +138,43 @@ class EditUser extends React.Component {
                         
                             <FormGroup>
                                 <FormControl
-                                    id="firstName"
+                                
+                                    id="exhibitionName"
                                     type="text"
-                                    placeholder="firstName"
-                                    value={firstName}
+                                    placeholder="exhibitionName"
+                                    value={exhibitionName}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <FormControl
-                                    id="lastName"
+                                
+                                    id="typeOfExhibition"
                                     type="text"
-                                    placeholder="lastName"
-                                    value={lastName}
+                                    placeholder="typeOfExhibition"
+                                    value={typeOfExhibition}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <FormControl
-                                    id="email"
+                                    id="startTime"
                                     type="text"
-                                    placeholder="email"
-                                    value={email}
+                                    placeholder="startTime"
+                                    value={startTime}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <FormControl
-                                    id="yearOfBirth"
+                                    id="endTime"
                                     type="text"
-                                    placeholder="yearOfBirth"
-                                    value={yearOfBirth}
+                                    placeholder="endTime"
+                                    value={endTime}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit user</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit exhibition</Button>
                         </form>
                     </Col>
                 </Row>
@@ -188,4 +182,4 @@ class EditUser extends React.Component {
         );
     }
 }
-export default withRouter(EditUser);
+export default withRouter(EditExhibition);

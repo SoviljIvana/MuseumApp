@@ -197,9 +197,52 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        public Task<ExhibitResultModel> UpdateExhibit()
+        public async Task<ExhibitResultModel> UpdateExhibit(ExhibitDomainModel updateExhibit)
         {
-            throw new NotImplementedException();
+            var data = await _exhibitRepository.GetByIdAsync(updateExhibit.ExhibitId);
+
+            ExhibitEntity exhibit = new ExhibitEntity
+            {
+                ExhibitId = updateExhibit.ExhibitId,
+                AuditoriumId = updateExhibit.AuditoriumId,
+                ExhibitionId = updateExhibit.ExhibitionId,
+                Name = updateExhibit.Name,
+                Year = updateExhibit.Year,
+                PicturePath = updateExhibit.PicturePath
+            };
+
+
+            var exhibitUpdate = _exhibitRepository.Update(exhibit);
+
+            if (exhibitUpdate == null)
+            {
+                return new ExhibitResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.EXHIBIT_UPDATE_ERROR,
+                    Exhibit = null
+                };
+            }
+
+            _exhibitRepository.Save();
+
+
+            ExhibitResultModel result = new ExhibitResultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Exhibit = new ExhibitDomainModel
+                {
+                    ExhibitId = exhibitUpdate.ExhibitionId,
+                    AuditoriumId = exhibitUpdate.AuditoriumId,
+                    ExhibitionId = exhibitUpdate.ExhibitionId,
+                    Year = exhibitUpdate.Year,
+                    Name = exhibitUpdate.Name,
+                    PicturePath = exhibitUpdate.PicturePath,
+
+                }
+            };
+            return result;
         }
     }
 }

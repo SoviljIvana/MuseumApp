@@ -7,7 +7,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Models
 {
     public class UpdateExhibitionModel
     {
-        public string ExcibitionName { get; set; }
+        public string ExhibitionName { get; set; }
         public int AuditoriumId { get; set; }
         public string TypeOfExhibition { get; set; }
         public DateTime StartTime { get; set; }
