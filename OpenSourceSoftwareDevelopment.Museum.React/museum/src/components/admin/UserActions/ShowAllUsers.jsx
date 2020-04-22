@@ -59,7 +59,6 @@ class ShowAllUsers extends Component{
                 <td>{user.email}</td>    
                 <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.userDetails(user.userId)}>vidi detalje</Button></td> 
                 <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.editUser(user.userId)}>izmeni</Button></td> 
-               <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
 </tr>
     })

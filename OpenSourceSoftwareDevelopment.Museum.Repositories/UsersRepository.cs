@@ -31,6 +31,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
         public async Task<IEnumerable<UserEntity>> GetAll()
         {
             var data = await _museumContext.Users.ToListAsync();
+            if (data.Count == 0)
+            {
+                return null;
+            }
             return data;
         }
 
