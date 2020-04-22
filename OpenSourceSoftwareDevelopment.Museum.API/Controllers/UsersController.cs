@@ -86,6 +86,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             var update = await  _userService.UpdateUser(userUpdate);
 
+            if (!update.IsSuccessful) return BadRequest(update);
+
             return Ok(update); 
 
         }

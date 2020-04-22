@@ -87,6 +87,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             var create = _museumService.CreateMuseum(museumDomainModel);
 
+            if (!create.IsSuccessful) return BadRequest(create);
+
             return Ok(create);
         }
 
