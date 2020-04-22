@@ -20,7 +20,7 @@ import ExhibitDetails from './ExhibitActions/ExhibitDetails';
 import TagDetails from './TagActions/TagDetails';
 import TicketDetails from './TicketActions/TicketDetails';
 import UserDetails from './UserActions/UserDetails';
-
+import EditUser from './UserActions/EditUser'
 class Dashboard extends Component {
     render() {
         return (
@@ -87,7 +87,7 @@ class Dashboard extends Component {
                        <Route path="/dashboard/TagDetails/:id" component={TagDetails} />
                        <Route path="/dashboard/TicketDetails/:id" component={TicketDetails} />
                        <Route path="/dashboard/UserDetails/:id" component={UserDetails} />
-
+                       <Route path="/dashboard/EditUser/:id" component={EditUser} />
                        </Switch>
                 </Col>
                 </Table>
