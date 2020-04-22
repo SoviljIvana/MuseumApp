@@ -112,9 +112,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        public Task<TagDomainModel> UpdateTag()
-        {
-            throw new NotImplementedException();
-        }
+  
     }
 }
