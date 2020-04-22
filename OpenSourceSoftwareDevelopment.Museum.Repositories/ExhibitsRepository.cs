@@ -59,7 +59,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             _museumContext.SaveChanges();
             return data;
         }
-      
 
 
         public void Save()
@@ -69,7 +68,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 
         public ExhibitEntity Update(ExhibitEntity obj)
         {
-            throw new NotImplementedException();
+            var updatedEntry = _museumContext.Exhibits.Attach(obj).Entity;
+            _museumContext.Entry(obj).State = EntityState.Modified;
+            return updatedEntry;
         }
     }
 }

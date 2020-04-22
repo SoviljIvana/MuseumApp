@@ -14,6 +14,7 @@ class ShowAllExhibits extends Component {
         }
         this.exhibitDetails = this.exhibitDetails.bind(this);
         this.removeExhibit = this.removeExhibit.bind(this);
+        this.editExhibit = this.editExhibit.bind(this);
     }
 
     componentDidMount() {
@@ -88,7 +89,7 @@ class ShowAllExhibits extends Component {
                 <td>{exhibit.auditoriumId}</td>
                 <td>{exhibit.exhibitionId}</td>
                 <td>  <Button width="1%" className="text-center cursor-pointer" onClick={() => this.exhibitDetails(exhibit.exhibitId)} >vidi detalje</Button></td>
-                <td> <Button width="1%" className="text-center cursor-pointer" >izmeni</Button></td>
+                <td> <Button width="1%" className="text-center cursor-pointer"  onClick={() => this.editExhibit(exhibit.exhibitId)} >izmeni</Button></td>
                 <td>  <Button width="1%" className="text-center cursor-pointer" onClick={() => this.removeExhibit(exhibit.exhibitId)}>obriši</Button> </td>
             </tr>
 
@@ -97,6 +98,9 @@ class ShowAllExhibits extends Component {
 
     exhibitDetails(id) {
         this.props.history.push(`exhibitDetails/${id}`);
+    }
+    editExhibit(id) {
+        this.props.history.push(`editExhibit/${id}`);
     }
 
     render() {
