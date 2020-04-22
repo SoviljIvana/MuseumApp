@@ -86,7 +86,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
  
             };
 
-           var create = await _exhibitService.CreateExhibit(exhibitDomain);
+            var create = await _exhibitService.CreateExhibit(exhibitDomain);
+
+            if (!create.IsSuccessful) return BadRequest(create);
 
             return Ok(create);
 

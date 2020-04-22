@@ -82,6 +82,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             var create = await _auditoriumService.CreateAuditorium(auditoriumDomainModel);
 
+            if (!create.IsSuccessful) return BadRequest(create);
+
             return Ok(create);
         }
 
