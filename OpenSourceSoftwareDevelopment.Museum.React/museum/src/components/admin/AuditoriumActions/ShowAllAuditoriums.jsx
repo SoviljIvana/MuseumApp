@@ -13,6 +13,7 @@ class ShowAllAuditoriums extends Component{
         }
         this.auditoriumDetails = this.auditoriumDetails.bind(this);
         this.removeAuditorium = this.removeAuditorium.bind(this);
+        this.editAuditorium = this.editAuditorium.bind(this);
     }
 
     componentDidMount(){
@@ -80,11 +81,14 @@ class ShowAllAuditoriums extends Component{
                     <td>{auditorium.nameOfAuditorium}</td>
                     <td>{auditorium.numberOfSeats}</td>
                <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.auditoriumDetails(auditorium.auditoriumId)}>vidi detalje</Button></td> 
-               <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+               <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.editAuditorium(auditorium.auditoriumId)}>izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeAuditorium(auditorium.auditoriumId)}>obriši</Button> </td> 
   </tr>
         
         })
+        }
+        editAuditorium(id){
+            this.props.history.push(`editAuditorium/${id}`);
         }
 
         auditoriumDetails(id){

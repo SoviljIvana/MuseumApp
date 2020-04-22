@@ -21,6 +21,9 @@ import TagDetails from './TagActions/TagDetails';
 import TicketDetails from './TicketActions/TicketDetails';
 import UserDetails from './UserActions/UserDetails';
 import EditUser from './UserActions/EditUser'
+import EditAuditorium from './AuditoriumActions/EditAuditorium'
+
+
 class Dashboard extends Component {
     render() {
         return (
@@ -88,6 +91,8 @@ class Dashboard extends Component {
                        <Route path="/dashboard/TicketDetails/:id" component={TicketDetails} />
                        <Route path="/dashboard/UserDetails/:id" component={UserDetails} />
                        <Route path="/dashboard/EditUser/:id" component={EditUser} />
+                       <Route path="/dashboard/EditAuditorium/:id" component={EditAuditorium} />
+
                        </Switch>
                 </Col>
                 </Table>

@@ -18,7 +18,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
 
        Task<AuditoriumResultModel> DeleteAuditoriumAsync(int id);
  
-       Task<AuditoriumResultModel> UpdateAuditorium();
+       Task<AuditoriumResultModel> UpdateAuditorium(AuditoriumDomainModel createAuditorium);
 
         Task<List<int[]>> testForDeletionAsync(int id);
     }
