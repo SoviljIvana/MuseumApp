@@ -175,10 +175,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        Task<AuditoriumResultModel> IAuditoriumService.UpdateAuditorium()
-        {
-            throw new NotImplementedException();
-        }
+    
 
         public async Task<List<int[]>> testForDeletionAsync(int id) 
         {
@@ -197,6 +194,49 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     });
                 }
             }
+            return result;
+        }
+
+        public async Task<AuditoriumResultModel> UpdateAuditorium(AuditoriumDomainModel updateAuditorium )
+        {
+            var data = await _auditoriumRepository.GetByIdAsync(updateAuditorium.AuditoriumId);
+
+            AuditoriumEntity auditorium = new AuditoriumEntity
+            {
+                AuditoriumId = updateAuditorium.AuditoriumId,
+                MuseumId = updateAuditorium.MuseumId,
+                NameOfAuditorium = updateAuditorium.NameOfAuditorium,
+                NumberOfSeats = updateAuditorium.NumberOfSeats
+            };
+
+
+            var auditoriumUpdate = _auditoriumRepository.Update(auditorium);
+
+            if (auditoriumUpdate == null)
+            {
+                return new AuditoriumResultModel
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = Messages.AUDITORIUM_UPDATE_ERROR,
+                    Auditorium = null
+                };
+            }
+
+            _auditoriumRepository.Save();
+
+
+            AuditoriumResultModel result = new AuditoriumResultModel
+            {
+                IsSuccessful = true,
+                ErrorMessage = null,
+                Auditorium = new AuditoriumDomainModel
+                {
+                    MuseumId = auditoriumUpdate.MuseumId,
+                    AuditoriumId = auditoriumUpdate.AuditoriumId,
+                    NameOfAuditorium = auditoriumUpdate.NameOfAuditorium,
+                    NumberOfSeats = auditoriumUpdate.NumberOfSeats
+                }
+            };
             return result;
         }
     }
