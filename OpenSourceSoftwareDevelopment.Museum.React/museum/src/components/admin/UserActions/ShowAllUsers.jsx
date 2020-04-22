@@ -13,6 +13,7 @@ class ShowAllUsers extends Component{
             isLoading: true,
         }
         this.userDetails = this.userDetails.bind(this); 
+        this.editUser = this.editUser.bind(this);
     }
 
     componentDidMount(){
@@ -57,11 +58,15 @@ class ShowAllUsers extends Component{
                 <td>{user.yearOfBirth}</td>  
                 <td>{user.email}</td>    
                 <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.userDetails(user.userId)}>vidi detalje</Button></td> 
+                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.editUser(user.userId)}>izmeni</Button></td> 
                <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
 </tr>
-    
     })
+    }
+
+    editUser(id) {
+        this.props.history.push(`edituser/${id}`);
     }
 
     userDetails(id){
