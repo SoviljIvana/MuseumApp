@@ -13,6 +13,7 @@ class ShowAllMuseums extends Component{
         }
         this.museumDetails = this.museumDetails.bind(this);
         this.removeMuseum = this.removeMuseum.bind(this);
+        this.editMuseum = this.editMuseum.bind(this);
     }
 
     componentDidMount(){
@@ -81,10 +82,14 @@ class ShowAllMuseums extends Component{
                     <td>{museum.email}</td>
                     <td>{museum.phoneNumber}</td>
                     <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.museumDetails(museum.museumId)}>vidi detalje</Button></td> 
-                    <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+                    <td> <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.editMuseum(museum.museumId)}>izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeMuseum(museum.museumId)}>obriši</Button> </td> 
                             </tr>
             })
+        }
+
+        editMuseum(id){
+            this.props.history.push(`editMuseum/${id}`);
         }
         museumDetails(id){
             this.props.history.push(`museumDetails/${id}`);
