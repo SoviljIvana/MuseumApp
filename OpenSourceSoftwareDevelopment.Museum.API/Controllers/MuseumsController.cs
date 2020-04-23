@@ -106,7 +106,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             if (museumUpdate == null)
             {
-                return NotFound(Messages.USER_DOES_NOT_EXIST);
+                return NotFound(Messages.MUSEUM_DOES_NOT_EXIST);
             }
 
             museumUpdate.City = updateMuseum.City;

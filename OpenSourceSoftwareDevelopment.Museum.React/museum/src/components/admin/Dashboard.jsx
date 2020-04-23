@@ -24,6 +24,7 @@ import EditUser from './UserActions/EditUser'
 import EditAuditorium from './AuditoriumActions/EditAuditorium'
 import EditExhibition from './ExhibitionActions/EditExhibition'
 import EditExhibit from './ExhibitActions/EditExhibit'
+import EditMuseum from'./MuseumActions/EditMuseum'
 
 class Dashboard extends Component {
     render() {
@@ -95,6 +96,9 @@ class Dashboard extends Component {
                        <Route path="/dashboard/EditAuditorium/:id" component={EditAuditorium} />
                        <Route path="/dashboard/EditExhibition/:id" component={EditExhibition} />
                        <Route path="/dashboard/EditExhibit/:id" component={EditExhibit} />
+                       <Route path="/dashboard/EditMuseum/:id" component={EditMuseum} />
+
+                       
                        </Switch>
                 </Col>
                 </Table>
