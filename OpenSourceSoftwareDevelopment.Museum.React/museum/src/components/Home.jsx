@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Col } from 'react-bootstrap';
-import { Switch, NavLink, Route,} from 'react-router-dom';
-import { Navbar, NavDropdown, Table  } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
+import { Switch, NavLink, Route, Link } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
+import { Navbar, Table, Nav, Form, Button, Carousel, Container, } from 'react-bootstrap';
 import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
 import ShowAllExhibitions from './ExhibitionActions/ShowAllExhibitions';
-import ComingSoonExhibitions from './ExhibitionActions/ComingSoonExhibitions';
-import CurrentExhibitions from './ExhibitionActions/CurrentExhibitions';
 import ShowAllExhibits from './ExhibitActions/ShowAllExhibits'
 import ShowAllTags from './TagActions/ShowAllTags'
 import ShowAllTickets from './TicketActions/ShowAllTickets'
@@ -26,13 +25,98 @@ import EditUser from './UserActions/EditUser'
 import EditAuditorium from './AuditoriumActions/EditAuditorium'
 import EditExhibition from './ExhibitionActions/EditExhibition'
 import EditExhibit from './ExhibitActions/EditExhibit'
-import EditMuseum from'./MuseumActions/EditMuseum'
+import EditMuseum from './MuseumActions/EditMuseum'
+import CurrentExhibitions from './ExhibitionActions/CurrentExhibitions'
+import ComingSoonExhibitions from './ExhibitionActions/ComingSoonExhibitions'
+import picture1 from './picture1.jpg';
+import { Fade } from 'react-slideshow-image';
+
+const fadeImages = [
+    picture1
+];
+
+const fadeProperties = {
+    duration: 5000,
+    transitionDuration: 500,
+    infinite: false,
+    indicators: true,
+    onChange: (oldIndex, newIndex) => {
+        console.log(`fade transition from ${oldIndex} to ${newIndex}`);
+    }
+}
 
 class Home extends Component {
+
     render() {
         return (
-           <Table>
-            <Navbar bg="dark"  >
+            <Row className="no-gutters pr-5 pl-5">
+                <Table>
+                    <Navbar className="slide-container" expand="lg" variant="light" bg="light">
+                        <Nav justify variant="tabs" className="mr-auto">
+                            <Container>
+                                <Navbar.Brand><Link to='/home/ShowAllExhibitions'><Button size="lg" variant="outline-dark">Izložbe</Button></Link></Navbar.Brand>
+                                <Navbar.Brand><Link to='/home/ComingSoonExhibitions'><Button size="lg" variant="outline-dark">Uskoro</Button></Link></Navbar.Brand>
+                                <Navbar.Brand><Link to='/home/CurrentExhibitions'><Button size="lg" variant="outline-dark">Trenutno se prikazuju</Button></Link></Navbar.Brand>
+                                <Navbar.Brand><Link to=''><Button size="lg" variant="outline-dark">O muzeju</Button></Link></Navbar.Brand>
+                                <Navbar.Brand><Link to=''><Button size="lg" variant="outline-dark">Kontakt</Button></Link></Navbar.Brand>
+                                <Form inline>
+                                    <FaUser />
+                                    <Button variant="outline-primary">Login</Button>
+                                </Form>
+                            </Container>
+                        </Nav>
+                    </Navbar>
+                    <p className="slide-container">
+                        <Fade {...fadeProperties}>
+                            <div className="each-fade">
+                                <img src={fadeImages[0]} />
+                            </div>
+                            <div className="each-fade">
+                                <img src={fadeImages[1]} />
+                            </div>
+                            <div className="each-fade">
+                                <img src={fadeImages[2]} />
+                            </div>
+                        </Fade>
+                    </p>
+                    <Col className="pt-2 app-content-main">
+                        <Switch>
+                            <Route path="/home/ShowAllMuseums" component={ShowAllMuseums} />
+                            <Route path="/home/ShowAllAuditoriums" component={ShowAllAuditoriums} />
+                            <Route path="/home/ShowAllExhibitions" component={ShowAllExhibitions} />
+                            <Route path="/home/ComingSoonExhibitions" component={ComingSoonExhibitions} />
+                            <Route path="/home/CurrentExhibitions" component={CurrentExhibitions} />
+                            <Route path="/home/ShowAllExhibits" component={ShowAllExhibits} />
+                            <Route path="/home/ShowAllTags" component={ShowAllTags} />
+                            <Route path="/home/ShowAllTickets" component={ShowAllTickets} />
+                            <Route path="/home/ShowAllUsers" component={ShowAllUsers} />
+                            <Route path="/home/AddMuseum" component={AddMuseum} />
+                            <Route path="/home/AddAuditorium" component={AddAuditorium} />
+                            <Route path="/home/AddExhibition" component={AddExhibition} />
+                            <Route path="/home/AddExhibit" component={AddExhibit} />
+                            <Route path="/home/AuditoriumDetails/:id" component={AuditoriumDetails} />
+                            <Route path="/home/ExhibitionDetails/:id" component={ExhibitionDetails} />
+                            <Route path="/home/MuseumDetails/:id" component={MuseumDetails} />
+                            <Route path="/home/ExhibitDetails/:id" component={ExhibitDetails} />
+                            <Route path="/home/TagDetails/:id" component={TagDetails} />
+                            <Route path="/home/TicketDetails/:id" component={TicketDetails} />
+                            <Route path="/home/UserDetails/:id" component={UserDetails} />
+                            <Route path="/home/EditUser/:id" component={EditUser} />
+                            <Route path="/home/EditAuditorium/:id" component={EditAuditorium} />
+                            <Route path="/home/EditExhibition/:id" component={EditExhibition} />
+                            <Route path="/home/EditExhibit/:id" component={EditExhibit} />
+                            <Route path="/home/EditMuseum/:id" component={EditMuseum} />
+                        </Switch>
+                    </Col>
+                </Table>
+            </Row>
+        );
+    }
+}
+export default Home;
+
+
+ /* <Navbar bg="dark"  >
                 <NavDropdown title="Muzej" pill variant="light" id="basic-nav-dropdown" > 
                     <NavLink activeClassName="active-link" to='/home/ShowAllMuseums'><h6>Lista muzeja</h6></NavLink>
                     <NavLink activeClassName="active-link" to='/home/AddMuseum'><h6>Dodaj muzej</h6></NavLink>
@@ -48,10 +132,6 @@ class Home extends Component {
                 <NavDropdown title="Izložba" id="basic-nav-dropdown">
                     <NavLink activeClassName="active-link" to='/home/ShowAllExhibitions'><h6>Lista izložba</h6></NavLink>
                     <NavLink activeClassName="active-link" to='/home/AddExhibition'><h6>Dodaj izlozbu</h6></NavLink>
-               
-                    <NavLink activeClassName="active-link" to='/home/ComingSoonExhibitions'><h6>Uskoro</h6></NavLink>
-                    <NavLink activeClassName="active-link" to='/home/CurrentExhibitions'><h6>izlozbe koje se trenutno prikazuju</h6></NavLink>
-               
                 </NavDropdown>
             
                 <NavDropdown title="Eksponati" id="basic-nav-dropdown">
@@ -74,40 +154,5 @@ class Home extends Component {
                 <NavDropdown title="Korisnici" id="basic-nav-dropdown">
                     <NavLink activeClassName="active-link" to='/home/ShowAllUsers'><h6>Lista korisnika</h6></NavLink>
 
-                </NavDropdown>
-                </Navbar>
-                    <Col className="pt-2 app-content-main">
-                    <Switch>
-                        <Route path="/home/ShowAllMuseums" component={ShowAllMuseums} />
-                        <Route path="/home/ShowAllAuditoriums" component={ShowAllAuditoriums} />
-                        <Route path="/home/ShowAllExhibitions" component={ShowAllExhibitions} />
-                        <Route path="/home/ShowAllExhibits" component={ShowAllExhibits} />
-                        <Route path="/home/CurrentExhibitions" component={CurrentExhibitions} />
-                        <Route path="/home/ComingSoonExhibitions" component={ComingSoonExhibitions} />
-                        <Route path="/home/ShowAllTags" component={ShowAllTags} />
-                        <Route path="/home/ShowAllTickets" component={ShowAllTickets} />
-                        <Route path="/home/ShowAllUsers" component={ShowAllUsers} />
-                        <Route path="/home/AddMuseum" component={AddMuseum} />
-                        <Route path="/home/AddAuditorium" component={AddAuditorium} />
-                        <Route path="/home/AddExhibition" component={AddExhibition} />
-                        <Route path="/home/AddExhibit" component={AddExhibit} />
-                        <Route path="/home/AuditoriumDetails/:id" component={AuditoriumDetails} />
-                        <Route path="/home/ExhibitionDetails/:id" component={ExhibitionDetails} />
-                        <Route path="/home/MuseumDetails/:id" component={MuseumDetails} />
-                        <Route path="/home/ExhibitDetails/:id" component={ExhibitDetails} />
-                       <Route path="/home/TagDetails/:id" component={TagDetails} />
-                       <Route path="/home/TicketDetails/:id" component={TicketDetails} />
-                       <Route path="/home/UserDetails/:id" component={UserDetails} />
-                       <Route path="/home/EditUser/:id" component={EditUser} />
-                       <Route path="/home/EditAuditorium/:id" component={EditAuditorium} />
-                       <Route path="/home/EditExhibition/:id" component={EditExhibition} />
-                       <Route path="/home/EditExhibit/:id" component={EditExhibit} />
-                       <Route path="/home/EditMuseum/:id" component={EditMuseum} />
-                       </Switch>
-                </Col>
-                </Table>
-        );
-    }
-}
-
-export default Home;
+                </NavDropdown> */
+               
