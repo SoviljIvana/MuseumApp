@@ -19,20 +19,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             _userRepository = userRepository;
         }
 
-        public Task<UserDomainModel> CreateUser()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<UserResultModel> CreateUser(UserDomainModel userModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<UserDomainModel> DeleteUser(int id)
-        {
-            throw new NotImplementedException();
-        }
+   
 
         public async Task<IEnumerable<UserDomainModel>> GetAllUsers()
         {
@@ -136,10 +123,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return result;
         }
 
-        Task<UserResultModel> IUserService.DeleteUser(int id)
-        {
-            throw new NotImplementedException();
-        }
 
 
     }

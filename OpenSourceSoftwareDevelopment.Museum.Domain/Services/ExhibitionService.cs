@@ -32,18 +32,18 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 TypeOfExhibition = exhibitionModel.TypeOfExhibition,
                 StartTime = exhibitionModel.StartTime,
                 EndTime = exhibitionModel.EndTime
-         
+
             };
             bool auditorium = false;
             var listOfAuditoriums = await _auditoriumRepository.GetAll();
             foreach (var item in listOfAuditoriums)
             {
-                if(item.AuditoriumId == exhibitionModel.AuditoriumId)
+                if (item.AuditoriumId == exhibitionModel.AuditoriumId)
                 {
                     auditorium = true;
                 };
             }
-            if(auditorium == false)
+            if (auditorium == false)
             {
                 return new ExhibitionResultModel
                 {
@@ -63,16 +63,16 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 };
 
             }
-            var exhibition =  _exhibitionRepository.Insert(newExhibition);
+            var exhibition = _exhibitionRepository.Insert(newExhibition);
 
-            if(exhibition == null)
+            if (exhibition == null)
             {
                 return new ExhibitionResultModel
                 {
                     IsSuccessful = false,
                     ErrorMessage = Messages.EXHIBITION_WITH_THIS_ID_ALREADY_EXISTS,
                     Exhibition = null
-            };
+                };
             }
 
             ExhibitionResultModel result = new ExhibitionResultModel
@@ -110,8 +110,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             {
                 var listOfTickets = await _ticketsRepository.GetAll();
 
-                foreach(var ticket in listOfTickets) { 
-                    if(ticket.ExhibitionId == id)
+                foreach (var ticket in listOfTickets)
+                {
+                    if (ticket.ExhibitionId == id)
                     {
                         return new ExhibitionResultModel
                         {
@@ -123,7 +124,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     }
                 }
 
-                var existing =  await _exhibitionRepository.GetByIdAsync(id);
+                var existing = await _exhibitionRepository.GetByIdAsync(id);
 
                 if (existing == null)
                 {
@@ -159,7 +160,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
 
                     };
                 }
-              var deletedExhibition =  _exhibitionRepository.Delete(id);
+                var deletedExhibition = _exhibitionRepository.Delete(id);
                 ExhibitionResultModel result = new ExhibitionResultModel
                 {
                     ErrorMessage = null,
@@ -172,7 +173,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                         TypeOfExhibition = deletedExhibition.TypeOfExhibition,
                         StartTime = deletedExhibition.StartTime,
                         EndTime = deletedExhibition.EndTime
-
                     }
                 };
                 return result;
@@ -183,7 +183,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         {
             var data = await _exhibitionRepository.GetAll();
 
-            if(data == null)
+            if (data == null)
             {
                 return null;
             }
@@ -202,7 +202,71 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     EndTime = item.EndTime
                 };
                 list.Add(exhibitionModel);
-            }return list;
+            }
+            return list;
+        }
+
+
+        public async Task<IEnumerable<ExhibitionDomainModel>> GetAllExhibitionsInTheFuture()
+        {
+            var data = await _exhibitionRepository.GetAll();
+
+            if (data == null)
+            {
+                return null;
+            }
+
+            List<ExhibitionDomainModel> list = new List<ExhibitionDomainModel>();
+
+            ExhibitionDomainModel exhibitionModel;
+            foreach (var item in data)
+            {
+                exhibitionModel = new ExhibitionDomainModel
+                {
+                    ExhibitionId = item.ExhibitionId,
+                    ExhibitionName = item.ExhibitionName,
+                    AuditoriumId = item.AuditoriumId,
+                    TypeOfExhibition = item.TypeOfExhibition,
+                    StartTime = item.StartTime,
+                    EndTime = item.EndTime
+                };
+                if (item.StartTime > DateTime.Now)
+                {
+                    list.Add(exhibitionModel);
+                }
+            }
+            return list;
+        }
+
+        public async Task<IEnumerable<ExhibitionDomainModel>> GetCurrentExhibitions()
+        {
+            var data = await _exhibitionRepository.GetAll();
+
+            if (data == null)
+            {
+                return null;
+            }
+
+            List<ExhibitionDomainModel> list = new List<ExhibitionDomainModel>();
+
+            ExhibitionDomainModel exhibitionModel;
+            foreach (var item in data)
+            {
+                exhibitionModel = new ExhibitionDomainModel
+                {
+                    ExhibitionId = item.ExhibitionId,
+                    ExhibitionName = item.ExhibitionName,
+                    AuditoriumId = item.AuditoriumId,
+                    TypeOfExhibition = item.TypeOfExhibition,
+                    StartTime = item.StartTime,
+                    EndTime = item.EndTime
+                };
+                if ((item.StartTime < DateTime.Now) && (item.EndTime > DateTime.Now))
+                {
+                    list.Add(exhibitionModel);
+                }
+            }
+            return list;
         }
 
         public async Task<ExhibitionDomainModel> GetExhibitionByIdAsync(int id)

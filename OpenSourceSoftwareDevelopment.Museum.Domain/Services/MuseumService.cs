@@ -204,7 +204,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 return new MuseumResaultModel
                 {
                     IsSuccessful = false,
-                    ErrorMessage = Messages.USER_UPDATE_ERROR,
+                    ErrorMessage = Messages.MUSEUM_UPDATE_ERROR,
                     Museum = null
                 };
             }

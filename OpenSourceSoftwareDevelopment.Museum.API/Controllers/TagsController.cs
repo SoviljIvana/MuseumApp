@@ -67,11 +67,5 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             throw new NotImplementedException();
         }
 
-        [Route("{id}")]
-        [HttpPut]
-        public Task<ActionResult> PutTag(int id, [FromBody]UpdateTagModel updateTag)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
