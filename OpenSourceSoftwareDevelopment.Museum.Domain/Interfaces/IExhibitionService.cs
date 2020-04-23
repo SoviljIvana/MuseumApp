@@ -13,6 +13,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
         Task<IEnumerable<ExhibitionDomainModel>>GetAllExhibitions();
         Task<IEnumerable<ExhibitionDomainModel>> GetAllExhibitionsInTheFuture();
 
+        Task<IEnumerable<ExhibitionDomainModel>> GetCurrentExhibitions();
         Task<ExhibitionDomainModel> GetExhibitionByIdAsync(int id);
 
         Task<ExhibitionResultModel> CreateExhibition(ExhibitionDomainModel exhibitionModel);
