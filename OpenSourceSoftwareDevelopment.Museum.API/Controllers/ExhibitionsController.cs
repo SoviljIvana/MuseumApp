@@ -48,6 +48,19 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             return Ok(exhibitionDomainModel);
         }
 
+        [Route("get/currentExhibitions")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ExhibitionDomainModel>>> GetCurrentExhibitions()
+        {
+            IEnumerable<ExhibitionDomainModel> exhibitionDomainModel;
+            exhibitionDomainModel = await _exhibitionService.GetCurrentExhibitions();
+            if (exhibitionDomainModel == null)
+            {
+                return NotFound(Messages.EXHIBITIONS_GET_ALL_ERROR);
+            }
+            return Ok(exhibitionDomainModel);
+        }
+
         [Route("get/{id}")]
         [HttpGet]
         public async Task<ActionResult<ExhibitionDomainModel>> GetExhibitionById(int id)

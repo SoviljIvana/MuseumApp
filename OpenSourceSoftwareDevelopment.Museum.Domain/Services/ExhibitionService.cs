@@ -238,6 +238,37 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return list;
         }
 
+        public async Task<IEnumerable<ExhibitionDomainModel>> GetCurrentExhibitions()
+        {
+            var data = await _exhibitionRepository.GetAll();
+
+            if (data == null)
+            {
+                return null;
+            }
+
+            List<ExhibitionDomainModel> list = new List<ExhibitionDomainModel>();
+
+            ExhibitionDomainModel exhibitionModel;
+            foreach (var item in data)
+            {
+                exhibitionModel = new ExhibitionDomainModel
+                {
+                    ExhibitionId = item.ExhibitionId,
+                    ExhibitionName = item.ExhibitionName,
+                    AuditoriumId = item.AuditoriumId,
+                    TypeOfExhibition = item.TypeOfExhibition,
+                    StartTime = item.StartTime,
+                    EndTime = item.EndTime
+                };
+                if ((item.StartTime < DateTime.Now) && (item.EndTime > DateTime.Now))
+                {
+                    list.Add(exhibitionModel);
+                }
+            }
+            return list;
+        }
+
         public async Task<ExhibitionDomainModel> GetExhibitionByIdAsync(int id)
         {
             var data = await _exhibitionRepository.GetByIdAsync(id);
