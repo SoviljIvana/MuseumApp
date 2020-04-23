@@ -2,25 +2,26 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Container, FormText} from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig,  } from '../../../AppSettings';
+import { serviceConfig,  } from '../../AppSettings';
 
-class TagDetails extends React.Component {
+class TicketDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id: '',
-            name: '',
-            type: '',
+            payment: '',
+            userId: '',
+            exhibitionId: '',
           
         };
     }
 
     componentDidMount() {
         const {id} = this.props.match.params;
-        this.getTag(id);
+        this.getTicket(id);
     }
     
-    getTag(id) {
+    getTicket(id) {
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -28,7 +29,7 @@ class TagDetails extends React.Component {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwt')
             }
         };
-        fetch(`${serviceConfig.baseURL}/api/tags/get/${id}` , requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/tickets/get/${id}` , requestOptions)
             .then(response => {
                 if (!response.ok) {
                     return Promise.reject(response);
@@ -38,10 +39,10 @@ class TagDetails extends React.Component {
             .then(data => {
                 if (data) {
                     this.setState({
-                        tagId: data.id,
-                        name: data.name + '',
-                        type: data.type +'',
-                     
+                        ticketId: data.ticketId,
+                        payment: data.payment + '',
+                        userId: data.userId +'',
+                        exhibitionId: data.exhibitionId +'',
                     });
                 }
             })
@@ -52,14 +53,15 @@ class TagDetails extends React.Component {
     }
 
     render() {
-        const {tagId, name, type} = this.state;
+        const {ticketId, payment, userId, exhibitionId} = this.state;
         return (
             <Container>
-                <FormText className="text-danger"><h3>TAG ID: {tagId}</h3></FormText>
-                <FormText className="text-danger"><h3>NAZIV: {name}</h3></FormText>
-                <FormText className="text-danger"><h3>VRSTA: {type}</h3></FormText>
+                <FormText className="text-danger"><h3>ID KARTE: {ticketId}</h3></FormText>
+                <FormText className="text-danger"><h3>PLACANJE: {payment}</h3></FormText>
+                <FormText className="text-danger"><h3>ID KORISNIKA: {userId}</h3></FormText>
+                <FormText className="text-danger"><h3>IZLOZBA ID: {exhibitionId}</h3></FormText>
             </Container>
         );
     }
 }
-export default withRouter(TagDetails);
+export default withRouter(TicketDetails);

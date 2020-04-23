@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { FormGroup, FormControl, Button, Container, Row, Col, FormText, } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig } from '../../../AppSettings';
+import { serviceConfig } from '../../AppSettings';
 
 class EditExhibition extends React.Component {
 

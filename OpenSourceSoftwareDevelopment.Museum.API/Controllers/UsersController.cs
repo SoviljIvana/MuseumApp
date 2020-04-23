@@ -48,19 +48,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
            
         }
 
-        [Route("delete/{id}")]
-        [HttpDelete]
-        public Task<ActionResult> DeleteUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [Route("post/")]
-        [HttpPost]
-        public Task<ActionResult<UserDomainModel>> PostUser(CreateUserModel createUser)
-        {
-            throw new NotImplementedException();
-        }
 
         [Route("put/{id}")]
         [HttpPut]

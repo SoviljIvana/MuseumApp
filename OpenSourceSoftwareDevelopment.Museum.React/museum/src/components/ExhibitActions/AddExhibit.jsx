@@ -2,9 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { FormGroup, FormControl, Button, Container, Row, Col, FormText, } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig } from '../../../AppSettings';
+import { serviceConfig } from '../../AppSettings';
 import { YearPicker } from 'react-dropdown-date';
-import { Multiselect } from 'multiselect-react-dropdown';
 
 class AddExhibit extends React.Component {
     constructor(props) {

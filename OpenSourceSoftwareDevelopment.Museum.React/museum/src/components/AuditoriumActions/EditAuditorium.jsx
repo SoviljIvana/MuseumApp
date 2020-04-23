@@ -2,21 +2,19 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { FormGroup, FormControl, Button, Container, Row, Col, FormText, } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig } from '../../../AppSettings';
+import { serviceConfig } from '../../AppSettings';
 
-class EditExhibit extends React.Component {
+class EditAuditorium extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
 
-            name: '',
-            year: 0,
-            picturePath: '',
-            exhibitId: 0,
-            exhibitionId: 0,
-            auditoriumId: 0,            
+            numberOfSeats: 0,
+            nameOfAuditorium: '',
+            auditoriumId: 0,
+            museumId: '',            
             submitted: false,
             canSubmit: true
         };
@@ -26,16 +24,16 @@ class EditExhibit extends React.Component {
 
     componentDidMount() {
         const { id } = this.props.match.params; 
-        this.getExhibit(id);
+        this.getAuditorium(id);
     }
-    getExhibit(exhibitId) {
+    getAuditorium(auditoriumId) {
         const requestOptions = {
             method: 'GET',
             headers: {'Content-Type': 'application/json',
                           'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
         };
     
-        fetch(`${serviceConfig.baseURL}/api/exhibits/get/` + exhibitId, requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/auditoriums/get/` + auditoriumId, requestOptions)
             .then(response => {
             if (!response.ok) {
                 return Promise.reject(response);
@@ -44,12 +42,10 @@ class EditExhibit extends React.Component {
             })
             .then(data => {
                 if (data) {
-                    this.setState({picturePath: data.picturePath,
-                        exhibitId: data.exhibitId,
-                        exhibitionId: data.exhibitionId,
+                    this.setState({nameOfAuditorium: data.nameOfAuditorium,
+                        numberOfSeats: data.numberOfSeats,
+                        museumId: data.museumId,
                         auditoriumId: data.auditoriumId,
-                        year: data.year,
-                        name: data.name,
                         id: data.id});
                 }
             })
@@ -69,25 +65,23 @@ class EditExhibit extends React.Component {
 
         e.preventDefault();
         this.setState({ submitted: true });
-        const {auditoriumId, exhibitionId, exhibitId, name, year, picturePath} = this.state;
-        if (auditoriumId && exhibitionId && exhibitId && name && year && picturePath) {
-            this.updateExhibit();
+        const {auditoriumId, museumId, nameOfAuditorium, numberOfSeats} = this.state;
+        if (auditoriumId && museumId && nameOfAuditorium && numberOfSeats) {
+            this.updateAuditorium();
         } else {
             NotificationManager.error('Please fill in data');
             this.setState({ submitted: false });
         }
     }
  
-    updateExhibit() {
+    updateAuditorium() {
 
-        const {auditoriumId, exhibitionId, exhibitId, name, year, picturePath} = this.state;
+        const { auditoriumId, museumId, nameOfAuditorium, numberOfSeats} = this.state;
         const data = {
             auditoriumId: auditoriumId,
-            exhibitionId: exhibitionId,
-            exhibitIdv: exhibitId, 
-            name: name,
-            year: +year,
-            picturePath: picturePath
+            museumId: museumId,
+            nameOfAuditorium: nameOfAuditorium, 
+            numberOfSeats: +numberOfSeats
         };
 
         const requestOptions = {
@@ -101,7 +95,7 @@ class EditExhibit extends React.Component {
 
         console.log(JSON.stringify("REQ_OPT:" + requestOptions.body));
         
-        fetch(`${serviceConfig.baseURL}/api/exhibits/put/${exhibitId}`, requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/auditoriums/put/${auditoriumId}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     return Promise.reject(response);
@@ -111,24 +105,23 @@ class EditExhibit extends React.Component {
             .then(data => {
                 if(data){
                     this.setState({
-                        name : data.name,
-                        year: data.year,
-                        picturePath: data.picturePath
+                        nameOfAuditorium : data.nameOfAuditorium,
+                        numberOfSeats: data.numberOfSeats
                     });
                 }
             })
             .then(result => {
                 this.props.history.goBack();
-                NotificationManager.success('Successfuly edited exhibit!');
+                NotificationManager.success('Successfuly edited auditorium!');
             })
             .catch(response => {
-                NotificationManager.error("Unable to update exhibit. ");
+                NotificationManager.error("Unable to update auditorium. ");
                 this.setState({ submitted: false });
             });
     }
 
     render() {
-        const {name, year, picturePath, canSubmit , submitted} = this.state;
+        const {nameOfAuditorium, numberOfSeats, canSubmit , submitted} = this.state;
         return (
             <Container>
                 <Row>
@@ -138,34 +131,24 @@ class EditExhibit extends React.Component {
                             <FormGroup>
                                 <FormControl
                                 
-                                    id="name"
+                                    id="nameOfAuditorium"
                                     type="text"
-                                    placeholder="name"
-                                    value={name}
+                                    placeholder="nameOfAuditorium"
+                                    value={nameOfAuditorium}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <FormControl
-                                
-                                    id="year"
+                                    id="numberOfSeats"
                                     type="number"
-                                    placeholder="year"
-                                    value={year}
+                                    placeholder="Number Of Seats"
+                                    value={numberOfSeats}
                                     onChange={this.handleChange}
+                                    max="36"
                                 />
                             </FormGroup>
-                            <FormGroup>
-                                <FormControl
-                                    id="picturePath"
-                                    type="text"
-                                    placeholder="picturePath"
-                                    value={picturePath}
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
-                           
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit exhibit</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit auditorium</Button>
                         </form>
                     </Col>
                 </Row>
@@ -173,4 +156,4 @@ class EditExhibit extends React.Component {
         );
     }
 }
-export default withRouter(EditExhibit);
+export default withRouter(EditAuditorium);

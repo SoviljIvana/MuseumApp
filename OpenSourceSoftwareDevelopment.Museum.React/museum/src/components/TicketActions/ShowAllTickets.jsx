@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig } from '../../../AppSettings';
+import { serviceConfig } from '../../AppSettings';
 import { Row, Table, Button } from 'react-bootstrap';
-import Spinner from '../../Spinner';
+import Spinner from '../Spinner';
 
-class ShowAllTags extends Component{
+class ShowAllTickets extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            tags: [],
+            tickets: [],
             isLoading: true,
         }
-        this.tagDetails = this.tagDetails.bind(this);
+        this.ticketDetails = this.ticketDetails.bind(this);
     }
 
     componentDidMount(){
-        this.getTags();
+        this.getTickets();
     }
 
-    getTags(){
+    getTickets(){
         const requestOptions = {
             method: 'GET' ,
             headers: {'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
             this.setState({isLoading: true});
-            fetch(`${serviceConfig.baseURL}/api/tags/get`, requestOptions)
+            fetch(`${serviceConfig.baseURL}/api/Tickets/get`, requestOptions)
               .then(response => {
                 if (!response.ok) {
                   return Promise.reject(response);
@@ -35,7 +35,7 @@ class ShowAllTags extends Component{
               .then(data => {
                 if (data) {
                   this.setState({ 
-                      tags: data,
+                      tickets: data,
                        isLoading: false });
                   }
               })
@@ -47,12 +47,13 @@ class ShowAllTags extends Component{
 
   
     fillTableWithDaata() {
-        return this.state.tags.map(tag => {
-            return <tr key={tag.id}>
-                <td>{tag.id}</td>
-                <td>{tag.name}</td>
-                <td>{tag.type}</td>    
-                <td>  <Button width = "1%" className="text-center cursor-pointer"   onClick={() => this.tagDetails(tag.id)}>vidi detalje</Button></td> 
+        return this.state.tickets.map(ticket => {
+            return <tr key={ticket.id}>
+                <td>{ticket.ticketId}</td>
+                <td>{ticket.payment}</td>
+                <td>{ticket.userId}</td>  
+                <td>{ticket.exhibitionId}</td>    
+                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.ticketDetails(ticket.ticketId) }>vidi detalje</Button></td> 
                <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
 </tr>
@@ -60,8 +61,8 @@ class ShowAllTags extends Component{
     })
     }
 
-    tagDetails(id){
-        this.props.history.push(`tagDetails/${id}`);
+    ticketDetails(id){
+        this.props.history.push(`ticketDetails/${id}`);
     }
 
     render(){
@@ -70,8 +71,9 @@ class ShowAllTags extends Component{
         const table = (<Table>
                             <thead>
                             <th>ID</th>
-                            <th>NAZIV</th>
-                            <th>VRSTA</th>
+                            <th>PLACANJE</th>
+                            <th>ID KORISNIKA</th>
+                             <th>ID IZLOZBE</th>
                             <th>VIDI DETALJE</th>
                             <th>IZMENE</th>
                             <th>BRISANJE</th>
@@ -90,4 +92,4 @@ class ShowAllTags extends Component{
         );
     }
 }
-export default ShowAllTags;
+export default ShowAllTickets;

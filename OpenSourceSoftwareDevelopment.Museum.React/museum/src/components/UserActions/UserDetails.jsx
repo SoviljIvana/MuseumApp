@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Container, FormText} from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig,  } from '../../../AppSettings';
+import { serviceConfig,  } from '../../AppSettings';
 
 class UserDetails extends React.Component {
     constructor(props) {

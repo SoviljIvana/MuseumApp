@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig } from '../../../AppSettings';
+import { serviceConfig } from '../../AppSettings';
 import { Row, Table, Button } from 'react-bootstrap';
-import Spinner from '../../Spinner';
+import Spinner from '../Spinner';
 
-class ShowAllTickets extends Component{
+class ShowAllUsers extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            tickets: [],
+            users: [],
             isLoading: true,
         }
-        this.ticketDetails = this.ticketDetails.bind(this);
+        this.userDetails = this.userDetails.bind(this); 
+        this.editUser = this.editUser.bind(this);
     }
 
     componentDidMount(){
-        this.getTickets();
+        this.getUsers();
     }
 
-    getTickets(){
+    getUsers(){
         const requestOptions = {
             method: 'GET' ,
             headers: {'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
             this.setState({isLoading: true});
-            fetch(`${serviceConfig.baseURL}/api/Tickets/get`, requestOptions)
+            fetch(`${serviceConfig.baseURL}/api/Users/get`, requestOptions)
               .then(response => {
                 if (!response.ok) {
                   return Promise.reject(response);
@@ -35,7 +36,7 @@ class ShowAllTickets extends Component{
               .then(data => {
                 if (data) {
                   this.setState({ 
-                      tickets: data,
+                      users: data,
                        isLoading: false });
                   }
               })
@@ -47,23 +48,29 @@ class ShowAllTickets extends Component{
 
   
     fillTableWithDaata() {
-        return this.state.tickets.map(ticket => {
-            return <tr key={ticket.id}>
-                <td>{ticket.ticketId}</td>
-                <td>{ticket.payment}</td>
-                <td>{ticket.userId}</td>  
-                <td>{ticket.exhibitionId}</td>    
-                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.ticketDetails(ticket.ticketId) }>vidi detalje</Button></td> 
-               <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+        return this.state.users.map(user => {
+            return <tr key={user.id}>
+                <td>{user.userId}</td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>  
+                <td>{user.username}</td>  
+                <td>{user.password}</td>
+                <td>{user.yearOfBirth}</td>  
+                <td>{user.email}</td>    
+                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.userDetails(user.userId)}>vidi detalje</Button></td> 
+                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.editUser(user.userId)}>izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
 </tr>
-    
     })
     }
 
-    ticketDetails(id){
-        this.props.history.push(`ticketDetails/${id}`);
+    editUser(id) {
+        this.props.history.push(`edituser/${id}`);
     }
+
+    userDetails(id){
+        this.props.history.push(`userDetails/${id}`);
+        }
 
     render(){
         const {isLoading} = this.state;
@@ -71,11 +78,14 @@ class ShowAllTickets extends Component{
         const table = (<Table>
                             <thead>
                             <th>ID</th>
-                            <th>PLACANJE</th>
-                            <th>ID KORISNIKA</th>
-                             <th>ID IZLOZBE</th>
-                            <th>VIDI DETALJE</th>
-                            <th>IZMENE</th>
+                            <th>IME</th>
+                            <th>PREZIME</th>
+                             <th>KORISNICKO IME</th>
+                            <th>LOZINKA</th>
+                            <th>DATUM RODJENJA</th>
+                            <th>EMAIL ADRESA</th>
+                            <th>DETALJI</th>
+                            <th>IZMENA</th>
                             <th>BRISANJE</th>
                             </thead>
                             <tbody>
@@ -92,4 +102,4 @@ class ShowAllTickets extends Component{
         );
     }
 }
-export default ShowAllTickets;
+export default ShowAllUsers;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig } from '../../../AppSettings';
+import { serviceConfig } from '../../AppSettings';
 import { Row, Table, Button } from 'react-bootstrap';
-import Spinner from '../../Spinner';
+import Spinner from '../Spinner';
 
 class ShowAllAuditoriums extends Component{
     constructor(props){

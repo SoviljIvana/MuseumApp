@@ -14,10 +14,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
 
         Task<UserDomainModel> GetUserByIdAsync(int id);
 
-        Task<UserResultModel> CreateUser(UserDomainModel userModel);
-
-        Task<UserResultModel> DeleteUser(int id);
-
         Task<UserResultModel> UpdateUser(UserDomainModel userDomainModel);
 
     }
