@@ -5,6 +5,8 @@ import { Navbar, NavDropdown, Table  } from 'react-bootstrap';
 import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
 import ShowAllExhibitions from './ExhibitionActions/ShowAllExhibitions';
+import ComingSoonExhibitions from './ExhibitionActions/ComingSoonExhibitions';
+import CurrentExhibitions from './ExhibitionActions/CurrentExhibitions';
 import ShowAllExhibits from './ExhibitActions/ShowAllExhibits'
 import ShowAllTags from './TagActions/ShowAllTags'
 import ShowAllTickets from './TicketActions/ShowAllTickets'
@@ -46,6 +48,10 @@ class Home extends Component {
                 <NavDropdown title="Izložba" id="basic-nav-dropdown">
                     <NavLink activeClassName="active-link" to='/home/ShowAllExhibitions'><h6>Lista izložba</h6></NavLink>
                     <NavLink activeClassName="active-link" to='/home/AddExhibition'><h6>Dodaj izlozbu</h6></NavLink>
+               
+                    <NavLink activeClassName="active-link" to='/home/ComingSoonExhibitions'><h6>Uskoro</h6></NavLink>
+                    <NavLink activeClassName="active-link" to='/home/CurrentExhibitions'><h6>izlozbe koje se trenutno prikazuju</h6></NavLink>
+               
                 </NavDropdown>
             
                 <NavDropdown title="Eksponati" id="basic-nav-dropdown">
@@ -76,6 +82,8 @@ class Home extends Component {
                         <Route path="/home/ShowAllAuditoriums" component={ShowAllAuditoriums} />
                         <Route path="/home/ShowAllExhibitions" component={ShowAllExhibitions} />
                         <Route path="/home/ShowAllExhibits" component={ShowAllExhibits} />
+                        <Route path="/home/CurrentExhibitions" component={CurrentExhibitions} />
+                        <Route path="/home/ComingSoonExhibitions" component={ComingSoonExhibitions} />
                         <Route path="/home/ShowAllTags" component={ShowAllTags} />
                         <Route path="/home/ShowAllTickets" component={ShowAllTickets} />
                         <Route path="/home/ShowAllUsers" component={ShowAllUsers} />
