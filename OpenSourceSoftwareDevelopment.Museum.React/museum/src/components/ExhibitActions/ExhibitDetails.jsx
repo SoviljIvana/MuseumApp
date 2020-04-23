@@ -2,26 +2,27 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Container, FormText} from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig,  } from '../../../AppSettings';
+import { serviceConfig,  } from '../../AppSettings';
 
-class TicketDetails extends React.Component {
+class ExhibitDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id: '',
-            payment: '',
-            userId: '',
-            exhibitionId: '',
-          
+            name: '',
+            year: '',
+            picturePath : '',
+            auditoriumId : '',
+            exhibitionId : ''
         };
     }
 
     componentDidMount() {
         const {id} = this.props.match.params;
-        this.getTicket(id);
+        this.getExhibit(id);
     }
     
-    getTicket(id) {
+    getExhibit(id) {
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -29,7 +30,7 @@ class TicketDetails extends React.Component {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwt')
             }
         };
-        fetch(`${serviceConfig.baseURL}/api/tickets/get/${id}` , requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/exhibits/get/${id}` , requestOptions)
             .then(response => {
                 if (!response.ok) {
                     return Promise.reject(response);
@@ -39,10 +40,12 @@ class TicketDetails extends React.Component {
             .then(data => {
                 if (data) {
                     this.setState({
-                        ticketId: data.ticketId,
-                        payment: data.payment + '',
-                        userId: data.userId +'',
-                        exhibitionId: data.exhibitionId +'',
+                        exhibitId: data.exhibitId,
+                        name: data.name + '', 
+                        year: data.year + '',
+                        picturePath: data.picturePath + '',
+                        auditoriumId : data.auditoriumId ,
+                        exhibitionId : data.exhibitionId,
                     });
                 }
             })
@@ -53,15 +56,17 @@ class TicketDetails extends React.Component {
     }
 
     render() {
-        const {ticketId, payment, userId, exhibitionId} = this.state;
+        const {exhibitId, name, year, picturePath, auditoriumId, exhibitionId} = this.state;
         return (
             <Container>
-                <FormText className="text-danger"><h3>ID KARTE: {ticketId}</h3></FormText>
-                <FormText className="text-danger"><h3>PLACANJE: {payment}</h3></FormText>
-                <FormText className="text-danger"><h3>ID KORISNIKA: {userId}</h3></FormText>
+                <FormText className="text-danger"><h3>IZLOZBA ID: {exhibitId}</h3></FormText>
+                <FormText className="text-danger"><h3>IME: {name}</h3></FormText>
+                <FormText className="text-danger"><h3>GODINA: {year}</h3></FormText>
+                <FormText className="text-danger"><h3>SLIKA: {picturePath}</h3></FormText>
+                <FormText className="text-danger"><h3>AUDITORIUM ID: {auditoriumId}</h3></FormText>
                 <FormText className="text-danger"><h3>IZLOZBA ID: {exhibitionId}</h3></FormText>
             </Container>
         );
     }
 }
-export default withRouter(TicketDetails);
+export default withRouter(ExhibitDetails);

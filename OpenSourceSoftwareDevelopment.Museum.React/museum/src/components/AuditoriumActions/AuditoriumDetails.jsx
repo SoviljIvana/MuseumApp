@@ -2,27 +2,25 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Container, FormText} from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig,  } from '../../../AppSettings';
+import { serviceConfig,  } from '../../AppSettings';
 
-class MuseumDetails extends React.Component {
+class AuditoriumDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id: '',
-            name: '',
-            streetAndNumber: '',
-            city : '',
-            email : '',
-            phoneNumber : ''
+            museumId: '',
+            nameOfAuditorium: '',
+            numberOfSeats : [],
         };
     }
 
     componentDidMount() {
         const {id} = this.props.match.params;
-        this.getMuseum(id);
+        this.getAuditorium(id);
     }
     
-    getMuseum(id) {
+    getAuditorium(id) {
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -30,7 +28,7 @@ class MuseumDetails extends React.Component {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwt')
             }
         };
-        fetch(`${serviceConfig.baseURL}/api/museums/get/${id}` , requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/auditoriums/get/${id}` , requestOptions)
             .then(response => {
                 if (!response.ok) {
                     return Promise.reject(response);
@@ -40,12 +38,10 @@ class MuseumDetails extends React.Component {
             .then(data => {
                 if (data) {
                     this.setState({
-                        museumId: data.museumId,
-                        name: data.name + '',
-                        streetAndNumber: data.streetAndNumber +'',
-                        city : data.city +  '',
-                        email : data.email + '',
-                        phoneNumber : data.phoneNumber +  ''
+                        nameOfAuditorium: data.nameOfAuditorium,
+                        numberOfSeats: data.numberOfSeats + '', 
+                        auditoriumId: data.auditoriumId + '',
+                        museumId: data.museumId
                     });
                 }
             })
@@ -56,17 +52,15 @@ class MuseumDetails extends React.Component {
     }
 
     render() {
-        const {museumId, name, streetAndNumber, city, email, phoneNumber} = this.state;
+        const {auditoriumId, museumId, nameOfAuditorium, numberOfSeats} = this.state;
         return (
             <Container>
+                <FormText className="text-danger"><h3>Sala ID: {auditoriumId}</h3></FormText>
                 <FormText className="text-danger"><h3>Muzej ID: {museumId}</h3></FormText>
-                <FormText className="text-danger"><h3>Naziv: {name}</h3></FormText>
-                <FormText className="text-danger"><h3>Ulica i broj: {streetAndNumber}</h3></FormText>
-                <FormText className="text-danger"><h3>Grad: {city}</h3></FormText>
-                <FormText className="text-danger"><h3>Email adresa: {email}</h3></FormText>
-                <FormText className="text-danger"><h3>Kontakt telefon: {phoneNumber}</h3></FormText>
+                <FormText className="text-danger"><h3>Naziv sale: {nameOfAuditorium}</h3></FormText>
+                <FormText className="text-danger"><h3>Broj sedišta: {numberOfSeats}</h3></FormText>
             </Container>
         );
     }
 }
-export default withRouter(MuseumDetails);
+export default withRouter(AuditoriumDetails);

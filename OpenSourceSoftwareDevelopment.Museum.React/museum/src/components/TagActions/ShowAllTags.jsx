@@ -1,32 +1,31 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig } from '../../../AppSettings';
+import { serviceConfig } from '../../AppSettings';
 import { Row, Table, Button } from 'react-bootstrap';
-import Spinner from '../../Spinner';
+import Spinner from '../Spinner';
 
-class ShowAllUsers extends Component{
+class ShowAllTags extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            users: [],
+            tags: [],
             isLoading: true,
         }
-        this.userDetails = this.userDetails.bind(this); 
-        this.editUser = this.editUser.bind(this);
+        this.tagDetails = this.tagDetails.bind(this);
     }
 
     componentDidMount(){
-        this.getUsers();
+        this.getTags();
     }
 
-    getUsers(){
+    getTags(){
         const requestOptions = {
             method: 'GET' ,
             headers: {'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
             this.setState({isLoading: true});
-            fetch(`${serviceConfig.baseURL}/api/Users/get`, requestOptions)
+            fetch(`${serviceConfig.baseURL}/api/tags/get`, requestOptions)
               .then(response => {
                 if (!response.ok) {
                   return Promise.reject(response);
@@ -36,7 +35,7 @@ class ShowAllUsers extends Component{
               .then(data => {
                 if (data) {
                   this.setState({ 
-                      users: data,
+                      tags: data,
                        isLoading: false });
                   }
               })
@@ -48,29 +47,22 @@ class ShowAllUsers extends Component{
 
   
     fillTableWithDaata() {
-        return this.state.users.map(user => {
-            return <tr key={user.id}>
-                <td>{user.userId}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>  
-                <td>{user.username}</td>  
-                <td>{user.password}</td>
-                <td>{user.yearOfBirth}</td>  
-                <td>{user.email}</td>    
-                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.userDetails(user.userId)}>vidi detalje</Button></td> 
-                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.editUser(user.userId)}>izmeni</Button></td> 
+        return this.state.tags.map(tag => {
+            return <tr key={tag.id}>
+                <td>{tag.id}</td>
+                <td>{tag.name}</td>
+                <td>{tag.type}</td>    
+                <td>  <Button width = "1%" className="text-center cursor-pointer"   onClick={() => this.tagDetails(tag.id)}>vidi detalje</Button></td> 
+               <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
                <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
 </tr>
+    
     })
     }
 
-    editUser(id) {
-        this.props.history.push(`edituser/${id}`);
+    tagDetails(id){
+        this.props.history.push(`tagDetails/${id}`);
     }
-
-    userDetails(id){
-        this.props.history.push(`userDetails/${id}`);
-        }
 
     render(){
         const {isLoading} = this.state;
@@ -78,14 +70,10 @@ class ShowAllUsers extends Component{
         const table = (<Table>
                             <thead>
                             <th>ID</th>
-                            <th>IME</th>
-                            <th>PREZIME</th>
-                             <th>KORISNICKO IME</th>
-                            <th>LOZINKA</th>
-                            <th>DATUM RODJENJA</th>
-                            <th>EMAIL ADRESA</th>
-                            <th>DETALJI</th>
-                            <th>IZMENA</th>
+                            <th>NAZIV</th>
+                            <th>VRSTA</th>
+                            <th>VIDI DETALJE</th>
+                            <th>IZMENE</th>
                             <th>BRISANJE</th>
                             </thead>
                             <tbody>
@@ -102,4 +90,4 @@ class ShowAllUsers extends Component{
         );
     }
 }
-export default ShowAllUsers;
+export default ShowAllTags;

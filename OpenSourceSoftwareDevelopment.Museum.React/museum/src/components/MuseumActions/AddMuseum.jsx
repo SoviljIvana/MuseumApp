@@ -2,21 +2,22 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { FormGroup, FormControl, Button, Container, Row, Col, } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { serviceConfig } from '../../../AppSettings';
+import { serviceConfig } from '../../AppSettings';
 
-class AddAuditorium extends React.Component {
+class AddMuseum extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            auditoriumId: '',
-            museumId: '',
-            nameOfAuditorium: '',
-            numberOfSeats: '',
+            museumId: 0,
+            name: '',
+            streetAndNumber: '',
+            city: '',
+            email: '',
+            phoneNumber: '',
             submitted: false,
             canSubmit: true
         };
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -29,23 +30,25 @@ class AddAuditorium extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.setState({ submitted: true });
-        const { numberOfSeats,  nameOfAuditorium } = this.state;
-        if (numberOfSeats && nameOfAuditorium) {
-            this.newAuditorium();
+        const { name, streetAndNumber, city} = this.state;
+        if ( name && streetAndNumber && city) {
+            this.newMuseum();
         } else {
             NotificationManager.error('Please fill form with data.');
             this.setState({ submitted: false });
         }
     }
 
-    newAuditorium() {
-        const {auditoriumId, nameOfAuditorium,  museumId, numberOfSeats } = this.state;
+    newMuseum() {
+
+        const {museumId, name, streetAndNumber, city, email, phoneNumber} = this.state;
         const data = {
-            AuditoriumId: +auditoriumId,
-            NameOfAuditorium: nameOfAuditorium,
             MuseumId: +museumId,
-            NumberOfSeats: +numberOfSeats,
-            
+            StreetAndNumber: streetAndNumber,
+            City: city,
+            Email: email,
+            Name: name,
+            PhoneNumber: phoneNumber
         };
         const requestOptions = {
             method: 'POST',
@@ -56,7 +59,7 @@ class AddAuditorium extends React.Component {
             body: JSON.stringify(data)
         };
 
-        fetch(`${serviceConfig.baseURL}/api/auditoriums/post`, requestOptions)
+        fetch(`${serviceConfig.baseURL}/api/museums/post`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     return Promise.reject(response);
@@ -64,8 +67,8 @@ class AddAuditorium extends React.Component {
                 return response.statusText;
             })
             .then(result => {
-                NotificationManager.success('Successfuly added new auditorium!');
-                this.props.history.push('ShowAllAuditoriums');
+                NotificationManager.success('Successfuly added new museum!');
+                this.props.history.push('ShowAllMuseums');
             })
 
             .catch(response => {
@@ -76,58 +79,74 @@ class AddAuditorium extends React.Component {
 
 
     render() {
-        const {  numberOfSeats, submitted,  nameOfAuditorium, museumId, auditoriumId, canSubmit } = this.state;
+        const { museumId, name, streetAndNumber, city, email, phoneNumber, canSubmit , submitted} = this.state;
         return (
             <Container>
                 <Row>
                     <Col>
                         <form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                                <FormControl
+                                    id="museumId"
+                                    type="number"
+                                    placeholder="museumId"
+                                    value={museumId}
+                                    onChange={this.handleChange}
+                                />
+                            </FormGroup>  
                             <FormGroup>
                                 <FormControl
-                                    id="nameOfAuditorium"
+                                    id="name"
                                     type="text"
-                                    placeholder="Auditorium Name"
-                                    value={nameOfAuditorium}
+                                    placeholder="Name"
+                                    value={name}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>                         
                             <FormGroup>
                                 <FormControl
-                                    id="numberOfSeats"
-                                    type="number"
-                                    placeholder="Number Of Seats"
-                                    value={numberOfSeats}
-                                    onChange={this.handleChange}
-                                    max="36"
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <FormControl
-                                    id="museumId"
-                                    type="number"
-                                    placeholder="Museum Id"
-                                    value={museumId}
+                                    id="streetAndNumber"
+                                    type="text"
+                                    placeholder="streetAndNumber"
+                                    value={streetAndNumber}
                                     onChange={this.handleChange}
                                     
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <FormControl
-                                    id="auditoriumId"
-                                    type="number"
-                                    placeholder="Auditorium Id"
-                                    value={auditoriumId}
+                                    id="city"
+                                    type="text"
+                                    placeholder="city"
+                                    value={city}
                                     onChange={this.handleChange}
                                     
                                 />
                             </FormGroup>
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Add Auditorium</Button>
+                            <FormGroup>
+                                <FormControl
+                                    id="email"
+                                    type="text"
+                                    placeholder="email"
+                                    value={email}
+                                    onChange={this.handleChange}
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <FormControl
+                                    id="phoneNumber"
+                                    type="text"
+                                    placeholder="phoneNumber"
+                                    value={phoneNumber}
+                                    onChange={this.handleChange}
+                                />
+                            </FormGroup>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Add Museum</Button>
                         </form>
                     </Col>
                 </Row>
-              
             </Container>
         );
     }
 }
-export default withRouter(AddAuditorium);
+export default withRouter(AddMuseum);
