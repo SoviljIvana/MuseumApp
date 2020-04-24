@@ -90,9 +90,11 @@ class ShowAllExhibitions extends Component{
                             </tr>
             })
         }
+
         editExhibition(id){
             this.props.history.push(`editExhibition/${id}`);
         }
+        
         exhibitionDetails(id){
             this.props.history.push(`exhibitionDetails/${id}`);
         }
@@ -100,7 +102,7 @@ class ShowAllExhibitions extends Component{
         render(){
             const {isLoading} = this.state;
             const rowsData = this.fillTableWithDaata();
-            const table = (<Table>
+            const table = (<Table striped bordered hover responsive striped>
                                 <thead>
                                 <th>ID</th>
                                 <th>NAZIV</th>
@@ -119,7 +121,7 @@ class ShowAllExhibitions extends Component{
             const showTable = isLoading ? <Spinner></Spinner> : table;
             return (
                 <React.Fragment>
-                    <Row>
+                    <Row >
                         {showTable}
                     </Row>
                 </React.Fragment>

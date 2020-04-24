@@ -12,7 +12,8 @@ function App() {
       <div className="set-overflow-y">
       <Switch>
         <Redirect exact from="/" to="home" />
-        <Route path="/home" component={Home} />
+        <Route path = "/home" component = {Home} />//for user
+        {/* <Route path = "/dashboard" component = {Dashboard} /> //for admin */}
       </Switch>
       <NotificationContainer />
       </div>
