@@ -49,24 +49,46 @@ class Home extends Component {
 
     render() {
         return (
-            <Row className="no-gutters pr-5 pl-5">
+              <Row className="no-gutters pr-1 pl-1" > 
                 <Table>
-                    <Navbar className="slide-container" expand="lg" variant="light" bg="light">
-                        <Nav justify variant="tabs" className="mr-auto">
+                    <Navbar sticky="top" className="slide-container" expand="lg"  bg="dark">
+                        <Nav  className="mr-auto">
                             <Container>
-                                <Navbar.Brand><Link to='/home/ShowAllExhibitions'><Button size="lg" variant="outline-dark">Izložbe</Button></Link></Navbar.Brand>
-                                <Navbar.Brand><Link to='/home/ComingSoonExhibitions'><Button size="lg" variant="outline-dark">Uskoro</Button></Link></Navbar.Brand>
-                                <Navbar.Brand><Link to='/home/CurrentExhibitions'><Button size="lg" variant="outline-dark">Trenutno se prikazuju</Button></Link></Navbar.Brand>
-                                <Navbar.Brand><Link to=''><Button size="lg" variant="outline-dark">O muzeju</Button></Link></Navbar.Brand>
-                                <Navbar.Brand><Link to=''><Button size="lg" variant="outline-dark">Kontakt</Button></Link></Navbar.Brand>
-                                <Form inline>
-                                    <FaUser />
-                                    <Button variant="outline-primary">Login</Button>
-                                </Form>
-                            </Container>
+                                <Navbar.Brand ><Link to='/home/ShowAllExhibitions'><Button variant="dark" >Izložbe</Button></Link></Navbar.Brand>
+                                </Container>
                         </Nav>
+                        <Nav  className="mr-auto">
+                            <Container>
+                            <Navbar.Brand><Link to='/home/ComingSoonExhibitions'><Button variant="dark">Uskoro</Button></Link></Navbar.Brand>
+                                </Container>
+                        </Nav>
+                        <Nav  className="mr-auto">
+                            <Container>
+                            <Navbar.Brand><Link to='/home/CurrentExhibitions'><Button variant="dark" >Trenutno se prikazuju</Button></Link></Navbar.Brand>
+                                </Container>
+                        </Nav>
+                        <Nav  className="mr-auto">
+                            <Container>
+                            <Navbar.Brand><Link to=''><Button size="lg" variant="dark" active>Home</Button></Link></Navbar.Brand>
+                                </Container>
+                        </Nav>
+                        <Nav  className="mr-auto">
+                            <Container>
+                            <Navbar.Brand><Link to=''><Button  variant="dark">O muzeju</Button></Link></Navbar.Brand>
+                                </Container>
+                        </Nav>
+                        <Nav  className="mr-auto">
+                            <Container>
+                            <Navbar.Brand><Link to=''><Button variant="dark">Kontakt</Button></Link></Navbar.Brand>                                   
+                                </Container>
+                        </Nav>
+                                <Navbar.Collapse className="justify-content-end">
+                                <Button variant="outline-success"   variant="dark">   <FaUser /> Login</Button>
+                                </Navbar.Collapse>
+                         
                     </Navbar>
-                    <p className="slide-container">
+                    </Table>
+                    {/* <p className="slide-container">
                         <Fade {...fadeProperties}>
                             <div className="each-fade">
                                 <img src={fadeImages[0]} />
@@ -78,7 +100,7 @@ class Home extends Component {
                                 <img src={fadeImages[2]} />
                             </div>
                         </Fade>
-                    </p>
+                    </p> */}
                     <Col className="pt-2 app-content-main">
                         <Switch>
                             <Route path="/home/ShowAllMuseums" component={ShowAllMuseums} />
@@ -108,7 +130,7 @@ class Home extends Component {
                             <Route path="/home/EditMuseum/:id" component={EditMuseum} />
                         </Switch>
                     </Col>
-                </Table>
+             
             </Row>
         );
     }

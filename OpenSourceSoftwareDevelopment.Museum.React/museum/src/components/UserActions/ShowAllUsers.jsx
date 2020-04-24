@@ -75,7 +75,7 @@ class ShowAllUsers extends Component{
     render(){
         const {isLoading} = this.state;
         const rowsData = this.fillTableWithDaata();
-        const table = (<Table>
+        const table = (<Table striped bordered hover responsive striped>
                             <thead>
                             <th>ID</th>
                             <th>IME</th>

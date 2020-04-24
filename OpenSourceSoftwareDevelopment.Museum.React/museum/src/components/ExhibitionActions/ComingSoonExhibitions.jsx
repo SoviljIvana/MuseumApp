@@ -84,15 +84,17 @@ class ComingSoonExhibitions extends Component{
                     <td>{exhibition.typeOfExhibition}</td>
                     <td>{exhibition.startTime}</td>
                     <td>{exhibition.endTime}</td>
-                    <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
-                    <td> <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.editExhibition(exhibition.exhibitionId)} >izmeni</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeExhibition(exhibition.exhibitionId)} >obriši</Button> </td> 
-                            </tr>
+                    <td><Button width = "1%" className="text-center cursor-pointer" onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
+                    <td><Button width = "1%" className="text-center cursor-pointer" onClick={() => this.editExhibition(exhibition.exhibitionId)}>izmeni</Button></td> 
+                    <td><Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeExhibition(exhibition.exhibitionId)}>obriši</Button> </td> 
+                    </tr>
             })
         }
+
         editExhibition(id){
             this.props.history.push(`editExhibition/${id}`);
         }
+
         exhibitionDetails(id){
             this.props.history.push(`exhibitionDetails/${id}`);
         }
@@ -100,7 +102,7 @@ class ComingSoonExhibitions extends Component{
         render(){
             const {isLoading} = this.state;
             const rowsData = this.fillTableWithDaata();
-            const table = (<Table>
+            const table = (<Table striped bordered hover responsive striped>
                                 <thead>
                                 <th>ID</th>
                                 <th>NAZIV</th>
