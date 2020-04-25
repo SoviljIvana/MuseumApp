@@ -75,15 +75,14 @@ class ShowAllMuseums extends Component{
         fillTableWithDaata() {
             return this.state.museums.map(museum => {
                 return <tr key={museum.id}>
-                    <td>{museum.museumId}</td>
                     <td>{museum.name}</td>
                     <td>{museum.streetAndNumber}</td>
                     <td>{museum.city}</td>
                     <td>{museum.email}</td>
                     <td>{museum.phoneNumber}</td>
-                    <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.museumDetails(museum.museumId)}>vidi detalje</Button></td> 
-                    <td> <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.editMuseum(museum.museumId)}>izmeni</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeMuseum(museum.museumId)}>obriši</Button> </td> 
+                    <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer"  onClick={() => this.museumDetails(museum.museumId)}>vidi detalje</Button></td> 
+                    <td> <Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick={() => this.editMuseum(museum.museumId)}>izmeni</Button></td> 
+                   <td><Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick={() => this.removeMuseum(museum.museumId)}>obriši</Button> </td> 
                             </tr>
             })
         }
@@ -97,17 +96,16 @@ class ShowAllMuseums extends Component{
         render(){
             const {isLoading} = this.state;
             const rowsData = this.fillTableWithDaata();
-            const table = (<Table striped bordered hover responsive striped>
+            const table = (<Table striped bordered hover responsive striped variant="dark">
                                 <thead>
-                                <th>ID</th>
-                                <th>NAZIV</th>
-                                <th>ULICA I BROJ</th>
-                                <th>GRAD</th>
-                                <th>E-MAIL ADRESA</th>
-                                <th>BROJ TELEFONA</th>
-                                <th>VIDI DETALJE</th>
-                                <th>IZMENA</th>
-                                <th>BRISANJE</th>
+                                <th>Naziv</th>
+                                <th>Ulica i broj</th>
+                                <th>Grad</th>
+                                <th>E-mail adresa</th>
+                                <th>Telefon</th>
+                                <th>Detalji</th>
+                                <th>Izmena</th>
+                                <th>Brisanje</th>
                                 </thead>
                                 <tbody>
                                     {rowsData}

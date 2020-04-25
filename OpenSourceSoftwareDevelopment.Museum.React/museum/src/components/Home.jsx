@@ -5,7 +5,7 @@ import { FaUser } from 'react-icons/fa';
 import { Navbar, Table, Nav, Form, Button, Carousel, Container, } from 'react-bootstrap';
 import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
-import ShowAllExhibitions from './ExhibitionActions/ShowAllExhibitions';
+import ShowAllExhibitionsForUser from './ExhibitionActions/ShowAllExhibitionsForUser';
 import ShowAllExhibits from './ExhibitActions/ShowAllExhibits'
 import ShowAllTags from './TagActions/ShowAllTags'
 import ShowAllTickets from './TicketActions/ShowAllTickets'
@@ -26,8 +26,8 @@ import EditAuditorium from './AuditoriumActions/EditAuditorium'
 import EditExhibition from './ExhibitionActions/EditExhibition'
 import EditExhibit from './ExhibitActions/EditExhibit'
 import EditMuseum from './MuseumActions/EditMuseum'
-import CurrentExhibitions from './ExhibitionActions/CurrentExhibitions'
-import ComingSoonExhibitions from './ExhibitionActions/ComingSoonExhibitions'
+import CurrentExhibitionsForUser from './ExhibitionActions/CurrentExhibitionsForUser'
+import ComingSoonExhibitionsForUser from './ExhibitionActions/ComingSoonExhibitionsForUser'
 import picture1 from './picture1.jpg';
 import { Fade } from 'react-slideshow-image';
 
@@ -54,17 +54,17 @@ class Home extends Component {
                     <Navbar sticky="top" className="slide-container" expand="lg"  bg="dark">
                         <Nav  className="mr-auto">
                             <Container>
-                                <Navbar.Brand ><Link to='/home/ShowAllExhibitions'><Button variant="dark" >Izložbe</Button></Link></Navbar.Brand>
+                                <Navbar.Brand ><Link to='/home/ShowAllExhibitionsForUser'><Button variant="dark" >Izložbe</Button></Link></Navbar.Brand>
                                 </Container>
                         </Nav>
                         <Nav  className="mr-auto">
                             <Container>
-                            <Navbar.Brand><Link to='/home/ComingSoonExhibitions'><Button variant="dark">Uskoro</Button></Link></Navbar.Brand>
+                            <Navbar.Brand><Link to='/home/ComingSoonExhibitionsForUser'><Button variant="dark">Uskoro</Button></Link></Navbar.Brand>
                                 </Container>
                         </Nav>
                         <Nav  className="mr-auto">
                             <Container>
-                            <Navbar.Brand><Link to='/home/CurrentExhibitions'><Button variant="dark" >Trenutno se prikazuju</Button></Link></Navbar.Brand>
+                            <Navbar.Brand><Link to='/home/CurrentExhibitionsForUser'><Button variant="dark" >Trenutno se prikazuju</Button></Link></Navbar.Brand>
                                 </Container>
                         </Nav>
                         <Nav  className="mr-auto">
@@ -105,9 +105,9 @@ class Home extends Component {
                         <Switch>
                             <Route path="/home/ShowAllMuseums" component={ShowAllMuseums} />
                             <Route path="/home/ShowAllAuditoriums" component={ShowAllAuditoriums} />
-                            <Route path="/home/ShowAllExhibitions" component={ShowAllExhibitions} />
-                            <Route path="/home/ComingSoonExhibitions" component={ComingSoonExhibitions} />
-                            <Route path="/home/CurrentExhibitions" component={CurrentExhibitions} />
+                            <Route path="/home/ShowAllExhibitionsForUser" component={ShowAllExhibitionsForUser} />
+                            <Route path="/home/ComingSoonExhibitionsForUser" component={ComingSoonExhibitionsForUser} />
+                            <Route path="/home/CurrentExhibitionsForUser" component={CurrentExhibitionsForUser} />
                             <Route path="/home/ShowAllExhibits" component={ShowAllExhibits} />
                             <Route path="/home/ShowAllTags" component={ShowAllTags} />
                             <Route path="/home/ShowAllTickets" component={ShowAllTickets} />
