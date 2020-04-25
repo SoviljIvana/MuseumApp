@@ -5,7 +5,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
 import Home from './components/Home'
-
+import Dashboard from './components/Dashboard'
 function App() {
   return (
     <React.Fragment>
@@ -13,7 +13,7 @@ function App() {
       <Switch>
         <Redirect exact from="/" to="home" />
         <Route path = "/home" component = {Home} />//for user
-        {/* <Route path = "/dashboard" component = {Dashboard} /> //for admin */}
+        <Route path = "/dashboard" component = {Dashboard} />
       </Switch>
       <NotificationContainer />
       </div>

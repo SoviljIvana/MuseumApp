@@ -82,15 +82,12 @@ class ShowAllExhibits extends Component {
     fillTableWithDaata() {
         return this.state.exhibits.map(exhibit => {
             return <tr key={exhibit.id}>
-                <td>{exhibit.exhibitId}</td>
                 <td>{exhibit.name}</td>
                 <td>{exhibit.year}</td>
                 <td>{exhibit.picturePath}</td>
-                <td>{exhibit.auditoriumId}</td>
-                <td>{exhibit.exhibitionId}</td>
-                <td>  <Button width="1%" className="text-center cursor-pointer" onClick={() => this.exhibitDetails(exhibit.exhibitId)} >vidi detalje</Button></td>
-                <td> <Button width="1%" className="text-center cursor-pointer"  onClick={() => this.editExhibit(exhibit.exhibitId)} >izmeni</Button></td>
-                <td>  <Button width="1%" className="text-center cursor-pointer" onClick={() => this.removeExhibit(exhibit.exhibitId)}>obriši</Button> </td>
+                <td><Button variant="dark" width="1%" className="text-center cursor-pointer" onClick={() => this.exhibitDetails(exhibit.exhibitId)} >vidi detalje</Button></td>
+                <td><Button variant="dark" width="1%" className="text-center cursor-pointer"  onClick={() => this.editExhibit(exhibit.exhibitId)} >izmeni</Button></td>
+                <td><Button variant="dark" width="1%" className="text-center cursor-pointer"  onClick={() => this.removeExhibit(exhibit.exhibitId)}>obriši</Button> </td>
             </tr>
 
         })
@@ -106,17 +103,14 @@ class ShowAllExhibits extends Component {
     render() {
         const { isLoading } = this.state;
         const rowsData = this.fillTableWithDaata();
-        const table = (<Table striped bordered hover responsive striped>
+        const table = (<Table striped bordered hover responsive striped variant="dark">
             <thead>
-                <th>ID</th>
-                <th>NAZIV</th>
-                <th>GODINA</th>
-                <th>SLIKA</th>
-                <th>ID SALE</th>
-                <th>ID IZLOZBE</th>
-                <th>VIDI DETALJE</th>
-                <th>IZMENE</th>
-                <th>BRISANJE</th>
+                <th>Naziv</th>
+                <th>Godina porekla</th>
+                <th>Slika</th>
+                <th>Detalji</th>
+                <th>Izmene</th>
+                <th>Brisanje</th>
             </thead>
             <tbody>
                 {rowsData}

@@ -1,0 +1,21 @@
+.navbar-item{
+    color: white;
+    font-weight: bold;
+    background-color:white;
+}
+.container {
+    display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: center;
+   
+  }
+.button {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    color: black;
+    background-color:white;
+  }
+
+  

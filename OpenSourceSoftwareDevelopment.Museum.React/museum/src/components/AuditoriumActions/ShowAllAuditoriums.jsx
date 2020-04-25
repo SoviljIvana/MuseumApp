@@ -76,13 +76,13 @@ class ShowAllAuditoriums extends Component{
         fillTableWithDaata() {
             return this.state.auditoriums.map(auditorium => {
                 return <tr key={auditorium.id}>
-                    <td>{auditorium.auditoriumId}</td>
-                    <td>{auditorium.museumId}</td>
+                    {/* <td>{auditorium.auditoriumId}</td>
+                    <td>{auditorium.museumId}</td> */}
                     <td>{auditorium.nameOfAuditorium}</td>
                     <td>{auditorium.numberOfSeats}</td>
-               <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.auditoriumDetails(auditorium.auditoriumId)}>vidi detalje</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.editAuditorium(auditorium.auditoriumId)}>izmeni</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer" onClick={() => this.removeAuditorium(auditorium.auditoriumId)}>obriši</Button> </td> 
+               <td>  <Button variant="dark" width = "1%" className="text-center cursor-pointer"  onClick={() => this.auditoriumDetails(auditorium.auditoriumId)}>vidi detalje</Button></td> 
+               <td>  <Button variant="dark" width = "1%" className="text-center cursor-pointer"  onClick={() => this.editAuditorium(auditorium.auditoriumId)}>izmeni</Button></td> 
+               <td>  <Button variant="dark" width = "1%" className="text-center cursor-pointer" onClick={() => this.removeAuditorium(auditorium.auditoriumId)}>obriši</Button> </td> 
   </tr>
         
         })
@@ -98,15 +98,17 @@ class ShowAllAuditoriums extends Component{
         render(){
             const {isLoading} = this.state;
             const rowsData = this.fillTableWithDaata();
-            const table = (<Table striped bordered hover responsive striped>
+            const table = (<Table striped bordered hover responsive striped variant="dark">
                                 <thead>
-                                <th>ID</th>
-                                <th>MUZEJ ID</th>
-                                <th>NAZIV AUDITORIUMA</th>
-                                <th>BROS SEDIŠTA</th>
-                                <th>DETALJI</th>
-                                <th>IZMENA</th>
-                                <th>BRISANJE</th>
+                                <tr>
+                                {/* <th>ID</th> */}
+                                {/* <th>MUZEJ ID</th> */}
+                                <th>Naziv sale</th>
+                                <th>Broj sedišta</th>
+                                <th>Detalji</th>
+                                <th>Izmena</th>
+                                <th>Brisanje</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     {rowsData}
