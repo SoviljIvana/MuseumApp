@@ -75,8 +75,8 @@ class ComingSoonExhibitionsForUser extends Component{
 
         fillTableWithDaata() {
             return this.state.exhibitions.map(exhibition => {
-                return <tr key={exhibition.id}>
-                    <td>{exhibition.exhibitionId}</td>
+                return <tr className="no-gutters pr-4 pl-4" key={exhibition.id}>
+                    <td className="no-gutters pr-4 pl-4">{exhibition.exhibitionId}</td>
                     <td>{exhibition.exhibitionName}</td>
                     <td>{exhibition.auditoriumId}</td>
                     <td>{exhibition.typeOfExhibition}</td>
@@ -94,10 +94,10 @@ class ComingSoonExhibitionsForUser extends Component{
         render(){
             const {isLoading} = this.state;
             const rowsData = this.fillTableWithDaata();
-            const table = (<Table striped bordered hover responsive striped>
-                                <thead>
-                                <th>ID</th>
-                                <th>NAZIV</th>
+            const table = (<Table striped bordered hover responsive striped >
+                                <thead className="no-gutters pr-4 pl-4">
+                                <th className="no-gutters pr-4 pl-4">ID</th>
+                                <th className="no-gutters pr-4 pl-4">NAZIV</th>
                                 <th>SALA ID</th>
                                 <th>VRSTA IZLOŽBE</th>
                                 <th>DATUM OTVARANJA IZLOŽBE</th>
