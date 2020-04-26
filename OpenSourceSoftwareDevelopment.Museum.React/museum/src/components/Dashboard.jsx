@@ -28,7 +28,6 @@ import EditExhibit from './ExhibitActions/EditExhibit'
 import EditMuseum from './MuseumActions/EditMuseum'
 import CurrentExhibitions from './ExhibitionActions/CurrentExhibitions'
 import ComingSoonExhibitions from './ExhibitionActions/ComingSoonExhibitions'
-import picture1 from './picture1.jpg';
 import './App.css';
 class Dashboard extends Component {
    
