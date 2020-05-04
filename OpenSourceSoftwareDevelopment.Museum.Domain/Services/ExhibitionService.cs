@@ -75,7 +75,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 };
             }
 
-
             ExhibitionResultModel result = new ExhibitionResultModel
             {
                 IsSuccessful = true,
