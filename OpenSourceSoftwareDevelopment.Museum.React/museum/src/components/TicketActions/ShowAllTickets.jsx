@@ -49,13 +49,11 @@ class ShowAllTickets extends Component{
     fillTableWithDaata() {
         return this.state.tickets.map(ticket => {
             return <tr key={ticket.id}>
-                <td>{ticket.ticketId}</td>
                 <td>{ticket.payment}</td>
                 <td>{ticket.userId}</td>  
-                <td>{ticket.exhibitionId}</td>    
-                <td>  <Button width = "1%" className="text-center cursor-pointer" onClick = {() => this.ticketDetails(ticket.ticketId) }>vidi detalje</Button></td> 
-               <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
+                <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick = {() => this.ticketDetails(ticket.ticketId) }>vidi detalje</Button></td> 
+               <td> <Button variant="dark"  width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+               <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
 </tr>
     
     })
@@ -68,15 +66,12 @@ class ShowAllTickets extends Component{
     render(){
         const {isLoading} = this.state;
         const rowsData = this.fillTableWithDaata();
-        const table = (<Table>
+        const table = (<Table striped bordered hover responsive striped variant="dark">
                             <thead>
-                            <th>ID</th>
-                            <th>PLACANJE</th>
-                            <th>ID KORISNIKA</th>
-                             <th>ID IZLOZBE</th>
-                            <th>VIDI DETALJE</th>
-                            <th>IZMENE</th>
-                            <th>BRISANJE</th>
+                            <th>Plaćanje</th>
+                            <th>Detalji</th>
+                            <th>Izmene</th>
+                            <th>Brisanje</th>
                             </thead>
                             <tbody>
                                 {rowsData}

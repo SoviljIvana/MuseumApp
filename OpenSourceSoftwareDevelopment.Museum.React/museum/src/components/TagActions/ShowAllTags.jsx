@@ -49,12 +49,11 @@ class ShowAllTags extends Component{
     fillTableWithDaata() {
         return this.state.tags.map(tag => {
             return <tr key={tag.id}>
-                <td>{tag.id}</td>
                 <td>{tag.name}</td>
                 <td>{tag.type}</td>    
-                <td>  <Button width = "1%" className="text-center cursor-pointer"   onClick={() => this.tagDetails(tag.id)}>vidi detalje</Button></td> 
-               <td> <Button width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
-               <td>  <Button width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
+                <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer"   onClick={() => this.tagDetails(tag.id)}>vidi detalje</Button></td> 
+               <td> <Button variant="dark"  width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
+               <td>  <Button variant="dark" width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
 </tr>
     
     })
@@ -67,14 +66,13 @@ class ShowAllTags extends Component{
     render(){
         const {isLoading} = this.state;
         const rowsData = this.fillTableWithDaata();
-        const table = (<Table>
+        const table = (<Table striped bordered hover responsive striped variant="dark">
                             <thead>
-                            <th>ID</th>
-                            <th>NAZIV</th>
-                            <th>VRSTA</th>
-                            <th>VIDI DETALJE</th>
-                            <th>IZMENE</th>
-                            <th>BRISANJE</th>
+                            <th>Naziv</th>
+                            <th>Vrsta</th>
+                            <th>Detalji</th>
+                            <th>Izmene</th>
+                            <th>Brisanje</th>
                             </thead>
                             <tbody>
                                 {rowsData}

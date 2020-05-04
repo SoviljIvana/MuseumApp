@@ -4,7 +4,7 @@ import { serviceConfig } from '../../AppSettings';
 import { Row, Table, Button } from 'react-bootstrap';
 import Spinner from '../Spinner';
 
-class CurrentExhibitions extends Component{
+class CurrentExhibitionsForUser extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -12,9 +12,6 @@ class CurrentExhibitions extends Component{
             isLoading: true
         }
         this.exhibitionDetails = this.exhibitionDetails.bind(this);
-        this.removeExhibition = this.removeExhibition.bind(this);
-        this.editExhibition = this.editExhibition.bind(this);
-
     }
 
     componentDidMount(){
@@ -47,50 +44,20 @@ class CurrentExhibitions extends Component{
               });
         }
 
-        removeExhibition(id) {
-            const requestOptions = {
-              method: 'DELETE',
-              headers: {'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
-          };
-      
-          fetch(`${serviceConfig.baseURL}/api/exhibitions/delete/${id}`, requestOptions)
-              .then(response => {
-                  if (!response.ok) {
-                      return Promise.reject(response);
-                  }
-                  return response.statusText;
-              })
-              .then(result => {
-                  NotificationManager.success('Successfuly removed exhibition with ID: '+ id);
-                  const newState = this.state.exhibitions.filter(exhibition => {
-                      return exhibition.id !== id;
-                  })
-                  this.setState({auditoriums: newState});
-              })
-              .catch(response => {
-                  NotificationManager.error("Unable to remove exhibition.");
-                  this.setState({ submitted: false });
-              });
-          }
-    
-
         fillTableWithDaata() {
             return this.state.exhibitions.map(exhibition => {
                 return <tr key={exhibition.id}>
+                    <td>{exhibition.exhibitionId}</td>
                     <td>{exhibition.exhibitionName}</td>
+                    <td>{exhibition.auditoriumId}</td>
                     <td>{exhibition.typeOfExhibition}</td>
                     <td>{exhibition.startTime}</td>
                     <td>{exhibition.endTime}</td>
-                    <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
-                    <td> <Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick={() => this.editExhibition(exhibition.exhibitionId)} >izmeni</Button></td> 
-               <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick={() => this.removeExhibition(exhibition.exhibitionId)} >obriši</Button> </td> 
+                    <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
                             </tr>
             })
         }
-        editExhibition(id){
-            this.props.history.push(`editExhibition/${id}`);
-        }
+     
         exhibitionDetails(id){
             this.props.history.push(`exhibitionDetails/${id}`);
         }
@@ -98,17 +65,16 @@ class CurrentExhibitions extends Component{
         render(){
             const {isLoading} = this.state;
             const rowsData = this.fillTableWithDaata();
-            const table = (<Table striped bordered hover responsive striped variant="dark">
+            const table = (<Table>
                                 <thead>
-                            
-                                <th>Naziv</th>
-                               
-                                <th>Vrsta izložbe</th>
-                                <th>Datum otvaranja izložbe</th>
-                                <th>Datum zatvaranja izložbe</th>
-                                <th>Detalji</th>
-                                <th>Izmena</th>
-                                <th>Brisanje</th>
+                                <th>ID</th>
+                                <th>NAZIV</th>
+                                <th>SALA ID</th>
+                                <th>VRSTA IZLOŽBE</th>
+                                <th>DATUM OTVARANJA IZLOŽBE</th>
+                                <th>DATUM ZATVARANJA IZLOŽBE</th>
+                                <th>VIDI DETALJE</th>
+                             
                                 </thead>
                                 <tbody>
                                     {rowsData}
@@ -125,4 +91,4 @@ class CurrentExhibitions extends Component{
         }
     }
 
-export default CurrentExhibitions;
+export default CurrentExhibitionsForUser;
