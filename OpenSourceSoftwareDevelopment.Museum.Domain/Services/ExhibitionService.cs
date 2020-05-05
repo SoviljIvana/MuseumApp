@@ -32,7 +32,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                 TypeOfExhibition = exhibitionModel.TypeOfExhibition,
                 StartTime = exhibitionModel.StartTime,
                 EndTime = exhibitionModel.EndTime
-
             };
             bool auditorium = false;
             var listOfAuditoriums = await _auditoriumRepository.GetAll();

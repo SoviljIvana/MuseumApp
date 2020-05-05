@@ -22,9 +22,8 @@ class ShowAllMuseums extends Component{
 
     getMuseums(){
         const requestOptions = {
-            method: 'GET' ,
-            headers: {'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
+            method: 'GET' 
+          };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Museums/get`, requestOptions)
               .then(response => {
@@ -47,9 +46,8 @@ class ShowAllMuseums extends Component{
         }
         removeMuseum(id) {
             const requestOptions = {
-              method: 'DELETE',
-              headers: {'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+              method: 'DELETE'
+             
           };
       
           fetch(`${serviceConfig.baseURL}/api/museums/delete/${id}`, requestOptions)

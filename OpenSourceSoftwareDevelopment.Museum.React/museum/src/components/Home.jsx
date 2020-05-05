@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { Switch, NavLink, Route, Link } from 'react-router-dom';
-import { FaUser } from 'react-icons/fa';
-import { Navbar, Table, Nav, Form, Button, Carousel, Container, } from 'react-bootstrap';
+import { Switch, Route, Link } from 'react-router-dom';
+import { FaUser, FaSearch } from 'react-icons/fa';
+import { Navbar, Table, Nav,  Button, Container,Image } from 'react-bootstrap';
 import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
 import ShowAllExhibitionsForUser from './ExhibitionActions/ShowAllExhibitionsForUser';
@@ -28,6 +28,8 @@ import EditExhibit from './ExhibitActions/EditExhibit'
 import EditMuseum from './MuseumActions/EditMuseum'
 import CurrentExhibitionsForUser from './ExhibitionActions/CurrentExhibitionsForUser'
 import ComingSoonExhibitionsForUser from './ExhibitionActions/ComingSoonExhibitionsForUser'
+import Popup from "reactjs-popup";
+ 
 import image1 from './Pictures/image1.png';
 import image2 from './Pictures/image2.jpg';
 import image3 from './Pictures/image3.jpg';
@@ -44,28 +46,9 @@ import image13 from './Pictures/image13.jpg';
 import image14 from './Pictures/image14.jpg';
 import image15 from './Pictures/image15.jpg';
 import image16 from './Pictures/image16.jpg';
-
+import logo from './Pictures/logo.png'
 import { Fade } from 'react-slideshow-image';
-
-const fadeImages = [
-    image1,
-    image2,
-    image3,
-    image4,
-    image5,
-    image6,
-    image7,
-    image8,
-    image9,
-    image10,
-    image11,
-    image12,
-    image13,
-    image14,
-    image15,
-    image16
-
-];
+const fadeImages = [ image1,image2,image3, image4,image5,image6,image7, image8,image9, image10, image11,image12, image13,image14, image15,image16];
 
 const fadeProperties = {
     duration: 5000,
@@ -78,47 +61,82 @@ const fadeProperties = {
 }
 
 class Home extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = { open: false };
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+      }
+      openModal() {
+        this.setState({ open: true });
+      }
+      closeModal() {
+        this.setState({ open: false });
+      }
     render() {
         return (
               <Row className="no-gutters pr-0 pl-0" > 
                 <Table>
-                    <Navbar sticky="top" className="slide-container" expand="lg"  bg="dark">
-                        <Nav  className="mr-auto">
-                            <Container>
-                                <Navbar.Brand ><Link to='/home/ShowAllExhibitionsForUser'><Button variant="dark" >Izložbe</Button></Link></Navbar.Brand>
-                                </Container>
+                    <Navbar sticky="top" className="slide-container" expand="lg"  bg="light">
+                    <Nav  className="mr-auto">
+                        <Container>
+                        <Row>
+                        <Col xs={6} md={4}>
+                            <Image src={logo} roundedCircle />
+                        </Col>
+                            </Row>
+                        </Container>
                         </Nav>
                         <Nav  className="mr-auto">
                             <Container>
-                            <Navbar.Brand><Link to='/home/ComingSoonExhibitionsForUser'><Button variant="dark">Uskoro</Button></Link></Navbar.Brand>
+                                <Navbar.Brand ><Link to='/home/ShowAllExhibitionsForUser'><Button variant="light" >IZLOŽBE</Button></Link></Navbar.Brand>
                                 </Container>
-                        </Nav>
+                        </Nav><h4>|</h4>
                         <Nav  className="mr-auto">
                             <Container>
-                            <Navbar.Brand><Link to='/home/CurrentExhibitionsForUser'><Button variant="dark" >Trenutno se prikazuju</Button></Link></Navbar.Brand>
+                            <Navbar.Brand><Link to='/home/ComingSoonExhibitionsForUser'><Button variant="light">USKORO</Button></Link></Navbar.Brand>
                                 </Container>
-                        </Nav>
+                        </Nav><h4>|</h4>
                         <Nav  className="mr-auto">
                             <Container>
-                            <Navbar.Brand><Link to=''><Button size="lg" variant="dark" active>Home</Button></Link></Navbar.Brand>
+                            <Navbar.Brand><Link to='/home/CurrentExhibitionsForUser'><Button variant="light" >PRIKAZUJEMO</Button></Link></Navbar.Brand>
                                 </Container>
-                        </Nav>
+                        </Nav><h4>|</h4>
                         <Nav  className="mr-auto">
                             <Container>
-                            <Navbar.Brand><Link to=''><Button  variant="dark">O muzeju</Button></Link></Navbar.Brand>
+                            <Navbar.Brand><Link to=''><Button variant="outline-light" size="lg"  active><b>VESTI</b></Button></Link></Navbar.Brand>
                                 </Container>
-                        </Nav>
+                        </Nav><h4>|</h4>
                         <Nav  className="mr-auto">
                             <Container>
-                            <Navbar.Brand><Link to=''><Button variant="dark">Kontakt</Button></Link></Navbar.Brand>                                   
+                            <Navbar.Brand><Link to=''><Button  variant="light">O MUZEJU</Button></Link></Navbar.Brand>
+                                </Container>
+                        </Nav><h4>|</h4>
+                        <Nav  className="mr-auto">
+                            <Container>
+                            <Navbar.Brand><Link to=''><Button variant="light">KONTAKT</Button></Link></Navbar.Brand>                                   
                                 </Container>
                         </Nav>
                                 <Navbar.Collapse className="justify-content-end">
-                                <Button variant="outline-success"   variant="dark">   <FaUser /> Login</Button>
-                                </Navbar.Collapse>
-                         
+                               <Button variant="light" > <FaSearch /></Button> <h4>|</h4>
+                                <Button variant="light"  onClick={this.openModal}>   <FaUser /> Login</Button>
+                               
+                                <Popup
+          open={this.state.open}
+          closeOnDocumentClick
+          onClose={this.closeModal}>
+          <div >
+            <a className="close" onClick={this.closeModal}>
+              &times;
+            </a>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
+            omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
+            ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
+            doloribus. Odit, aut.
+          </div>
+        </Popup> </Navbar.Collapse>
                     </Navbar>
+                    
                     </Table>
                     <p className="slide-container">
                         <Fade {...fadeProperties}>
@@ -172,7 +190,9 @@ class Home extends Component {
                            
                        
                         </Fade>
+                   
                     </p>
+                  
                     <Col className="pt-2 app-content-main">
                         <Switch>
                             <Route path="/home/ShowAllMuseums" component={ShowAllMuseums} />

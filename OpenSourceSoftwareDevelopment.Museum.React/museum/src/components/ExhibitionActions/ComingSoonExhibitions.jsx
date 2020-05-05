@@ -23,9 +23,8 @@ class ComingSoonExhibitions extends Component{
 
     getExhibitions(){
         const requestOptions = {
-            method: 'GET' ,
-            headers: {'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
+            method: 'GET' 
+           };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Exhibitions/get/comingSoon`, requestOptions)
               .then(response => {
@@ -49,9 +48,8 @@ class ComingSoonExhibitions extends Component{
 
         removeExhibition(id) {
             const requestOptions = {
-              method: 'DELETE',
-              headers: {'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+              method: 'DELETE'
+              
           };
       
           fetch(`${serviceConfig.baseURL}/api/exhibitions/delete/${id}`, requestOptions)

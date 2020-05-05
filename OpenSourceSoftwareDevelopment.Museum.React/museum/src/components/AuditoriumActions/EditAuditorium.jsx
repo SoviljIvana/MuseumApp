@@ -28,9 +28,8 @@ class EditAuditorium extends React.Component {
     }
     getAuditorium(auditoriumId) {
         const requestOptions = {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json',
-                          'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+            method: 'GET'
+           
         };
     
         fetch(`${serviceConfig.baseURL}/api/auditoriums/get/` + auditoriumId, requestOptions)
