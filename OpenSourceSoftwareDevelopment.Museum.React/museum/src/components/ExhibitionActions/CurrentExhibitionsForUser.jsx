@@ -20,9 +20,8 @@ class CurrentExhibitionsForUser extends Component{
 
     getExhibitions(){
         const requestOptions = {
-            method: 'GET' ,
-            headers: {'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
+            method: 'GET' 
+           };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Exhibitions/get/currentExhibitions`, requestOptions)
               .then(response => {

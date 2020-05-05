@@ -30,9 +30,8 @@ class EditExhibit extends React.Component {
     }
     getExhibit(exhibitId) {
         const requestOptions = {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json',
-                          'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+            method: 'GET'
+          
         };
     
         fetch(`${serviceConfig.baseURL}/api/exhibits/get/` + exhibitId, requestOptions)
@@ -92,10 +91,6 @@ class EditExhibit extends React.Component {
 
         const requestOptions = {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            },
             body: JSON.stringify(data)
         };
 

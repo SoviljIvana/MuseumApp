@@ -28,9 +28,8 @@ class EditUser extends React.Component {
     }
     getUser(userId) {
         const requestOptions = {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json',
-                          'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+            method: 'GET'
+         
         };
     
         fetch(`${serviceConfig.baseURL}/api/users/get/` + userId, requestOptions)
@@ -100,10 +99,7 @@ class EditUser extends React.Component {
 
         const requestOptions = {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            },
+           
             body: JSON.stringify(data)
         };
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Row, Table, Button } from 'react-bootstrap';
+import { Row, Table, Button , Card} from 'react-bootstrap';
 import Spinner from '../Spinner';
-
+import logo from '../Pictures/logo.png'
 class ShowAllExhibitionsForUser extends Component{
     constructor(props){
         super(props);
@@ -20,10 +20,10 @@ class ShowAllExhibitionsForUser extends Component{
     }
 
     getExhibitions(){
+        
         const requestOptions = {
-            method: 'GET' ,
-            headers: {'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
+            method: 'GET' 
+        };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Exhibitions/get`, requestOptions)
               .then(response => {
@@ -47,15 +47,17 @@ class ShowAllExhibitionsForUser extends Component{
 
         fillTableWithDaata() {
             return this.state.exhibitions.map(exhibition => {
-                return <tr key={exhibition.id}>
-                    <td>{exhibition.exhibitionId}</td>
-                    <td>{exhibition.exhibitionName}</td>
-                    <td>{exhibition.auditoriumId}</td>
-                    <td>{exhibition.typeOfExhibition}</td>
-                    <td>{exhibition.startTime}</td>
-                    <td>{exhibition.endTime}</td>
-                    <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
-                            </tr>
+                return <Card border="dark" key={exhibition.id}>
+                    <Card.Header><Button variant="light"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}><h3>{exhibition.exhibitionName}</h3></Button></Card.Header>
+                    <Card.Img variant="top" src="" />
+                    <Card.Body>
+                    <Card.Title><h6>Tema: {exhibition.typeOfExhibition}</h6></Card.Title>
+                    <Card.Title> <Button variant="outline-success">{exhibition.startTime}</Button> -  <Button variant="outline-success"> {exhibition.endTime}</Button></Card.Title>
+                    </Card.Body>
+                    <Card.Footer>
+                    <small className="text-muted">Last updated ? ago</small>
+                </Card.Footer>
+                    </Card>
             })
         }
         
@@ -67,16 +69,6 @@ class ShowAllExhibitionsForUser extends Component{
             const {isLoading} = this.state;
             const rowsData = this.fillTableWithDaata();
             const table = (<Table striped bordered hover responsive striped>
-                                <thead>
-                                <th>ID</th>
-                                <th>NAZIV</th>
-                                <th>SALA ID</th>
-                                <th>VRSTA IZLOŽBE</th>
-                                <th>DATUM OTVARANJA IZLOŽBE</th>
-                                <th>DATUM ZATVARANJA IZLOŽBE</th>
-                                <th>VIDI DETALJE</th>
-                             
-                                </thead>
                                 <tbody>
                                     {rowsData}
                                 </tbody>
