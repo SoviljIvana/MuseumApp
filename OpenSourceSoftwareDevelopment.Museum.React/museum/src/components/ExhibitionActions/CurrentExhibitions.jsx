@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Row, Table, Button } from 'react-bootstrap';
-import Spinner from '../Spinner';
+import { Row, Table, Button, Spinner } from 'react-bootstrap';
 
 class CurrentExhibitions extends Component{
+
     constructor(props){
         super(props);
         this.state = {
