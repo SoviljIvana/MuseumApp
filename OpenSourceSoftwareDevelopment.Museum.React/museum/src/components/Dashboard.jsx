@@ -34,7 +34,7 @@ class Dashboard extends Component {
         return (
             <Row className="no-gutters pr-1 pl-1" >
                 <Table>
-                    <Navbar sticky="top" className="slide-container" expand="lg" bg="dark" variant="dark">
+                    <Navbar sticky="top" className="slide-container"  expand="lg" bg="dark" variant="dark">
                         <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Izložba"  >
