@@ -22,11 +22,8 @@ class TagDetails extends React.Component {
     
     getTag(id) {
         const requestOptions = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-            }
+            method: 'GET'
+            
         };
         fetch(`${serviceConfig.baseURL}/api/tags/get/${id}` , requestOptions)
             .then(response => {

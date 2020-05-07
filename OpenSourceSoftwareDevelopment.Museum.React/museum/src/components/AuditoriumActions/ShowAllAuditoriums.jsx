@@ -22,9 +22,8 @@ class ShowAllAuditoriums extends Component{
 
     getAuditoriums(){
         const requestOptions = {
-            method: 'GET' ,
-            headers: {'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
+            method: 'GET' 
+          };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Auditoriums/get`, requestOptions)
               .then(response => {
@@ -48,9 +47,8 @@ class ShowAllAuditoriums extends Component{
 
         removeAuditorium(id) {
             const requestOptions = {
-              method: 'DELETE',
-              headers: {'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+              method: 'DELETE'
+            
           };
       
           fetch(`${serviceConfig.baseURL}/api/auditoriums/delete/${id}`, requestOptions)

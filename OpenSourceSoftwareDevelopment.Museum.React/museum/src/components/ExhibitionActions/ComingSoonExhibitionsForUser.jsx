@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Row, Table, Button } from 'react-bootstrap';
-import Spinner from '../Spinner';
-
+import { Row, Table, Button, Card ,Container } from 'react-bootstrap';
+import Spinner from '../Spinner'
 class ComingSoonExhibitionsForUser extends Component{
     constructor(props){
         super(props);
@@ -21,9 +20,8 @@ class ComingSoonExhibitionsForUser extends Component{
 
     getExhibitions(){
         const requestOptions = {
-            method: 'GET' ,
-            headers: {'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
+            method: 'GET' 
+           };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Exhibitions/get/comingSoon`, requestOptions)
               .then(response => {
@@ -48,8 +46,7 @@ class ComingSoonExhibitionsForUser extends Component{
         removeExhibition(id) {
             const requestOptions = {
               method: 'DELETE',
-              headers: {'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+             
           };
       
           fetch(`${serviceConfig.baseURL}/api/exhibitions/delete/${id}`, requestOptions)
@@ -73,17 +70,24 @@ class ComingSoonExhibitionsForUser extends Component{
           }
     
 
-        fillTableWithDaata() {
+          getAllExhibitions() {
             return this.state.exhibitions.map(exhibition => {
-                return <tr className="no-gutters pr-4 pl-4" key={exhibition.id}>
-                    <td className="no-gutters pr-4 pl-4">{exhibition.exhibitionId}</td>
-                    <td>{exhibition.exhibitionName}</td>
-                    <td>{exhibition.auditoriumId}</td>
-                    <td>{exhibition.typeOfExhibition}</td>
-                    <td>{exhibition.startTime}</td>
-                    <td>{exhibition.endTime}</td>
-                    <td><Button width = "1%" className="text-center cursor-pointer" onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
-                    </tr>
+                return <Card className= "card"  key={exhibition.id}>
+                            <Container>
+                                <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>{exhibition.exhibitionName}</Card.Header>
+                            </Container>
+                            <Card.Body>
+                            <Container>
+                                <Card.Text>Tema: {exhibition.typeOfExhibition} </Card.Text>
+                            </Container>
+                            <Container>
+                                <Card.Text> {exhibition.startTime} - {exhibition.endTime}</Card.Text>
+                            </Container>
+                                </Card.Body>
+                            <Container>
+                                <Card.Footer> <small className="text-muted">Last updated ? ago</small> </Card.Footer>
+                            </Container>
+                        </Card>
             })
         }
 
@@ -93,28 +97,12 @@ class ComingSoonExhibitionsForUser extends Component{
 
         render(){
             const {isLoading} = this.state;
-            const rowsData = this.fillTableWithDaata();
-            const table = (<Table striped bordered hover responsive striped >
-                                <thead className="no-gutters pr-4 pl-4">
-                                <th className="no-gutters pr-4 pl-4">ID</th>
-                                <th className="no-gutters pr-4 pl-4">NAZIV</th>
-                                <th>SALA ID</th>
-                                <th>VRSTA IZLOŽBE</th>
-                                <th>DATUM OTVARANJA IZLOŽBE</th>
-                                <th>DATUM ZATVARANJA IZLOŽBE</th>
-                                <th>VIDI DETALJE</th>
-                                </thead>
-                                <tbody>
-                                    {rowsData}
-                                </tbody>
-                            </Table>);
-            const showTable = isLoading ? <Spinner></Spinner> : table;
+            const exhibitionDetails = this.getAllExhibitions();
+            const exhibitions = isLoading ? <Spinner></Spinner> :<Container> {exhibitionDetails} </Container>;
             return (
-                <React.Fragment>
-                    <Row>
-                        {showTable}
-                    </Row>
-                </React.Fragment>
+                    <Container>
+                        {exhibitions}
+                    </Container>
             );
         }
     }

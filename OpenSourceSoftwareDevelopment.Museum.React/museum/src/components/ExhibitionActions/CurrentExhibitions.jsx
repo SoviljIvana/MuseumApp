@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Row, Table, Button } from 'react-bootstrap';
-import Spinner from '../Spinner';
+import { Row, Table, Button, Spinner } from 'react-bootstrap';
 
 class CurrentExhibitions extends Component{
+
     constructor(props){
         super(props);
         this.state = {
@@ -23,9 +23,8 @@ class CurrentExhibitions extends Component{
 
     getExhibitions(){
         const requestOptions = {
-            method: 'GET' ,
-            headers: {'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')}};
+            method: 'GET' 
+          };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Exhibitions/get/currentExhibitions`, requestOptions)
               .then(response => {
@@ -50,8 +49,7 @@ class CurrentExhibitions extends Component{
         removeExhibition(id) {
             const requestOptions = {
               method: 'DELETE',
-              headers: {'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
+              
           };
       
           fetch(`${serviceConfig.baseURL}/api/exhibitions/delete/${id}`, requestOptions)
