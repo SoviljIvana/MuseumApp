@@ -149,6 +149,6 @@ body {
   border-radius: .25rem;
 }
 
-*, ::after, ::before {
+/* *, ::after, ::before {
     box-sizing: content-box !important; 
-}
+} */
