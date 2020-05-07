@@ -9,24 +9,14 @@ import ShowAllExhibitionsForUser from './ExhibitionActions/ShowAllExhibitionsFor
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
 import CurrentExhibitionsForUser from './ExhibitionActions/CurrentExhibitionsForUser'
 import ComingSoonExhibitionsForUser from './ExhibitionActions/ComingSoonExhibitionsForUser'
-import image1 from './Pictures/image4.jpg';
-import image2 from './Pictures/image2.jpg';
-import image3 from './Pictures/image3.jpg';
-import image4 from './Pictures/image1.png';
-import image5 from './Pictures/image5.jpg';
-import image6 from './Pictures/image6.jpg';
-import image7 from './Pictures/image7.jpg';
-import image8 from './Pictures/image8.jpg';
-import image9 from './Pictures/image9.jpg';
-import image10 from './Pictures/image10.png';
-import image11 from './Pictures/image11.jpg';
-import image12 from './Pictures/image12.jpg';
-import image13 from './Pictures/image13.jpg';
-import image14 from './Pictures/image14.jpg';
-import image15 from './Pictures/image15.jpg';
-import image16 from './Pictures/image16.jpg';
+import image1 from './Pictures/imagee.jpg';
+import image2 from './Pictures/imagee1.jpg';
+import image3 from './Pictures/imagee2.jpg';
+import image4 from './Pictures/imagee3.jpg';
+import image6 from './Pictures/imagee5.jpg';
+
 import logo from './Pictures/logo1.png'
-const fadeImages = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16];
+const fadeImages = [image1, image2, image3, image4, image6];
 
 const fadeProperties = {
     duration: 5000,
@@ -176,72 +166,6 @@ class Home extends Component {
                         </div>
                         <div className="each-fade">
                             <img src={fadeImages[4]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[5]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[6]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[7]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[8]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[9]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[10]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[11]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[12]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[13]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[14]} />
-                            <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
-                            </Carousel.Caption>
-                        </div>
-                        <div className="each-fade">
-                            <img src={fadeImages[15]} />
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search/> 
                             </Carousel.Caption>
