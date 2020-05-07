@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Row, Table, Button } from 'react-bootstrap';
+import {  Card, Container } from 'react-bootstrap';
 import Spinner from '../Spinner';
 
 class CurrentExhibitionsForUser extends Component{
@@ -43,49 +43,39 @@ class CurrentExhibitionsForUser extends Component{
               });
         }
 
-        fillTableWithDaata() {
+        getAllExhibitions() {
             return this.state.exhibitions.map(exhibition => {
-                return <tr key={exhibition.id}>
-                    <td>{exhibition.exhibitionId}</td>
-                    <td>{exhibition.exhibitionName}</td>
-                    <td>{exhibition.auditoriumId}</td>
-                    <td>{exhibition.typeOfExhibition}</td>
-                    <td>{exhibition.startTime}</td>
-                    <td>{exhibition.endTime}</td>
-                    <td>  <Button width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
-                            </tr>
+                return <Card className= "card"  key={exhibition.id}>
+                            <Container>
+                                <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>{exhibition.exhibitionName}</Card.Header>
+                            </Container>
+                            <Card.Body>
+                            <Container>
+                                <Card.Text>Tema: {exhibition.typeOfExhibition} </Card.Text>
+                            </Container>
+                            <Container>
+                                <Card.Text> {exhibition.startTime} - {exhibition.endTime}</Card.Text>
+                            </Container>
+                                </Card.Body>
+                            <Container>
+                                <Card.Footer> <small className="text-muted">Last updated ? ago</small> </Card.Footer>
+                            </Container>
+                        </Card>
             })
         }
-     
+        
         exhibitionDetails(id){
             this.props.history.push(`exhibitionDetails/${id}`);
         }
 
         render(){
             const {isLoading} = this.state;
-            const rowsData = this.fillTableWithDaata();
-            const table = (<Table>
-                                <thead>
-                                <th>ID</th>
-                                <th>NAZIV</th>
-                                <th>SALA ID</th>
-                                <th>VRSTA IZLOŽBE</th>
-                                <th>DATUM OTVARANJA IZLOŽBE</th>
-                                <th>DATUM ZATVARANJA IZLOŽBE</th>
-                                <th>VIDI DETALJE</th>
-                             
-                                </thead>
-                                <tbody>
-                                    {rowsData}
-                                </tbody>
-                            </Table>);
-            const showTable = isLoading ? <Spinner></Spinner> : table;
+            const exhibitionDetails = this.getAllExhibitions();
+            const exhibitions = isLoading ? <Spinner></Spinner> :<Container> {exhibitionDetails} </Container>;
             return (
-                <React.Fragment>
-                    <Row>
-                        {showTable}
-                    </Row>
-                </React.Fragment>
+                    <Container>
+                        {exhibitions}
+                    </Container>
             );
         }
     }

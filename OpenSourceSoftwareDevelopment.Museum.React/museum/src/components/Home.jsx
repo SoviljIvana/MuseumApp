@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Search from './Search';
 import { Switch, Route } from 'react-router-dom';
-import { FaUser, FaSearch } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import Popup from "reactjs-popup";
 import { Fade } from 'react-slideshow-image';
 import { Navbar, Table, Nav, Button, Container, Image, DropdownButton, DropdownItem, Carousel , Col, Row, FormControl, Form, InputGroup} from 'react-bootstrap';
@@ -25,7 +25,7 @@ import image13 from './Pictures/image13.jpg';
 import image14 from './Pictures/image14.jpg';
 import image15 from './Pictures/image15.jpg';
 import image16 from './Pictures/image16.jpg';
-import logo from './Pictures/logo.png'
+import logo from './Pictures/logo1.png'
 const fadeImages = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16];
 
 const fadeProperties = {
@@ -50,6 +50,7 @@ class Home extends Component {
     openModal() {
         this.setState({ open: true });
     }
+
     closeModal() {
         this.setState({ open: false });
     }
@@ -80,25 +81,25 @@ class Home extends Component {
                         <h4>|</h4>
                         <Nav className="mr-auto">
                             <Container>
-                                <Navbar.Brand>
-                                    <Button variant="outline-light" size="lg" active> <b>VESTI</b></Button>
-                                </Navbar.Brand>
+                                
+                                    <Button  className="btn-outline-light" size="lg" active> <b>VESTI</b></Button>
+                                
                             </Container>
                         </Nav>
                         <h4>|</h4>
                         <Nav className="mr-auto">
                             <Container>
-                                <Navbar.Brand>
-                                    <Button variant="outline-light" size="lg" active> O MUZEJU </Button>
-                                </Navbar.Brand>
+                                
+                                    <Button className="btn-outline-light" size="lg" active> O MUZEJU </Button>
+                              
                             </Container>
                         </Nav>
                         <h4>|</h4>
                         <Nav className="mr-auto">
                             <Container>
-                                <Navbar.Brand>
-                                    <Button variant="outline-light" size="lg" active> KONTAKT </Button>
-                                </Navbar.Brand>
+                                
+                                    <Button className="btn-outline-light" size="lg" > KONTAKT </Button>
+                                
                             </Container>
                         </Nav>
                         <Navbar.Collapse className="justify-content-end">
@@ -149,6 +150,7 @@ class Home extends Component {
                 <p className="slide-container">
                     <Fade {...fadeProperties}>
                         <div className="each-fade">
+                            
                             <img src={fadeImages[0]} />
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search/> 
