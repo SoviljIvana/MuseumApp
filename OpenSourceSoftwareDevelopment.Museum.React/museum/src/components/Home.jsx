@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import Popup from "reactjs-popup";
 import { Fade } from 'react-slideshow-image';
-import { Navbar, Table, Nav, Button, Container, Image, DropdownButton, DropdownItem, Carousel , Col, Row, FormControl, Form, InputGroup} from 'react-bootstrap';
+import { Navbar, Table, Nav, Button, Container, Image, DropdownButton,ButtonGroup, Dropdown, DropdownItem, Carousel, Col, Row, FormControl, Form, InputGroup } from 'react-bootstrap';
 import ShowAllExhibitionsForUser from './ExhibitionActions/ShowAllExhibitionsForUser';
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
 import CurrentExhibitionsForUser from './ExhibitionActions/CurrentExhibitionsForUser'
@@ -62,76 +62,60 @@ class Home extends Component {
                         <Nav className="mr-auto">
                             <Container>
                                 <DropdownButton title="IZLOŽBE" className="btn-outline-light" variant="outline-light" size="lg" active>
-                                    <DropdownItem href="/home/ShowAllExhibitionsForUser">Sve izložbe</DropdownItem>
-                                    <DropdownItem href="/home/ComingSoonExhibitionsForUser">Uskoro ćemo prikazivati</DropdownItem>
-                                    <DropdownItem href="/home/CurrentExhibitionsForUser">Trenutno se prikazuju</DropdownItem>
+                                    <DropdownItem href="/home/ShowAllExhibitionsForUser" ><button className="button1">Sve izložbe</button></DropdownItem>
+                                    <DropdownItem href="/home/ComingSoonExhibitionsForUser" ><button className="button1">Uskoro </button></DropdownItem>
+                                    <DropdownItem href="/home/CurrentExhibitionsForUser" ><button className="button1">Trenutno </button></DropdownItem>
                                 </DropdownButton >
                             </Container>
                         </Nav>
                         <h4>|</h4>
                         <Nav className="mr-auto">
                             <Container>
-                                
-                                    <Button  className="btn-outline-light" size="lg" active> <b>VESTI</b></Button>
-                                
+                                <Button className="btn-outline-light" size="lg" active> <b>VESTI</b></Button>
                             </Container>
                         </Nav>
                         <h4>|</h4>
                         <Nav className="mr-auto">
                             <Container>
-                                
-                                    <Button className="btn-outline-light" size="lg" active> O MUZEJU </Button>
-                              
+                                <Button className="btn-outline-light" size="lg" active> O MUZEJU </Button>
                             </Container>
                         </Nav>
                         <h4>|</h4>
                         <Nav className="mr-auto">
                             <Container>
-                                
-                                    <Button className="btn-outline-light" size="lg" > KONTAKT </Button>
-                                
+                                <Button className="btn-outline-light" size="lg" > KONTAKT </Button>
                             </Container>
                         </Nav>
                         <Navbar.Collapse className="justify-content-end">
-                            <Button variant="outline-light" size="lg" active onClick={this.openModal} className="login" >
-                                <FaUser /> Login
-                            </Button>
+                            <Dropdown  as={ButtonGroup}>
+                            <Dropdown.Toggle split  id="dropdown-custom-2"  >
+                              
+                              <Dropdown.Menu >
+                                  <Dropdown.Item ><button className="button1">Kreirajte nalog</button></Dropdown.Item>
+                              </Dropdown.Menu>
+                              </Dropdown.Toggle>
+                                    <Button variant="outline-light" size="lg" active onClick={this.openModal} className="login" >
+                                        <FaUser /> Login
+                        </Button>   
+                            </Dropdown >
                             <Popup className="popup" open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
                                 <a className="close" onClick={this.closeModal}>&times;</a>
-                                <Form className="form">
-                                    <Container>
-                                        <Button variant="outline-light" size="lg" className="user" >
-                                            <FaUser />
-                                        </Button>
-                                    </Container>
-                                    <Container>
-                                        <Form.Group controlId="formBasicEmail">
-                                            <InputGroup className="mb-3">
-                                                <InputGroup.Prepend>
-                                                    <InputGroup.Text> Email address </InputGroup.Text>
-                                                </InputGroup.Prepend>
-                                                <FormControl />
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Container>
-                                    <Container>
-                                        <Form.Group controlId="formBasicPassword">
-                                            <InputGroup className="mb-3">
-                                                <InputGroup.Prepend>
-                                                    <InputGroup.Text> Email address </InputGroup.Text>
-                                                </InputGroup.Prepend>
-                                                <FormControl />
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Container>
-                                    <Container>
-                                        <Form.Group controlId="formBasicCheckbox">
-                                            <Form.Check type="checkbox" label="Check me out" />
-                                        </Form.Group>
-                                    </Container>
-                                    <Container>
-                                        <Button variant="primary" type="submit"> Submit </Button>
-                                    </Container>
+                                <Form>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Email address</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter email" />
+                                        <Form.Text className="text-muted">
+                                            We'll never share your email with anyone else.
+                                    </Form.Text>
+                                    </Form.Group>
+                                    <Form.Group controlId="formBasicPassword">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control type="password" placeholder="Password" />
+                                    </Form.Group>
+                                    <Form.Group controlId="formBasicCheckbox">
+                                        <Form.Check type="checkbox" label="Check me out" />
+                                    </Form.Group>
+                                    <Button variant="primary" type="submit">Submit </Button>
                                 </Form>
                             </Popup>
                         </Navbar.Collapse>
@@ -140,34 +124,34 @@ class Home extends Component {
                 <p className="slide-container">
                     <Fade {...fadeProperties}>
                         <div className="each-fade">
-                            
+
                             <img src={fadeImages[0]} />
                             <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
+                                <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
                             <img src={fadeImages[1]} />
                             <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
+                                <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
                             <img src={fadeImages[2]} />
                             <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
+                                <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
                             <img src={fadeImages[3]} />
                             <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
+                                <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
                             <img src={fadeImages[4]} />
                             <Carousel.Caption className="welcomeMesssage">
-                                <Search/> 
+                                <Search />
                             </Carousel.Caption>
                         </div>
                     </Fade>
