@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import Popup from "reactjs-popup";
 import { Fade } from 'react-slideshow-image';
-import { Navbar, Table, Nav, Button, Container, Image, DropdownButton,ButtonGroup, Dropdown, DropdownItem, Carousel, Col, Row, FormControl, Form, InputGroup } from 'react-bootstrap';
+import { Navbar, Table, Nav, Button, Container, Image,ResponsiveEmbed, DropdownButton,ButtonGroup, Dropdown, DropdownItem, Carousel, Col, Row, FormControl, Form, InputGroup } from 'react-bootstrap';
 import ShowAllExhibitionsForUser from './ExhibitionActions/ShowAllExhibitionsForUser';
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
 import CurrentExhibitionsForUser from './ExhibitionActions/CurrentExhibitionsForUser'
@@ -122,34 +122,47 @@ class Home extends Component {
                     </Navbar>
                 </Table>
                 <p className="slide-container">
+                    
                     <Fade {...fadeProperties}>
                         <div className="each-fade">
-
+                        <ResponsiveEmbed aspectRatio="21by9">
                             <img src={fadeImages[0]} />
+                            </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
+                        <ResponsiveEmbed aspectRatio="21by9">
                             <img src={fadeImages[1]} />
+                            </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
+                        <ResponsiveEmbed aspectRatio="21by9">
+
                             <img src={fadeImages[2]} />
+                            </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
+                        <ResponsiveEmbed aspectRatio="21by9">
+
                             <img src={fadeImages[3]} />
+                            </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
+                        <ResponsiveEmbed aspectRatio="21by9">
+
                             <img src={fadeImages[4]} />
+                            </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
