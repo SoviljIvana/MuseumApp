@@ -198,7 +198,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     AuditoriumId = item.AuditoriumId,
                     TypeOfExhibition = item.TypeOfExhibition,
                     StartTime = item.StartTime,
-                    EndTime = item.EndTime
+                    EndTime = item.EndTime,
+                    About = item.About,
+                    Picture = item.Picture
                 };
                 list.Add(exhibitionModel);
             }

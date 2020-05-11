@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Container, CardDeck, Card, CardColumns} from 'react-bootstrap';
+import { Container, CardDeck, Card, CardColumns, Button,ResponsiveEmbed} from 'react-bootstrap';
 import Spinner from '../Spinner';
+
 class ShowAllExhibitionsForUser extends Component{
     constructor(props){
         super(props);
@@ -46,22 +47,30 @@ class ShowAllExhibitionsForUser extends Component{
 
         getAllExhibitions() {
             return this.state.exhibitions.map(exhibition => {
-                return <Card className= "card"  key={exhibition.id}>
-                            <Container >
-                                <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>{exhibition.exhibitionName}</Card.Header>
-                            </Container>
-                            <Card.Body>
-                            <Container>
-                                <Card.Text>Tema: {exhibition.typeOfExhibition} </Card.Text>
-                            </Container>
-                            <Container>
-                                <Card.Text> {exhibition.startTime} - {exhibition.endTime}</Card.Text>
-                            </Container>
-                                </Card.Body>
-                            <Container>
-                                <Card.Footer> <small className="text-muted">Last updated ? ago</small> </Card.Footer>
-                            </Container>
-                        </Card>
+                return <Card style={{ width: '20rem' }} className="text-center"  key={exhibition.id}>
+                <Container>
+                    <div className="inner">
+                    <ResponsiveEmbed aspectRatio="4by3">
+                  <Card.Img variant="top" src= {exhibition.picture} /> 
+                  </ResponsiveEmbed>
+                 </div>
+                </Container>   
+                <Container >
+                    <Button>
+                    <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}><h6>{exhibition.exhibitionName}</h6></Card.Header>
+                    </Button>
+                </Container>
+                    <Card.Body>
+                <Container>
+                    <Card.Text> {exhibition.about}</Card.Text>
+                </Container>
+                </Card.Body>
+                <Container>
+                    <Card.Footer className="text-muted">
+                   {exhibition.startTime} - {exhibition.endTime} </Card.Footer></Container>
+              
+                   
+            </Card>
             })
         }
         
@@ -74,9 +83,11 @@ class ShowAllExhibitionsForUser extends Component{
             const exhibitionDetails = this.getAllExhibitions();
             const exhibitions = isLoading ? <Spinner></Spinner> :<Container className= "container-cards"> {exhibitionDetails} </Container>;
             return (
-                        <CardColumns >
+               
+                        <CardColumns className= "cardColumns" >
                         {exhibitions}
                         </CardColumns>
+                     
             );
         }
     }
