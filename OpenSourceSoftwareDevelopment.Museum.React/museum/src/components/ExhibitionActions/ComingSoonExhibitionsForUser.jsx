@@ -88,6 +88,7 @@ class ComingSoonExhibitionsForUser extends Component{
                                 <Card.Footer> <small className="text-muted">Last updated ? ago</small> </Card.Footer>
                             </Container>
                         </Card>
+                      
             })
         }
 
@@ -100,7 +101,7 @@ class ComingSoonExhibitionsForUser extends Component{
             const exhibitionDetails = this.getAllExhibitions();
             const exhibitions = isLoading ? <Spinner></Spinner> :<Container> {exhibitionDetails} </Container>;
             return (
-                    <Container>
+                    <Container >
                         {exhibitions}
                     </Container>
             );
