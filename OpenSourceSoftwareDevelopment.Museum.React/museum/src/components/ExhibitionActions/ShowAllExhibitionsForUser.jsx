@@ -1,20 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component,  } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
 import { Container, Card, CardColumns, Button,ResponsiveEmbed} from 'react-bootstrap';
 import Spinner from '../Spinner';
+import * as Moment from 'moment';  
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class ShowAllExhibitionsForUser extends Component{
     constructor(props){
         super(props);
         this.state = {
             exhibitions: [],
-            isLoading: true
+            isLoading: true,
         }
         this.exhibitionDetails = this.exhibitionDetails.bind(this);
 
-    }
-
+        }
+      
     componentDidMount(){
       this.getExhibitions();
     }
@@ -44,10 +47,10 @@ class ShowAllExhibitionsForUser extends Component{
                   this.setState({ isLoading: false });
               });
         }   
-
         getAllExhibitions() {
+
             return this.state.exhibitions.map(exhibition => {
-                return <Card style={{ width: '20rem' }} className="text-center"  key={exhibition.id}>
+                return <Card className = "center1" style={{ width: '20rem' }} className="text-center"  key={exhibition.id}>
                 <Container>
                     <div className="inner">
                     <ResponsiveEmbed aspectRatio="4by3">
@@ -57,7 +60,7 @@ class ShowAllExhibitionsForUser extends Component{
                 </Container>   
                 <Container >
                     <Button>
-                    <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}><h6>{exhibition.exhibitionName}</h6></Card.Header>
+                    <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}><h4 >{exhibition.exhibitionName}</h4></Card.Header>
                     </Button>
                 </Container>
                     <Card.Body>
@@ -66,10 +69,10 @@ class ShowAllExhibitionsForUser extends Component{
                 </Container>
                 </Card.Body>
                 <Container>
-                    <Card.Footer className="text-muted">
-                   {exhibition.startTime} - {exhibition.endTime} </Card.Footer></Container>
-              
-                   
+                Otvaranje:  <Card.Footer className="text-muted">
+                  { Moment(exhibition.startTime).format('LLL') }
+                </Card.Footer>
+                  Zatvaranje: <Card.Footer className="text-muted">  {Moment(exhibition.endTime).format('LLL')}    </Card.Footer></Container>
             </Card>
             })
         }
