@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Container, CardDeck, Card, CardColumns, Button,ResponsiveEmbed} from 'react-bootstrap';
+import { Container, Card, CardColumns, Button,ResponsiveEmbed} from 'react-bootstrap';
 import Spinner from '../Spinner';
 
 class ShowAllExhibitionsForUser extends Component{
@@ -83,11 +83,10 @@ class ShowAllExhibitionsForUser extends Component{
             const exhibitionDetails = this.getAllExhibitions();
             const exhibitions = isLoading ? <Spinner></Spinner> :<Container className= "container-cards"> {exhibitionDetails} </Container>;
             return (
-               
-                        <CardColumns className= "cardColumns" >
+                        <CardColumns>
                         {exhibitions}
-                        </CardColumns>
-                     
+                        </CardColumns>   
+        
             );
         }
     }
