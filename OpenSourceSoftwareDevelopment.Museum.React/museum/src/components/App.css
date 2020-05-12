@@ -12,7 +12,7 @@
 .col {
   padding-left: 0rem !important;
   padding-right: 0rem !important;
-  padding-bottom: 10rem !important;
+  padding-bottom: 0rem !important;
   padding-top: 1rem !important;
   flex-basis: 4;
   max-width: 100%;
@@ -225,7 +225,7 @@ body {
   position: sticky !important;
   margin-bottom: 1rem !important; 
   background-color: black !important;
-  border-color: grey !important;
+  border-color: black !important;
   color:white !important ;
   margin-left: 0rem;
   margin-right: 0rem;
@@ -281,7 +281,13 @@ a {
   padding: 5px;
   color: white !important;
 }
-
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+  height: 6rem !important;
+}
 .input-group-text {
   display: flex;
   align-items: center;

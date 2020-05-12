@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import Popup from "reactjs-popup";
 import { Fade } from 'react-slideshow-image';
-import { Navbar, Table, Nav, Button, Container, Image,ResponsiveEmbed, DropdownButton,ButtonGroup, Dropdown, DropdownItem, Carousel, Col, Row, FormControl, Form, InputGroup } from 'react-bootstrap';
+import { Navbar, Table, Nav, Button, Container, Image, ResponsiveEmbed, DropdownButton, ButtonGroup, Dropdown, DropdownItem, Carousel, Col, Row, FormControl, Form, InputGroup } from 'react-bootstrap';
 import ShowAllExhibitionsForUser from './ExhibitionActions/ShowAllExhibitionsForUser';
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
 import CurrentExhibitionsForUser from './ExhibitionActions/CurrentExhibitionsForUser'
@@ -32,9 +32,14 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { open: false };
+        this.state = {
+            open: false,
+            open1: false,
+        };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.openModal1 = this.openModal1.bind(this);
+        this.closeModal1 = this.closeModal1.bind(this);
     }
 
     openModal() {
@@ -44,9 +49,17 @@ class Home extends Component {
     closeModal() {
         this.setState({ open: false });
     }
+    openModal1() {
+        this.setState({ open1: true });
+    }
+
+    closeModal1() {
+        this.setState({ open1: false });
+    }
 
     render() {
         return (
+
             <Row className="no-gutters pr-0 pl-0" >
                 <Table>
                     <Navbar sticky="top" className="slide-container" expand="lg" bg="light">
@@ -87,20 +100,21 @@ class Home extends Component {
                             </Container>
                         </Nav>
                         <Navbar.Collapse className="justify-content-end">
-                            <Dropdown  as={ButtonGroup}>
-                            <Dropdown.Toggle split  id="dropdown-custom-2"  >
-                              
-                              <Dropdown.Menu >
-                                  <Dropdown.Item ><button className="button1">Kreirajte nalog</button></Dropdown.Item>
-                              </Dropdown.Menu>
-                              </Dropdown.Toggle>
-                                    <Button variant="outline-light" size="lg" active onClick={this.openModal} className="login" >
-                                        <FaUser /> Login
-                        </Button>   
+                            <Dropdown as={ButtonGroup}>
+                                <Dropdown.Toggle split id="dropdown-custom-2"  >
+
+                                    <Dropdown.Menu >
+                                        <Dropdown.Item ><Button className="button1" onClick={this.openModal1}>Kreirajte nalog</Button></Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown.Toggle>
+                                <Button variant="outline-light" size="lg" active onClick={this.openModal} className="login" >
+                                    <FaUser /> Login
+                                      </Button>
                             </Dropdown >
                             <Popup className="popup" open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
                                 <a className="close" onClick={this.closeModal}>&times;</a>
                                 <Form>
+
                                     <Form.Group controlId="formBasicEmail">
                                         <Form.Label>Email address</Form.Label>
                                         <Form.Control type="email" placeholder="Enter email" />
@@ -108,60 +122,120 @@ class Home extends Component {
                                             We'll never share your email with anyone else.
                                     </Form.Text>
                                     </Form.Group>
+
                                     <Form.Group controlId="formBasicPassword">
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control type="password" placeholder="Password" />
                                     </Form.Group>
+
                                     <Form.Group controlId="formBasicCheckbox">
                                         <Form.Check type="checkbox" label="Check me out" />
                                     </Form.Group>
+
                                     <Button variant="primary" type="submit">Submit </Button>
+
+                                </Form>
+                            </Popup>
+                            <Popup className="popup" open={this.state.open1} closeOnDocumentClick onClose={this.closeModal1}>
+                                <a className="close" onClick={this.closeModal1}>&times;</a>
+
+                                <Form>
+                                    <h5>Create a New Account</h5>
+                                    <h6>It’s quick and easy.</h6>
+                                    <Form.Row>
+                                        <Form.Group as={Col} controlId="formGridEmail">
+                                            <Form.Label>First Name</Form.Label>
+                                            <Form.Control type="text" placeholder="First Name" />
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} controlId="formGridPassword">
+                                            <Form.Label>Last Name</Form.Label>
+                                            <Form.Control type="text" placeholder="Last Name" />
+                                        </Form.Group>
+                                    </Form.Row>
+
+                                    <Form.Group >
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control type="email" placeholder="email" />
+                                    </Form.Group>
+
+                                    <Form.Group >
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control type="password" placeholder="password" />
+                                    </Form.Group>
+
+                                    <Form.Row>
+                                        <Form.Group as={Col} controlId="formGridCity">
+                                            <Form.Label>City</Form.Label>
+                                            <Form.Control />
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} controlId="formGridState">
+                                            <Form.Label>State</Form.Label>
+                                            <Form.Control as="select" value="Choose...">
+                                                <option>Choose...</option>
+                                                <option>...</option>
+                                            </Form.Control>
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} controlId="formGridZip">
+                                            <Form.Label>Zip</Form.Label>
+                                            <Form.Control />
+                                        </Form.Group>
+                                    </Form.Row>
+
+                                    <Form.Group id="formGridCheckbox">
+                                        <Form.Check type="checkbox" label="Check me out" />
+                                    </Form.Group>
+
+                                    <Button variant="primary" type="submit">
+                                        Submit
+  </Button>
                                 </Form>
                             </Popup>
                         </Navbar.Collapse>
                     </Navbar>
                 </Table>
                 <p className="slide-container">
-                    
                     <Fade {...fadeProperties}>
                         <div className="each-fade">
-                        <ResponsiveEmbed aspectRatio="21by9">
-                            <img src={fadeImages[0]} />
+                            <ResponsiveEmbed aspectRatio="21by9">
+                                <img src={fadeImages[0]} />
                             </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
-                        <ResponsiveEmbed aspectRatio="21by9">
-                            <img src={fadeImages[1]} />
+                            <ResponsiveEmbed aspectRatio="21by9">
+                                <img src={fadeImages[1]} />
                             </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
-                        <ResponsiveEmbed aspectRatio="21by9">
+                            <ResponsiveEmbed aspectRatio="21by9">
 
-                            <img src={fadeImages[2]} />
+                                <img src={fadeImages[2]} />
                             </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
-                        <ResponsiveEmbed aspectRatio="21by9">
+                            <ResponsiveEmbed aspectRatio="21by9">
 
-                            <img src={fadeImages[3]} />
+                                <img src={fadeImages[3]} />
                             </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
                             </Carousel.Caption>
                         </div>
                         <div className="each-fade">
-                        <ResponsiveEmbed aspectRatio="21by9">
+                            <ResponsiveEmbed aspectRatio="21by9">
 
-                            <img src={fadeImages[4]} />
+                                <img src={fadeImages[4]} />
                             </ResponsiveEmbed>
                             <Carousel.Caption className="welcomeMesssage">
                                 <Search />
