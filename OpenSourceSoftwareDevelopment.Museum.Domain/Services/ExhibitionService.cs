@@ -229,7 +229,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     AuditoriumId = item.AuditoriumId,
                     TypeOfExhibition = item.TypeOfExhibition,
                     StartTime = item.StartTime,
-                    EndTime = item.EndTime
+                    EndTime = item.EndTime,
+                    Picture = item.Picture
                 };
                 if (item.StartTime > DateTime.Now)
                 {
@@ -260,7 +261,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     AuditoriumId = item.AuditoriumId,
                     TypeOfExhibition = item.TypeOfExhibition,
                     StartTime = item.StartTime,
-                    EndTime = item.EndTime
+                    EndTime = item.EndTime,
+                    Picture = item.Picture
                 };
                 if ((item.StartTime < DateTime.Now) && (item.EndTime > DateTime.Now))
                 {
