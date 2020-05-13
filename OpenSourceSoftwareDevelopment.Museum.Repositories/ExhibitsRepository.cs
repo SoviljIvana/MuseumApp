@@ -9,7 +9,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
     public interface IExhibitsRepository : IRepository<ExhibitEntity>
     {
- 
+        Task<IEnumerable<ExhibitEntity>> GetAllExhibitsForSpecificExhibitions(int id);
+
     }
     public class ExhibitsRepository : IExhibitsRepository
     {
@@ -37,6 +38,24 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
                 return null;
             }
             return data;
+        }
+
+        public async Task<IEnumerable<ExhibitEntity>> GetAllExhibitsForSpecificExhibitions(int id)
+        {
+            var data = await _museumContext.Exhibits.ToListAsync();
+            var list = new List<ExhibitEntity>();
+            foreach(var item in data)
+            {
+                if(item.ExhibitionId == id)
+                {
+                    list.Add(item);
+                }
+            }
+            if(list.Count == 0)
+            {
+                list = null;
+            }
+            return list;
         }
 
         public async Task<ExhibitEntity> GetByIdAsync(object id)

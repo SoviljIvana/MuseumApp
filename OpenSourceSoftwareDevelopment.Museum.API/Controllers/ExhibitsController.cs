@@ -36,6 +36,20 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             return Ok(exhibitDomainModel);
 
         }
+        [Route("getForSpecificId/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ExhibitDomainModel>>> GetAllExhibitsForSpecificExhibition(int id)
+        {
+            IEnumerable<ExhibitDomainModel> exhibitDomainModel = await _exhibitService.GetAllExhibitsForSpecificExhibitions(id);
+
+            if (exhibitDomainModel == null)
+            {
+                return NotFound(Messages.EXHIBITS_GET_ALL_ERROR);
+
+            }
+            return Ok(exhibitDomainModel);
+
+        }
 
         [Route("get/{id}")]
         [HttpGet]

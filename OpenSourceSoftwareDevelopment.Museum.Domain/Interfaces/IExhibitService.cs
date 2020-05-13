@@ -10,8 +10,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces
     {
        
         Task<IEnumerable<ExhibitDomainModel>> GetAllExhibits();
- 
         Task<ExhibitDomainModel> GetExhibitByIdAsync(int id);
+
+        Task<IEnumerable<ExhibitDomainModel>> GetAllExhibitsForSpecificExhibitions(int id);
 
         Task<ExhibitResultModel> CreateExhibit(ExhibitDomainModel exhibitModel);
 

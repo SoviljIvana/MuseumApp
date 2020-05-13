@@ -14,5 +14,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Models
         public string TypeOfExhibition { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public virtual List<ExhibitDomainModel> Exhibits { get; set; }
     }
 }
