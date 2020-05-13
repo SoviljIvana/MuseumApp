@@ -75,6 +75,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             return Ok(exhibitionDomainModel);
         }
 
+ 
         [Route("delete/{id}")]
         [HttpDelete]
         public async Task<ActionResult> DeleteExhibition(int id)

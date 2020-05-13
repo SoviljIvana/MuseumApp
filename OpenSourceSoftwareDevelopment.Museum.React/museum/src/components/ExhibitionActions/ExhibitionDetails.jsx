@@ -1,9 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Container, FormText} from 'react-bootstrap';
+import { Container, FormText, Table,Card, Button,ListGroup, ResponsiveEmbed, CardColumns } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig,  } from '../../AppSettings';
+import Spinner from '../Spinner'
+import * as Moment from 'moment';  
 
+import "react-datepicker/dist/react-datepicker.css";
 class ExhibitionDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +16,10 @@ class ExhibitionDetails extends React.Component {
             exhibitionName: '',
             typeOfExhibition : '',
             startTime : '',
-            endTime : ''
+            endTime : '',
+            about : '',
+            picture : '',
+            exhibits : [],
         };
     }
 
@@ -34,6 +40,7 @@ class ExhibitionDetails extends React.Component {
                 return response.json();
             })
             .then(data => {
+         
                 if (data) {
                     this.setState({
                         exhibitionId: data.exhibitionId,
@@ -41,28 +48,83 @@ class ExhibitionDetails extends React.Component {
                         exhibitionName: data.exhibitionName + '',
                         typeOfExhibition : data.typeOfExhibition + '',
                         startTime : data.startTime +'',
-                        endTime : data.endTime + ''
+                        endTime : data.endTime + '',
+                        about : data.about + '',
+              
+                        picture :  data.picture + '',
+                        exhibits: data.exhibits,
+                        isLoading: false,
                     });
+               
                 }
+            
             })
             .catch(response => {
                 NotificationManager.error(response.message || response.statusText);
                 this.setState({ submitted: false });
             });
     }
+    getAllExhibits() {
+
+        return this.state.exhibits.map(exhibit => {
+          return <Card className = "center1" style={{ width: '20rem' }} className="text-center"  key={exhibit.exhibitId}>
+          <Container>
+              <div className="inner">
+              <ResponsiveEmbed aspectRatio="4by3">
+            <Card.Img variant="top" src= {exhibit.picturePath} /> 
+            </ResponsiveEmbed>
+           </div>
+          </Container>   
+          <Container >
+              <Button>
+              <Card.Header>{exhibit.name}</Card.Header>
+              </Button>
+          </Container>
+              <Card.Body>
+          <Container>
+              <Card.Text> {exhibit.year}</Card.Text>
+          </Container>
+          </Card.Body>
+      </Card>
+        })
+      }
 
     render() {
-        const {exhibitionId, auditoriumId, exhibitionName, typeOfExhibition, startTime, endTime} = this.state;
+        const {isLoading} = this.state;
+            const exhibitDetails = this.getAllExhibits();
+            const exhibits = isLoading ? <Spinner></Spinner> :<Container className= "container-cards"> {exhibitDetails} </Container>;
+        const {exhibitionId, auditoriumId, exhibitionName, typeOfExhibition, startTime, endTime, about, picture} = this.state;
         return (
             <Container>
-                <FormText className="text-danger"><h3>ID: {exhibitionId}</h3></FormText>
-                <FormText className="text-danger"><h3>AUDITORIUM ID: {auditoriumId}</h3></FormText>
-                <FormText className="text-danger"><h3>NAZIV IZLOŽBE: {exhibitionName}</h3></FormText>
-                <FormText className="text-danger"><h3>VRSTA IZLOŽBE: {typeOfExhibition}</h3></FormText>
-                <FormText className="text-danger"><h3>DATUM POČETKA IZLOŽBE: {startTime}</h3></FormText>
-                <FormText className="text-danger"><h3>DATUM KRAJA IZLOŽBE: {endTime}</h3></FormText>
-
+<FormText className="text-danger">
+                     {exhibitionName}</FormText>
+               
+                <Container>
+                <div className="inner">
+              <ResponsiveEmbed aspectRatio="4by3">
+            <Card.Img variant="top" src= {picture} /> 
+            </ResponsiveEmbed></div>     
             </Container>
+              <ListGroup>
+                    <ListGroup.Item  variant="secondary">
+                     {about}
+                    </ListGroup.Item>
+                    <ListGroup.Item  variant="success">
+                    {Moment(startTime).format('LLL')} - {Moment(endTime).format('LLL')}
+                    </ListGroup.Item>
+                    <ListGroup.Item  variant="danger">
+                    Tema: {typeOfExhibition}
+                    </ListGroup.Item>
+                    <ListGroup.Item  variant="warning">
+                    Eksponati:
+                    </ListGroup.Item>
+                    </ListGroup>
+                  <CardColumns>
+                  {exhibits} 
+                  </CardColumns>
+      
+              
+=           </Container>
         );
     }
 }
