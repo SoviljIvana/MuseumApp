@@ -220,7 +220,41 @@ body {
 .inner:hover img{
   transform: scale(1.5);
 }
-
+.jumbotron {
+  padding: 1rem 1rem !important;
+  background-color: black !important;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  margin-bottom: .5rem;
+  font-weight: 1000 !important;
+  line-height: 1.2;
+  margin-bottom: 3rem !important;
+  margin-top: 1rem !important;
+  text-align: center !important;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+  color: #fff !important;
+}
+.btn-link {
+  font-weight: 1000 !important;
+  color: bisque  ;
+  text-align: center;
+  font-size: x-large !important;
+}
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  color: #fff !important;
+  font-size: large !important;
+}
+hr {
+  margin-top: 4rem !important;
+  margin-bottom: 4rem !important;
+      border-top-color: white !important;
+      border-top-style: none;
+      border-top-width: 0px;
+  border-top: 3px solid white !important;
+}
 .card{
   position: sticky !important;
   margin-bottom: 1rem !important; 

@@ -51,6 +51,8 @@ class ShowAllExhibitionsForUser extends Component{
 
             return this.state.exhibitions.map(exhibition => {
                 return <Card className = "center1" style={{ width: '20rem' }} className="text-center"  key={exhibition.id}>
+                         <hr>
+                        </hr>
                 <Container>
                     <div className="inner">
                     <ResponsiveEmbed aspectRatio="4by3">
@@ -60,7 +62,7 @@ class ShowAllExhibitionsForUser extends Component{
                 </Container>   
                 <Container >
                     <Button>
-                    <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}><h4 >{exhibition.exhibitionName}</h4></Card.Header>
+                    <Card.Header  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}><h4 >{exhibition.exhibitionName}</h4></Card.Header>
                     </Button>
                 </Container>
                     <Card.Body>
@@ -73,6 +75,8 @@ class ShowAllExhibitionsForUser extends Component{
                   { Moment(exhibition.startTime).format('LLL') }
                 </Card.Footer>
                   Zatvaranje: <Card.Footer className="text-muted">  {Moment(exhibition.endTime).format('LLL')}    </Card.Footer></Container>
+                  <hr>
+                        </hr>
             </Card>
             })
         }
