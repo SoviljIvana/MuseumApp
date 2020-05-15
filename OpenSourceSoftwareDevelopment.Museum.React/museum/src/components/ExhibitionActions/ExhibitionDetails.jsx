@@ -17,7 +17,7 @@ class ExhibitionDetails extends React.Component {
             typeOfExhibition: '',
             startTime: '',
             endTime: '',
-            about: '',
+            description: '',
             picture: '',
             exhibits: [],
         };
@@ -49,7 +49,7 @@ class ExhibitionDetails extends React.Component {
                         typeOfExhibition: data.typeOfExhibition + '',
                         startTime: data.startTime + '',
                         endTime: data.endTime + '',
-                        about: data.about + '',
+                        description: data.description + '',
 
                         picture: data.picture + '',
                         exhibits: data.exhibits,
@@ -89,13 +89,12 @@ class ExhibitionDetails extends React.Component {
         const { isLoading } = this.state;
         const exhibitDetails = this.getAllExhibits();
         const exhibits = isLoading ? <Spinner></Spinner> : <Container className="container-cards"> {exhibitDetails} </Container>;
-        const { exhibitionName, typeOfExhibition, startTime, endTime, about, picture } = this.state;
+        const { exhibitionName, typeOfExhibition, startTime, endTime, description, picture } = this.state;
         return (
             <Container>
                 <Jumbotron>
                     <h3 >{exhibitionName} </h3>
                     <Container>
-                      
                         <div className="inner">
                             <ResponsiveEmbed aspectRatio="4by3">
                                 <Card.Img variant="top" src={picture} />
@@ -109,7 +108,7 @@ class ExhibitionDetails extends React.Component {
                                     Saznaj nesto više!
                                 </Accordion.Toggle>
                             <Accordion.Collapse eventKey="0">
-                                <Card.Body>{about}</Card.Body>
+                                <Card.Body>{description}</Card.Body>
                             </Accordion.Collapse>
                         </Accordion>
                         <hr>

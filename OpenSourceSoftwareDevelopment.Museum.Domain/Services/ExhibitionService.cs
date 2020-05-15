@@ -299,7 +299,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     StartTime = data.StartTime,
                     EndTime = data.EndTime,
                     Picture  =data.Picture,
-                    About = data.About,
+                    Description = data.Description,
                     Exhibits = null
                 };
                 return result;
@@ -327,7 +327,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     StartTime = data.StartTime,
                     EndTime = data.EndTime,
                     Picture = data.Picture,
-                    About = data.About,
+                    Description = data.Description,
                     Exhibits = exhibitsList
                 };
 

@@ -17,9 +17,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Entities
         public string TypeOfExhibition { get; set; }
         public string About { get; set; }
         public string Picture { get; set; }
+        public string Description { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-
         public virtual AuditoriumEntity Auditorium { get; set; }
         public virtual ICollection<TicketEntity> Tickets { get; set; }
         public virtual ICollection<ExhibitEntity> Exhibits { get; set; }
