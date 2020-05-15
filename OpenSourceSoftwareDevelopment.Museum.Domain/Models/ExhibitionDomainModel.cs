@@ -10,6 +10,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Models
         public string ExhibitionName { get; set; }
         public int AuditoriumId { get; set; }
         public string About { get; set; }
+        public string Description { get; set; }
         public string Picture { get; set; }
         public string TypeOfExhibition { get; set; }
         public DateTime StartTime { get; set; }

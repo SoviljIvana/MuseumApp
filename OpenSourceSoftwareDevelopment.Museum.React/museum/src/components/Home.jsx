@@ -116,23 +116,21 @@ class Home extends Component {
                                 <Form>
 
                                     <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Email address</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" />
-                                        <Form.Text className="text-muted">
-                                            We'll never share your email with anyone else.
-                                    </Form.Text>
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control type="email"  />
+                                      
                                     </Form.Group>
 
                                     <Form.Group controlId="formBasicPassword">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
+                                        <Form.Label>Lozinka</Form.Label>
+                                        <Form.Control type="password" />
                                     </Form.Group>
 
-                                    <Form.Group controlId="formBasicCheckbox">
+                                    {/* <Form.Group controlId="formBasicCheckbox">
                                         <Form.Check type="checkbox" label="Check me out" />
-                                    </Form.Group>
+                                    </Form.Group> */}
 
-                                    <Button variant="primary" type="submit">Submit </Button>
+                                    <Button variant="primary" type="submit">Potvrdi </Button>
 
                                 </Form>
                             </Popup>
@@ -140,56 +138,54 @@ class Home extends Component {
                                 <a className="close" onClick={this.closeModal1}>&times;</a>
 
                                 <Form>
-                                    <h5>Create a New Account</h5>
-                                    <h6>It’s quick and easy.</h6>
+                                    <h5>Kreiranje naloga</h5>
                                     <Form.Row>
                                         <Form.Group as={Col} controlId="formGridEmail">
-                                            <Form.Label>First Name</Form.Label>
-                                            <Form.Control type="text" placeholder="First Name" />
+                                            <Form.Label>Ime</Form.Label>
+                                            <Form.Control type="text"  />
                                         </Form.Group>
-
                                         <Form.Group as={Col} controlId="formGridPassword">
-                                            <Form.Label>Last Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Last Name" />
+                                            <Form.Label>Prezime</Form.Label>
+                                            <Form.Control type="text" />
                                         </Form.Group>
                                     </Form.Row>
 
                                     <Form.Group >
                                         <Form.Label>Email</Form.Label>
-                                        <Form.Control type="email" placeholder="email" />
+                                        <Form.Control type="email" />
                                     </Form.Group>
 
                                     <Form.Group >
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="password" />
+                                        <Form.Label>Lozinka</Form.Label>
+                                        <Form.Control type="password"  />
                                     </Form.Group>
 
                                     <Form.Row>
                                         <Form.Group as={Col} controlId="formGridCity">
-                                            <Form.Label>City</Form.Label>
+                                            <Form.Label>Grad</Form.Label>
                                             <Form.Control />
                                         </Form.Group>
 
-                                        <Form.Group as={Col} controlId="formGridState">
+                                        {/* <Form.Group as={Col} controlId="formGridState">
                                             <Form.Label>State</Form.Label>
                                             <Form.Control as="select" value="Choose...">
                                                 <option>Choose...</option>
                                                 <option>...</option>
                                             </Form.Control>
-                                        </Form.Group>
+                                        </Form.Group> */}
 
-                                        <Form.Group as={Col} controlId="formGridZip">
+                                        {/* <Form.Group as={Col} controlId="formGridZip">
                                             <Form.Label>Zip</Form.Label>
                                             <Form.Control />
-                                        </Form.Group>
+                                        </Form.Group> */}
                                     </Form.Row>
 
-                                    <Form.Group id="formGridCheckbox">
+                                    {/* <Form.Group id="formGridCheckbox">
                                         <Form.Check type="checkbox" label="Check me out" />
-                                    </Form.Group>
+                                    </Form.Group> */}
 
                                     <Button variant="primary" type="submit">
-                                        Submit
+                                        Potvrdi
   </Button>
                                 </Form>
                             </Popup>
