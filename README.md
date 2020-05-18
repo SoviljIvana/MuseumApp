@@ -49,7 +49,7 @@ In order to run application, you need to execute sql script for creating databas
 
 
 ### Author: 
-Sovilj Ivana 
+Sovilj Ivana, Lazar Momcilovic
 
    
   
