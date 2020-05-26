@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { NotificationManager } from 'react-notifications';
-import * as authCheck from '../components/authCheck.js';
+import * as authCheck from './authCheck.js';
 
 export const PrivateRouteAdmin = ({ component: Component, ...rest }) => {
 

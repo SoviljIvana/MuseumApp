@@ -16,10 +16,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("/get-token")]
-        public IActionResult GenerateToken(string name = "aspnetcore-workshop-demo", bool guest = false, bool user = false, bool superUser = false, bool admin = false)
+        public IActionResult GenerateToken(string name = "aspnetcore-workshop-demo", bool guest = false, bool admin = false)
         {
             var jwt = JwtTokenGenerator
-                .Generate(name, guest, user, admin, _configuration["Tokens:Issuer"], _configuration["Tokens:Key"]);
+                .Generate(name, guest, admin, _configuration["Tokens:Issuer"], _configuration["Tokens:Key"]);
 
             return Ok(new { token = jwt });
         }

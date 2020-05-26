@@ -26,6 +26,8 @@ import EditMuseum from './MuseumActions/EditMuseum'
 import CurrentExhibitions from './ExhibitionActions/CurrentExhibitions'
 import ComingSoonExhibitions from './ExhibitionActions/ComingSoonExhibitions'
 import './App.css';
+import {privateRouteAadmin} from './privateRouteAdmin'
+
 class Dashboard extends Component {
 
     render() {
@@ -73,7 +75,6 @@ class Dashboard extends Component {
                                 </NavDropdown>
                             </Container>
                         </Nav>
-
                         <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Sala" id="basic-nav-dropdown">
@@ -89,7 +90,6 @@ class Dashboard extends Component {
                                 </NavDropdown>
                             </Container>
                         </Nav>
-
                         <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Eksponat" id="basic-nav-dropdown">
@@ -105,8 +105,6 @@ class Dashboard extends Component {
                                 </NavDropdown>
                             </Container>
                         </Nav>
-
-                        
                         <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Karta" id="basic-nav-dropdown">

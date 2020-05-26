@@ -54,6 +54,10 @@ class ShowAllExhibits extends Component {
     removeExhibit(id) {
         const requestOptions = {
           method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+          }
          
       };
   

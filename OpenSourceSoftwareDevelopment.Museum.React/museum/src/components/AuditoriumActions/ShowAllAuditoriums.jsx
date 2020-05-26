@@ -22,7 +22,11 @@ class ShowAllAuditoriums extends Component{
 
     getAuditoriums(){
         const requestOptions = {
-            method: 'GET' 
+            method: 'GET' ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
           };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Auditoriums/get`, requestOptions)
@@ -47,7 +51,11 @@ class ShowAllAuditoriums extends Component{
 
         removeAuditorium(id) {
             const requestOptions = {
-              method: 'DELETE'
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+              }
             
           };
       

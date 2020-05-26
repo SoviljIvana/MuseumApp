@@ -49,6 +49,11 @@ class AddAuditorium extends React.Component {
         };
         const requestOptions = {
             method: 'POST',
+            
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            },
             body: JSON.stringify(data)
         };
 
