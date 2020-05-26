@@ -10,7 +10,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.ServiceExtensions
     public static class JwtTokenGenerator
     {
         // WARNING: This is just for demo purpose
-        public static string Generate(string name, bool isGuest, bool isUser, bool isAdmin, string issuer, string key)
+        public static string Generate(string name, bool isGuest, bool isAdmin, string issuer, string key)
         {
             var claims = new List<Claim>
             {
@@ -21,11 +21,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.ServiceExtensions
             {
                 claims.Add(new Claim(ClaimTypes.Role, "guest"));
             }
-            if (isUser)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, "user"));
-            }
-            if (isAdmin)
+                    if (isAdmin)
             {
                 claims.Add(new Claim(ClaimTypes.Role, "admin"));
             }

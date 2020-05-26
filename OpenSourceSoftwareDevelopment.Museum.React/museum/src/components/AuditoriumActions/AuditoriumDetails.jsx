@@ -23,7 +23,11 @@ class AuditoriumDetails extends React.Component {
     getAuditorium(id) {
         const requestOptions = {
             method: 'GET',
-       
+           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
         };
         fetch(`${serviceConfig.baseURL}/api/auditoriums/get/${id}` , requestOptions)
             .then(response => {

@@ -11,5 +11,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Models
         public string LastName { get; set; }
         public DateTime YearOfBirth { get; set; }
         public string Email { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

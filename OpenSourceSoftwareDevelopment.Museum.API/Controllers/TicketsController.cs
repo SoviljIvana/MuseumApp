@@ -13,7 +13,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
     public class TicketsController : ControllerBase
     {
         private readonly ITicketService _ticketService;
@@ -24,7 +23,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("get")]
-       // [Authorize(Roles = "admin, user")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TicketDomainModel>>> GetAllTickets()
         {
@@ -37,7 +35,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("get/{id}")]
-      //  [Authorize(Roles = "admin, user")]
         [HttpGet]
         public async Task<ActionResult<TicketDomainModel>> GetTicketById(int id)
         {

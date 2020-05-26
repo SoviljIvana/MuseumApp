@@ -6,19 +6,19 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
 import Home from './components/Home'
 import Dashboard from './components/Dashboard'
+import { PrivateRouteAdmin } from './components/privateRouteAdmin';
 function App() {
   return (
     <React.Fragment>
       <div className="set-overflow-y">
       <Switch>
         <Redirect exact from="/" to="home" />
-        <Route path = "/home" component = {Home} />//for user
-        <Route path = "/dashboard" component = {Dashboard} />
+        <Route path = "/home" component = {Home} />
+        <PrivateRouteAdmin path = "/dashboard" component = {Dashboard} />
       </Switch>
       <NotificationContainer />
       </div>
     </React.Fragment>
   );
 }
-
 export default App;

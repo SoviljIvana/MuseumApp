@@ -3,6 +3,7 @@ using OpenSourceSoftwareDevelopment.Museum.Data.Context;
 using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
 {
     public interface IUsersRepository : IRepository<UserEntity>
     {
-
+        UserEntity GetByUserName(string username);
     }
     public class UsersRepository : IUsersRepository
     {
@@ -27,7 +28,12 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
             var result = _museumContext.Users.Remove(entity);
             return result.Entity;
         }
+        public UserEntity GetByUserName(string username)
+        {
+            var data = _museumContext.Users.Include(x => x.Tickets).SingleOrDefault(x => x.Username == username);
 
+            return data;
+        }
         public async Task<IEnumerable<UserEntity>> GetAll()
         {
             var data = await _museumContext.Users.ToListAsync();

@@ -3,9 +3,7 @@ using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 using OpenSourceSoftwareDevelopment.Museum.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
@@ -19,9 +17,31 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             _userRepository = userRepository;
         }
 
-   
+        public async Task<UserDomainModel> GetUserByUserName(string username)
+        {
+            var data = _userRepository.GetByUserName(username);
 
-        public async Task<IEnumerable<UserDomainModel>> GetAllUsers()
+            if (data == null)
+            {
+                return null;
+            }
+
+            UserDomainModel domainModel = new UserDomainModel
+            {
+                LastName = data.LastName,
+                FirstName = data.FirstName,
+                Username = data.Username,
+                Password = data.Password,
+                Email = data.Email,
+                UserId = data.UserId,
+                IsAdmin = data.IsAdmin,
+                YearOfBirth = data.YearOfBirth
+            };
+            return domainModel;
+        }
+    
+
+    public async Task<IEnumerable<UserDomainModel>> GetAllUsers()
         {
             var data = await _userRepository.GetAll();
             if(data == null)

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
@@ -12,9 +9,9 @@ using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
 namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -25,7 +22,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("get")]
-       // [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDomainModel>>> GetAllUsers()
         {
@@ -38,7 +34,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("get/{id}")]
-     //   [Authorize(Roles = "admin, user")]
         [HttpGet]
         public async Task<ActionResult<UserDomainModel>> GetUserById(int id)
         {
@@ -49,11 +44,30 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             }
             return Ok(userDomainModels);
         }
+        
+        /// <summary>
+        /// Gets User by UserName
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("byusername/{username}")]
+        public async Task<ActionResult<UserDomainModel>> GetbyUserNameAsync(string username)
+        {
+            UserDomainModel model;
 
+            model = await _userService.GetUserByUserName(username);
 
-        [Route("put/{id}")]
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return Ok(model);
+        }
+    
+
+    [Route("put/{id}")]
         [HttpPut]
-     //   [Authorize(Roles = "admin, user")]
         public async Task<ActionResult> PutUser(int id, [FromBody]UpdateUserModel updateUser)
         {
             if (!ModelState.IsValid)
