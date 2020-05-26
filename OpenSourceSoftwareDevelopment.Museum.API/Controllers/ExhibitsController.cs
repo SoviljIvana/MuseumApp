@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
@@ -12,6 +13,7 @@ using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
     [ApiController]
+   // [Authorize]
     [Route("api/[controller]")]
     public class ExhibitsController : ControllerBase
     {
@@ -22,7 +24,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             _exhibitService = exhibitService;
         }
 
+
         [Route("get")]
+       // [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExhibitDomainModel>>> GetAllExhibits()
         {
@@ -36,6 +40,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             return Ok(exhibitDomainModel);
 
         }
+
+      //  [Authorize(Roles = "guest, user, admin")]
         [Route("getForSpecificId/{id}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExhibitDomainModel>>> GetAllExhibitsForSpecificExhibition(int id)
@@ -52,6 +58,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("get/{id}")]
+     //   [Authorize(Roles = "guest, user, admin")]
         [HttpGet]
         public async Task<ActionResult<ExhibitDomainModel>> GetExhibitById(int id)
         {
@@ -66,6 +73,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("delete/{id}")]
+     //   [Authorize(Roles = "admin")]
         [HttpDelete]
         public async Task<ActionResult<ExhibitResultModel>> DeleteExhibit(int id)
         {
@@ -80,6 +88,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("post/")]
+     //   [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult> PostExhibit([FromBody]CreateExhibitModel createExhibit)
         {
@@ -110,6 +119,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("put/{id}")]
+    //    [Authorize(Roles = "admin")]
         [HttpPut]
         public  async Task<ActionResult> PutExhibit(int id, [FromBody]UpdateExhibitModel updateExhibit)
         {

@@ -8,9 +8,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
         public DbSet<AuditoriumEntity> Auditoriums { get; set; }
         public DbSet<ExhibitEntity> Exhibits { get; set; }
         public DbSet<ExhibitionEntity> Exhibitions { get; set; }
-        public DbSet<ExhibitTagEntity> ExhibitTags { get; set; }
         public DbSet<MuseumEntity> Museums { get; set; }
-        public DbSet<TagEntity> Tags { get; set; }
         public DbSet<TicketEntity> Tickets { get; set; }
         public DbSet<UserEntity> Users { get; set; }
 
@@ -80,47 +78,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
                 .WithOne(x => x.Exhibition)
                 .IsRequired();
 
-
-            /// <summary>
-            /// ExhibitTag -> Tag relation
-            /// </summary>
-            /// <returns></returns>
-            modelBuilder.Entity<ExhibitTagEntity>()
-                .HasOne(x => x.Exhibit)
-                .WithMany(x => x.ExhibitTags)
-                .HasForeignKey(x => x.ExhibitId)
-                .IsRequired();
-
-            /// <summary>
-            /// Tag -> ExhibitTag relation
-            /// </summary>
-            /// <returns></returns>
-            modelBuilder.Entity<ExhibitEntity>()
-                .HasMany(x => x.ExhibitTags)
-                .WithOne(x => x.Exhibit)
-                .IsRequired();
-
-
-
-            /// <summary>
-            /// ExhibitTag -> Tag relation
-            /// </summary>
-            /// <returns></returns>
-            modelBuilder.Entity<ExhibitTagEntity>()
-                .HasOne(x => x.Tag)
-                .WithMany(x => x.ExhibitTags)
-                .HasForeignKey(x => x.TagId)
-                .IsRequired();
-
-            /// <summary>
-            /// Tag -> ExhibitTag relation
-            /// </summary>
-            /// <returns></returns>
-            modelBuilder.Entity<TagEntity>()
-                .HasMany(x => x.ExhibitTags)
-                .WithOne(x => x.Tag)
-                .IsRequired();
-
             /// <summary>
             /// Exhibition -> Auditorium relation
             /// </summary>
@@ -158,9 +115,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.Data.Context
                 .HasMany(x => x.Auditoriums)
                 .WithOne(x => x.Museum)
                 .IsRequired();
-      
-
-
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
@@ -12,6 +13,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+  //  [Authorize]
     public class MuseumsController : ControllerBase
     {
 
@@ -23,6 +25,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("get")]
+     //   [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MuseumDomainModel>>> GetAllMuseums()
         {
@@ -39,6 +42,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
 
         [Route("get/{id}")]
+      //  [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<MuseumDomainModel>> GetMuseumById(int id)
         {
@@ -54,6 +58,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
 
         [Route("delete/{id}")]
+       // [Authorize(Roles = "admin")]
         [HttpDelete]
         public async Task<ActionResult> DeleteMuseum(int id)
         {
@@ -67,6 +72,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("post/")]
+     //   [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult<MuseumDomainModel> PostMuseum(CreateMuseumModel createMuseum)
         {
@@ -93,6 +99,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         }
 
         [Route("{id}")]
+     //   [Authorize(Roles = "admin")]
         [HttpPut]
         public async Task<ActionResult> PutMuseum(int id, [FromBody]UpdateMuseumModel updateMuseum)
         {
