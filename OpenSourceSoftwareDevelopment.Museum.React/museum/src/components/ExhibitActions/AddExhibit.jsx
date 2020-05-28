@@ -35,7 +35,7 @@ class AddExhibit extends React.Component {
     validate(id, value) {
         if (id === 'name') {
             if (value === '') {
-                this.setState({nameError: 'Fill in exhibit name',
+                this.setState({nameError: 'Unesite naziv.',
                                 canSubmit: false});
             } else {
                 this.setState({nameError: '',
@@ -46,7 +46,7 @@ class AddExhibit extends React.Component {
         if(id === 'year') {
             const yearNum = +value;
             if(!value || value === '' || (yearNum<1895 || yearNum>2100)){
-                this.setState({yearError: 'Please chose valid year'});
+                this.setState({yearError: 'Molim vas unesite validnu godinu.'});
             } else {
                 this.setState({yearError: ''});
             }
@@ -61,7 +61,7 @@ class AddExhibit extends React.Component {
         if (name && year && picturePath ) {
             this.newExhibit();
         } else {
-            NotificationManager.error('Please fill in data');
+            NotificationManager.error('Unesite podatak.');
             this.setState({ submitted: false });
         }
     }
@@ -86,6 +86,10 @@ class AddExhibit extends React.Component {
 
         const requestOptions = {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            },
             body: JSON.stringify(data)
         };
 
@@ -97,7 +101,7 @@ class AddExhibit extends React.Component {
                 return response.statusText;
             })
             .then(result => {
-                NotificationManager.success('Successfuly added exhibit!');
+                NotificationManager.success('Uspešno dodat eksponat!');
                 this.props.history.push(`ShowAllExhibits`);
             })
             .catch(response => {
@@ -118,7 +122,7 @@ class AddExhibit extends React.Component {
                                 <FormControl
                                     id="name"
                                     type="text"
-                                    placeholder="Name"
+                                    placeholder="naziv"
                                     value={name}
                                     onChange={this.handleChange}
                                 />
@@ -147,7 +151,7 @@ class AddExhibit extends React.Component {
                                 <FormControl
                                     id="picturePath"
                                     type="text"
-                                    placeholder="path picture"
+                                    placeholder="putanja do slike"
                                     value={picturePath}
                                     onChange={this.handleChange}
                                 />
@@ -156,7 +160,7 @@ class AddExhibit extends React.Component {
                                 <FormControl
                                     id="exhibitionId"
                                     type="number"
-                                    placeholder="exhibitionId"
+                                    placeholder="id izložbe"
                                     value={exhibitionId}
                                     onChange={this.handleChange}
                                 />
@@ -165,7 +169,7 @@ class AddExhibit extends React.Component {
                                 <FormControl
                                     id="auditoriumId"
                                     type="number"
-                                    placeholder="auditoriumId"
+                                    placeholder="id sale"
                                     value={auditoriumId}
                                     onChange={this.handleChange}
                                 />
@@ -174,12 +178,12 @@ class AddExhibit extends React.Component {
                                 <FormControl
                                     id="exhibitId"
                                     type="number"
-                                    placeholder="exhibitId"
+                                    placeholder="id eksponata"
                                     value={exhibitId}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
-                            <Button  variant="info" type="submit" disabled={submitted || !canSubmit} block>Add Exhibit</Button>
+                            <Button  variant="info" type="submit" disabled={submitted || !canSubmit} block>Dodaj eksponat</Button>
                         </form>
                     </Col>
                 </Row>

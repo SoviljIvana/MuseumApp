@@ -34,7 +34,7 @@ class AddMuseum extends React.Component {
         if ( name && streetAndNumber && city) {
             this.newMuseum();
         } else {
-            NotificationManager.error('Please fill form with data.');
+            NotificationManager.error('Popunite polje podacima.');
             this.setState({ submitted: false });
         }
     }
@@ -52,6 +52,10 @@ class AddMuseum extends React.Component {
         };
         const requestOptions = {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            },
            
             body: JSON.stringify(data)
         };
@@ -64,7 +68,7 @@ class AddMuseum extends React.Component {
                 return response.statusText;
             })
             .then(result => {
-                NotificationManager.success('Successfuly added new museum!');
+                NotificationManager.success('Uspešno dodat novi muzej!');
                 this.props.history.push('ShowAllMuseums');
             })
 
@@ -86,7 +90,7 @@ class AddMuseum extends React.Component {
                                 <FormControl
                                     id="museumId"
                                     type="number"
-                                    placeholder="museumId"
+                                    placeholder="id muzeja"
                                     value={museumId}
                                     onChange={this.handleChange}
                                 />
@@ -95,7 +99,7 @@ class AddMuseum extends React.Component {
                                 <FormControl
                                     id="name"
                                     type="text"
-                                    placeholder="Name"
+                                    placeholder="naziv"
                                     value={name}
                                     onChange={this.handleChange}
                                 />
@@ -104,7 +108,7 @@ class AddMuseum extends React.Component {
                                 <FormControl
                                     id="streetAndNumber"
                                     type="text"
-                                    placeholder="streetAndNumber"
+                                    placeholder="ulica i broj"
                                     value={streetAndNumber}
                                     onChange={this.handleChange}
                                     
@@ -114,7 +118,7 @@ class AddMuseum extends React.Component {
                                 <FormControl
                                     id="city"
                                     type="text"
-                                    placeholder="city"
+                                    placeholder="grad"
                                     value={city}
                                     onChange={this.handleChange}
                                     
@@ -133,12 +137,12 @@ class AddMuseum extends React.Component {
                                 <FormControl
                                     id="phoneNumber"
                                     type="text"
-                                    placeholder="phoneNumber"
+                                    placeholder="broj telefona"
                                     value={phoneNumber}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Add Museum</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Dodaj muzej</Button>
                         </form>
                     </Col>
                 </Row>

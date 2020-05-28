@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Row, Table, Button, Card ,Container } from 'react-bootstrap';
+import {Button, CardColumns, Card ,Container,ResponsiveEmbed } from 'react-bootstrap';
 import Spinner from '../Spinner'
+import * as Moment from 'moment';  
+
+import "react-datepicker/dist/react-datepicker.css";
 class ComingSoonExhibitionsForUser extends Component{
     constructor(props){
         super(props);
@@ -20,7 +23,11 @@ class ComingSoonExhibitionsForUser extends Component{
 
     getExhibitions(){
         const requestOptions = {
-            method: 'GET' 
+            method: 'GET' ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
            };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Exhibitions/get/comingSoon`, requestOptions)
@@ -46,6 +53,10 @@ class ComingSoonExhibitionsForUser extends Component{
         removeExhibition(id) {
             const requestOptions = {
               method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+              }
              
           };
       
@@ -57,40 +68,49 @@ class ComingSoonExhibitionsForUser extends Component{
                   return response.statusText;
               })
               .then(result => {
-                  NotificationManager.success('Successfuly removed exhibition with ID: '+ id);
+                  NotificationManager.success('Uspešno izbrisana izložba sa id: '+ id);
                   const newState = this.state.exhibitions.filter(exhibition => {
                       return exhibition.id !== id;
                   })
                   this.setState({auditoriums: newState});
               })
               .catch(response => {
-                  NotificationManager.error("Unable to remove exhibition.");
+                  NotificationManager.error("Ne možete izbrisati izložbu.");
                   this.setState({ submitted: false });
               });
           }
     
 
           getAllExhibitions() {
+
             return this.state.exhibitions.map(exhibition => {
-                return <Card className= "card"  key={exhibition.id}>
-                            <Container>
-                                <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>{exhibition.exhibitionName}</Card.Header>
-                            </Container>
-                            <Card.Body>
-                            <Container>
-                                <Card.Text>Tema: {exhibition.typeOfExhibition} </Card.Text>
-                            </Container>
-                            <Container>
-                                <Card.Text> {exhibition.startTime} - {exhibition.endTime}</Card.Text>
-                            </Container>
-                                </Card.Body>
-                            <Container>
-                                <Card.Footer> <small className="text-muted">Last updated ? ago</small> </Card.Footer>
-                            </Container>
-                        </Card>
+                return <Card className = "center1" style={{ width: '20rem' }} className="text-center"  key={exhibition.id}>
+                <Container>
+                    <div className="inner">
+                    <ResponsiveEmbed aspectRatio="4by3">
+                  <Card.Img variant="top" src= {exhibition.picture} /> 
+                  </ResponsiveEmbed>
+                 </div>
+                </Container>   
+                <Container >
+                    <Button>
+                    <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}><h4 >{exhibition.exhibitionName}</h4></Card.Header>
+                    </Button>
+                </Container>
+                    <Card.Body>
+                <Container>
+                    <Card.Text> {exhibition.about}</Card.Text>
+                </Container>
+                </Card.Body>
+                <Container>
+                Otvaranje:  <Card.Footer className="text-muted">
+                  { Moment(exhibition.startTime).format('LLL') }
+                </Card.Footer>
+                  Zatvaranje: <Card.Footer className="text-muted">  {Moment(exhibition.endTime).format('LLL')}    </Card.Footer></Container>
+            </Card>
             })
         }
-
+        
         exhibitionDetails(id){
             this.props.history.push(`exhibitionDetails/${id}`);
         }
@@ -98,11 +118,12 @@ class ComingSoonExhibitionsForUser extends Component{
         render(){
             const {isLoading} = this.state;
             const exhibitionDetails = this.getAllExhibitions();
-            const exhibitions = isLoading ? <Spinner></Spinner> :<Container> {exhibitionDetails} </Container>;
+            const exhibitions = isLoading ? <Spinner></Spinner> :<Container className= "container-cards"> {exhibitionDetails} </Container>;
             return (
-                    <Container>
+                        <CardColumns>
                         {exhibitions}
-                    </Container>
+                        </CardColumns>   
+        
             );
         }
     }

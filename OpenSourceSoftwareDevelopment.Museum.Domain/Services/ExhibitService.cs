@@ -178,6 +178,41 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             return list;
         }
 
+        public async Task<IEnumerable<ExhibitDomainModel>> GetAllExhibitsForSpecificExhibitions(int id)
+        {
+
+            var data = await _exhibitionsRepository.GetByIdAsync(id);
+            if (data == null)
+            {
+                return null;
+            }
+
+            var data1 = await _exhibitRepository.GetAllExhibitsForSpecificExhibitions(id);
+            if(data1 == null)
+            {
+                return null;
+            }
+
+            List<ExhibitDomainModel> list = new List<ExhibitDomainModel>();
+            ExhibitDomainModel exhibitDomainModel;
+
+            foreach (var item in data1)
+            {
+                    exhibitDomainModel = new ExhibitDomainModel
+                    {
+                        ExhibitionId = item.ExhibitionId,
+                        Name = item.Name,
+                        Year = item.Year,
+                        ExhibitId = item.ExhibitId,
+                        PicturePath = item.PicturePath,
+                        AuditoriumId = item.AuditoriumId
+                    };
+                    list.Add(exhibitDomainModel);
+                }
+           
+            return list;
+        }
+
         public async Task<ExhibitDomainModel> GetExhibitByIdAsync(int id)
         {
             var data = await _exhibitRepository.GetByIdAsync(id);
@@ -244,5 +279,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             };
             return result;
         }
+
+      
     }
 }

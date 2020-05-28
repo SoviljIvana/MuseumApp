@@ -54,6 +54,10 @@ class ShowAllExhibits extends Component {
     removeExhibit(id) {
         const requestOptions = {
           method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+          }
          
       };
   
@@ -65,14 +69,14 @@ class ShowAllExhibits extends Component {
               return response.statusText;
           })
           .then(result => {
-              NotificationManager.success('Successfuly removed exhibit with ID: '+ id);
+              NotificationManager.success('Uspešno izbrisan eksponat sa id: '+ id);
               const newState = this.state.exhibits.filter(exhibit => {
                   return exhibit.id !== id;
               })
               this.setState({auditoriums: newState});
           })
           .catch(response => {
-              NotificationManager.error("Unable to remove exhibit.");
+              NotificationManager.error("Neuspešno brisanje eksponata.");
               this.setState({ submitted: false });
           });
       }

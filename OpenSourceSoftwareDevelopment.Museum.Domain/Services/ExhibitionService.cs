@@ -1,4 +1,5 @@
-﻿using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using OpenSourceSoftwareDevelopment.Museum.Data.Entities;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
@@ -15,11 +16,13 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
         private readonly IExhibitionsRepository _exhibitionRepository;
         private readonly ITicketsRepository _ticketsRepository;
         private readonly IAuditoriumsRepository _auditoriumRepository;
-        public ExhibitionService(IExhibitionsRepository exhibitionRepository, ITicketsRepository ticketsRepository, IAuditoriumsRepository auditoriumsRepository)
+        private readonly IExhibitsRepository _exhibitsRepository;
+        public ExhibitionService(IExhibitionsRepository exhibitionRepository, ITicketsRepository ticketsRepository, IAuditoriumsRepository auditoriumsRepository, IExhibitsRepository exhibitsRepository)
         {
             _exhibitionRepository = exhibitionRepository;
             _ticketsRepository = ticketsRepository;
             _auditoriumRepository = auditoriumsRepository;
+            _exhibitsRepository = exhibitsRepository;
         }
 
         public async Task<ExhibitionResultModel> CreateExhibition(ExhibitionDomainModel exhibitionModel)
@@ -198,7 +201,9 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     AuditoriumId = item.AuditoriumId,
                     TypeOfExhibition = item.TypeOfExhibition,
                     StartTime = item.StartTime,
-                    EndTime = item.EndTime
+                    EndTime = item.EndTime,
+                    About = item.About,
+                    Picture = item.Picture
                 };
                 list.Add(exhibitionModel);
             }
@@ -227,7 +232,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     AuditoriumId = item.AuditoriumId,
                     TypeOfExhibition = item.TypeOfExhibition,
                     StartTime = item.StartTime,
-                    EndTime = item.EndTime
+                    EndTime = item.EndTime,
+                    Picture = item.Picture
                 };
                 if (item.StartTime > DateTime.Now)
                 {
@@ -236,6 +242,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             }
             return list;
         }
+
 
         public async Task<IEnumerable<ExhibitionDomainModel>> GetCurrentExhibitions()
         {
@@ -258,7 +265,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
                     AuditoriumId = item.AuditoriumId,
                     TypeOfExhibition = item.TypeOfExhibition,
                     StartTime = item.StartTime,
-                    EndTime = item.EndTime
+                    EndTime = item.EndTime,
+                    Picture = item.Picture
                 };
                 if ((item.StartTime < DateTime.Now) && (item.EndTime > DateTime.Now))
                 {
@@ -275,15 +283,55 @@ namespace OpenSourceSoftwareDevelopment.Museum.Domain.Services
             if (data == null) return null;
 
             ExhibitionDomainModel result;
-            result = new ExhibitionDomainModel
+
+            var exhibits = await _exhibitsRepository.GetAllExhibitsForSpecificExhibitions(id);
+
+            var exhibitsList = new List<ExhibitDomainModel>();
+
+            if (exhibits == null)
             {
-                ExhibitionId = data.ExhibitionId,
-                ExhibitionName = data.ExhibitionName,
-                AuditoriumId = data.AuditoriumId,
-                TypeOfExhibition = data.TypeOfExhibition,
-                StartTime = data.StartTime,
-                EndTime = data.EndTime
-            };
+                result = new ExhibitionDomainModel
+                {
+                    ExhibitionId = data.ExhibitionId,
+                    ExhibitionName = data.ExhibitionName,
+                    AuditoriumId = data.AuditoriumId,
+                    TypeOfExhibition = data.TypeOfExhibition,
+                    StartTime = data.StartTime,
+                    EndTime = data.EndTime,
+                    Picture  =data.Picture,
+                    Description = data.Description,
+                    Exhibits = null
+                };
+                return result;
+            }
+            else
+            {
+                foreach (var exhibit in exhibits)
+                {
+                    exhibitsList.Add(new ExhibitDomainModel
+                    {
+                        Name = exhibit.Name,
+                        PicturePath = exhibit.PicturePath,
+                        Year = exhibit.Year,
+                        AuditoriumId = exhibit.AuditoriumId,
+                        ExhibitId = exhibit.ExhibitId,
+                        ExhibitionId = exhibit.ExhibitionId
+                    });
+                }
+                result = new ExhibitionDomainModel
+                {
+                    ExhibitionId = data.ExhibitionId,
+                    ExhibitionName = data.ExhibitionName,
+                    AuditoriumId = data.AuditoriumId,
+                    TypeOfExhibition = data.TypeOfExhibition,
+                    StartTime = data.StartTime,
+                    EndTime = data.EndTime,
+                    Picture = data.Picture,
+                    Description = data.Description,
+                    Exhibits = exhibitsList
+                };
+
+            }
             return result;
         }
 

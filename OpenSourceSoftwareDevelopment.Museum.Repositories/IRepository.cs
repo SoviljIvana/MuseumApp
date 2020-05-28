@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.Repositories
     {
         void Save();
         Task<IEnumerable<T>> GetAll();
+    
         Task<T> GetByIdAsync(object id);
         T Delete(object id);
         T Insert(T obj);

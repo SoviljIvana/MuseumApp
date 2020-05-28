@@ -30,7 +30,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API
                 .UseSqlServer(Configuration.GetConnectionString("MuseumConnection"))
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
-
+            services.AddJwtBearerAuthentication(Configuration);
             services.AddControllers();
             services.AddOpenApi();
 
@@ -40,7 +40,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API
             services.AddTransient<IExhibitionsRepository, ExhibitionsRepository>();
             services.AddTransient<IExhibitsRepository, ExhibitsRepository>();
             services.AddTransient<IMuseumsRepository, MuseumsRepository>();
-            services.AddTransient<ITagsRepository, TagsRepository>();
             services.AddTransient<IUsersRepository, UsersRepository>();
             services.AddTransient<ITicketsRepository, TicketsRepository>();
 
@@ -49,7 +48,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API
             services.AddTransient<IExhibitionService, ExhibitionService>();
             services.AddTransient<IExhibitService, ExhibitService>();
             services.AddTransient<IMuseumService, MuseumService>();
-            services.AddTransient<ITagService, TagService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITicketService, TicketService>();
 

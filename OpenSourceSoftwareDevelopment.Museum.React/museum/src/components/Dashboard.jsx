@@ -6,7 +6,6 @@ import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
 import ShowAllExhibitions from './ExhibitionActions/ShowAllExhibitions';
 import ShowAllExhibits from './ExhibitActions/ShowAllExhibits'
-import ShowAllTags from './TagActions/ShowAllTags'
 import ShowAllTickets from './TicketActions/ShowAllTickets'
 import ShowAllUsers from './UserActions/ShowAllUsers'
 import AddMuseum from './MuseumActions/AddMuseum';
@@ -17,7 +16,6 @@ import AuditoriumDetails from './AuditoriumActions/AuditoriumDetails';
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
 import MuseumDetails from './MuseumActions/MuseumDetails';
 import ExhibitDetails from './ExhibitActions/ExhibitDetails';
-import TagDetails from './TagActions/TagDetails';
 import TicketDetails from './TicketActions/TicketDetails';
 import UserDetails from './UserActions/UserDetails';
 import EditUser from './UserActions/EditUser'
@@ -28,6 +26,8 @@ import EditMuseum from './MuseumActions/EditMuseum'
 import CurrentExhibitions from './ExhibitionActions/CurrentExhibitions'
 import ComingSoonExhibitions from './ExhibitionActions/ComingSoonExhibitions'
 import './App.css';
+import {privateRouteAadmin} from './privateRouteAdmin'
+
 class Dashboard extends Component {
 
     render() {
@@ -75,7 +75,6 @@ class Dashboard extends Component {
                                 </NavDropdown>
                             </Container>
                         </Nav>
-
                         <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Sala" id="basic-nav-dropdown">
@@ -91,7 +90,6 @@ class Dashboard extends Component {
                                 </NavDropdown>
                             </Container>
                         </Nav>
-
                         <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Eksponat" id="basic-nav-dropdown">
@@ -103,22 +101,6 @@ class Dashboard extends Component {
                                     <NavDropdown.Item className="navbar-item">
                                         <Link to='/dashboard/AddExhibit'>
                                             <Button className="button" variant="white">Dodaj eksponat</Button></Link>
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                            </Container>
-                        </Nav>
-
-                        <Nav className="mr-auto">
-                            <Container>
-                                <NavDropdown title="Tag" id="basic-nav-dropdown">
-                                    <NavDropdown.Item className="navbar-item">
-                                        <Link to='/dashboard/ShowAllTags'>
-                                            <Button className="button" variant="white">Svi tagovi</Button></Link>
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item className="navbar-item">
-                                        <Link to='/dashboard/AddTag'>
-                                            <Button className="button" variant="white">Dodaj tag</Button></Link>
                                     </NavDropdown.Item>
                                 </NavDropdown>
                             </Container>
@@ -154,7 +136,6 @@ class Dashboard extends Component {
                         <Route path="/dashboard/ComingSoonExhibitions" component={ComingSoonExhibitions} />
                         <Route path="/dashboard/CurrentExhibitions" component={CurrentExhibitions} />
                         <Route path="/dashboard/ShowAllExhibits" component={ShowAllExhibits} />
-                        <Route path="/dashboard/ShowAllTags" component={ShowAllTags} />
                         <Route path="/dashboard/ShowAllTickets" component={ShowAllTickets} />
                         <Route path="/dashboard/ShowAllUsers" component={ShowAllUsers} />
                         <Route path="/dashboard/AddMuseum" component={AddMuseum} />
@@ -165,7 +146,6 @@ class Dashboard extends Component {
                         <Route path="/dashboard/ExhibitionDetails/:id" component={ExhibitionDetails} />
                         <Route path="/dashboard/MuseumDetails/:id" component={MuseumDetails} />
                         <Route path="/dashboard/ExhibitDetails/:id" component={ExhibitDetails} />
-                        <Route path="/dashboard/TagDetails/:id" component={TagDetails} />
                         <Route path="/dashboard/TicketDetails/:id" component={TicketDetails} />
                         <Route path="/dashboard/UserDetails/:id" component={UserDetails} />
                         <Route path="/dashboard/EditUser/:id" component={EditUser} />

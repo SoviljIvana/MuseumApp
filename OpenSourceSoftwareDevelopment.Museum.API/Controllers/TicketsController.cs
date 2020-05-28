@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
@@ -19,7 +20,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         public TicketsController(ITicketService ticketService)
         {
             _ticketService = ticketService;
-
         }
 
         [Route("get")]
@@ -46,27 +46,6 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             }
 
             return Ok(ticketDomainModel);
-        }
-
-        [Route("delete/{id}")]
-        [HttpDelete]
-        public Task<ActionResult> DeleteTicket(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [Route("post/")]
-        [HttpPost]
-        public Task<ActionResult<TicketDomainModel>> PostTicket(CreateTicketModel createTicket)
-        {
-            throw new NotImplementedException();
-        }
-
-        [Route("{id}")]
-        [HttpPut]
-        public Task<ActionResult> PutTicket(int id, [FromBody]UpdateTicketModel updateTicket)
-        {
-            throw new NotImplementedException();
         }
     }
 }

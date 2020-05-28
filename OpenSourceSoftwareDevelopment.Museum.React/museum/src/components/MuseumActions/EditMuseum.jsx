@@ -29,7 +29,11 @@ class EditMuseum extends React.Component {
     }
     getMuseum(museumId) {   
         const requestOptions = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
             
         };
     
@@ -70,7 +74,7 @@ class EditMuseum extends React.Component {
         if (museumId && name && streetAndNumber && city && email && phoneNumber) {
             this.updateMuseum();
         } else {
-            NotificationManager.error('Please fill in data');
+            NotificationManager.error('Unesite podatke u polje');
             this.setState({ submitted: false });
         }
     }
@@ -89,6 +93,10 @@ class EditMuseum extends React.Component {
 
         const requestOptions = {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            },
            
             body: JSON.stringify(data)
         };
@@ -115,10 +123,10 @@ class EditMuseum extends React.Component {
             })
             .then(result => {
                 this.props.history.goBack();
-                NotificationManager.success('Successfuly edited museum!');
+                NotificationManager.success('Uspešno izmenjen muzej!');
             })
             .catch(response => {
-                NotificationManager.error("Unable to update museum. ");
+                NotificationManager.error("Ne možete izmeniti podatke o muzeju. ");
                 this.setState({ submitted: false });
             });
     }
@@ -136,7 +144,7 @@ class EditMuseum extends React.Component {
                                 
                                     id="name"
                                     type="text"
-                                    placeholder="name"
+                                    placeholder="naziv"
                                     value={name}
                                     onChange={this.handleChange}
                                 />
@@ -146,7 +154,7 @@ class EditMuseum extends React.Component {
                                 
                                     id="streetAndNumber"
                                     type="text"
-                                    placeholder="streetAndNumber"
+                                    placeholder="ulica i broj"
                                     value={streetAndNumber}
                                     onChange={this.handleChange}
                                 />
@@ -155,7 +163,7 @@ class EditMuseum extends React.Component {
                                 <FormControl
                                     id="city"
                                     type="text"
-                                    placeholder="city"
+                                    placeholder="grad"
                                     value={city}
                                     onChange={this.handleChange}
                                 />
@@ -173,14 +181,14 @@ class EditMuseum extends React.Component {
                                 <FormControl
                                     id="phoneNumber"
                                     type="text"
-                                    placeholder="phoneNumber"
+                                    placeholder="broj telefona"
                                     value={phoneNumber}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
 
                            
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit museum</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Izmeni podatke o muzeju</Button>
                         </form>
                     </Col>
                 </Row>

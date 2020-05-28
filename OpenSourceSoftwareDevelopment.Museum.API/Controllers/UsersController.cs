@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Interfaces;
@@ -11,6 +9,7 @@ using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
 namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -44,12 +43,30 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
                 return NotFound(Messages.USERS_GET_ID_ERROR);
             }
             return Ok(userDomainModels);
-            
-           
         }
+        
+        /// <summary>
+        /// Gets User by UserName
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("byusername/{username}")]
+        public async Task<ActionResult<UserDomainModel>> GetbyUserNameAsync(string username)
+        {
+            UserDomainModel model;
 
+            model = await _userService.GetUserByUserName(username);
 
-        [Route("put/{id}")]
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return Ok(model);
+        }
+    
+
+    [Route("put/{id}")]
         [HttpPut]
         public async Task<ActionResult> PutUser(int id, [FromBody]UpdateUserModel updateUser)
         {
@@ -57,26 +74,18 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var userUpdate = await _userService.GetUserByIdAsync(id);
-
-
             if(userUpdate == null)
             {
                return NotFound(Messages.USER_DOES_NOT_EXIST);              
             }
-
             userUpdate.FirstName = updateUser.FirstName;
             userUpdate.LastName = updateUser.LastName;
             userUpdate.Email = updateUser.Email;
             userUpdate.YearOfBirth = updateUser.YearOfBirth;
-
             var update = await  _userService.UpdateUser(userUpdate);
-
             if (!update.IsSuccessful) return BadRequest(update);
-
             return Ok(update); 
-
         }
     }
 }

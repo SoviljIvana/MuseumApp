@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component,  } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../../AppSettings';
-import { Container, CardDeck, Card, CardColumns} from 'react-bootstrap';
+import { Container, Card, CardColumns, Button,ResponsiveEmbed} from 'react-bootstrap';
 import Spinner from '../Spinner';
+import * as Moment from 'moment';  
+
+import "react-datepicker/dist/react-datepicker.css";
+
 class ShowAllExhibitionsForUser extends Component{
     constructor(props){
         super(props);
         this.state = {
             exhibitions: [],
-            isLoading: true
+            isLoading: true,
         }
         this.exhibitionDetails = this.exhibitionDetails.bind(this);
 
-    }
-
+        }
+      
     componentDidMount(){
       this.getExhibitions();
     }
@@ -21,7 +25,11 @@ class ShowAllExhibitionsForUser extends Component{
     getExhibitions(){
         
         const requestOptions = {
-            method: 'GET' 
+            method: 'GET' ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
         };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Exhibitions/get`, requestOptions)
@@ -43,25 +51,37 @@ class ShowAllExhibitionsForUser extends Component{
                   this.setState({ isLoading: false });
               });
         }   
-
         getAllExhibitions() {
+
             return this.state.exhibitions.map(exhibition => {
-                return <Card className= "card"  key={exhibition.id}>
-                            <Container >
-                                <Card.Header onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>{exhibition.exhibitionName}</Card.Header>
-                            </Container>
-                            <Card.Body>
-                            <Container>
-                                <Card.Text>Tema: {exhibition.typeOfExhibition} </Card.Text>
-                            </Container>
-                            <Container>
-                                <Card.Text> {exhibition.startTime} - {exhibition.endTime}</Card.Text>
-                            </Container>
-                                </Card.Body>
-                            <Container>
-                                <Card.Footer> <small className="text-muted">Last updated ? ago</small> </Card.Footer>
-                            </Container>
-                        </Card>
+                return <Card className = "center1" style={{ width: '20rem' }} className="text-center"  key={exhibition.id}>
+                         <hr>
+                        </hr>
+                <Container>
+                    <div className="inner">
+                    <ResponsiveEmbed aspectRatio="4by3">
+                  <Card.Img variant="top" src= {exhibition.picture} /> 
+                  </ResponsiveEmbed>
+                 </div>
+                </Container>   
+                <Container >
+                    <Button>
+                    <Card.Header  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}><h4 >{exhibition.exhibitionName}</h4></Card.Header>
+                    </Button>
+                </Container>
+                    <Card.Body>
+                <Container>
+                    <Card.Text> {exhibition.about}</Card.Text>
+                </Container>
+                </Card.Body>
+                <Container>
+                Otvaranje:  <Card.Footer className="text-muted">
+                  { Moment(exhibition.startTime).format('LLL') }
+                </Card.Footer>
+                  Zatvaranje: <Card.Footer className="text-muted">  {Moment(exhibition.endTime).format('LLL')}    </Card.Footer></Container>
+                  <hr>
+                        </hr>
+            </Card>
             })
         }
         
@@ -74,9 +94,10 @@ class ShowAllExhibitionsForUser extends Component{
             const exhibitionDetails = this.getAllExhibitions();
             const exhibitions = isLoading ? <Spinner></Spinner> :<Container className= "container-cards"> {exhibitionDetails} </Container>;
             return (
-                        <CardColumns >
+                        <CardColumns>
                         {exhibitions}
-                        </CardColumns>
+                        </CardColumns>   
+        
             );
         }
     }

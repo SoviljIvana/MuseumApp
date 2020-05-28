@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
@@ -95,10 +96,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var auditoriumUpdate = await _auditoriumService.GetAuditoriumByIdAsync(id);
-
-
             if (auditoriumUpdate == null)
             {
                 return NotFound(Messages.AUDITORIUM_DOES_NOT_EXIST);

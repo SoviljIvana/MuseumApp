@@ -22,7 +22,11 @@ class ShowAllUsers extends Component{
 
     getUsers(){
         const requestOptions = {
-            method: 'GET' 
+            method: 'GET' ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
            };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Users/get`, requestOptions)

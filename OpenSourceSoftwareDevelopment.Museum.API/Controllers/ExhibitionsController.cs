@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
 using OpenSourceSoftwareDevelopment.Museum.Domain.Common;
@@ -10,6 +11,7 @@ using OpenSourceSoftwareDevelopment.Museum.Domain.Models;
 
 namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class ExhibitionsController : ControllerBase
@@ -75,6 +77,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             return Ok(exhibitionDomainModel);
         }
 
+ 
         [Route("delete/{id}")]
         [HttpDelete]
         public async Task<ActionResult> DeleteExhibition(int id)
@@ -120,6 +123,7 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
         [HttpPut]
         public async Task<ActionResult> PutExhibition(int id, [FromBody]UpdateExhibitionModel updateExhibition)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -127,12 +131,10 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
 
             var exhibitionUpdate = await _exhibitionService.GetExhibitionByIdAsync(id);
 
-
             if (exhibitionUpdate == null)
             {
                 return NotFound(Messages.EXHIBITION_DOES_NOT_EXIST);
             }
-
  
             if (updateExhibition.StartTime < DateTime.Now || updateExhibition.EndTime < DateTime.Now || updateExhibition.EndTime < updateExhibition.StartTime)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OpenSourceSoftwareDevelopment.Museum.API.Models;
@@ -22,11 +23,27 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Controllers
             _exhibitService = exhibitService;
         }
 
+
         [Route("get")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ExhibitDomainModel>>> GetAllExhibits()
         {
             IEnumerable<ExhibitDomainModel> exhibitDomainModel = await _exhibitService.GetAllExhibits();
+
+            if (exhibitDomainModel == null)
+            {
+                return NotFound(Messages.EXHIBITS_GET_ALL_ERROR);
+
+            }
+            return Ok(exhibitDomainModel);
+
+        }
+
+        [Route("getForSpecificId/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ExhibitDomainModel>>> GetAllExhibitsForSpecificExhibition(int id)
+        {
+            IEnumerable<ExhibitDomainModel> exhibitDomainModel = await _exhibitService.GetAllExhibitsForSpecificExhibitions(id);
 
             if (exhibitDomainModel == null)
             {

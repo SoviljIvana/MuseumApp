@@ -28,7 +28,11 @@ class EditUser extends React.Component {
     }
     getUser(userId) {
         const requestOptions = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
          
         };
     
@@ -64,7 +68,7 @@ class EditUser extends React.Component {
     validate(id, value) {
         if (id === 'name') {
             if (value === '') {
-                this.setState({titleError: 'Fill in cinema title', 
+                this.setState({titleError: 'Unesite naziv', 
                                 canSubmit: false});
             } else {
                 this.setState({titleError: '',
@@ -81,7 +85,7 @@ class EditUser extends React.Component {
         if (firstName && lastName && email  && yearOfBirth && userId) {
             this.updateUser();
         } else {
-            NotificationManager.error('Please fill in data');
+            NotificationManager.error('Molim vas popunite polje');
             this.setState({ submitted: false });
         }
     }
@@ -99,6 +103,10 @@ class EditUser extends React.Component {
 
         const requestOptions = {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            },
            
             body: JSON.stringify(data)
         };
@@ -124,10 +132,10 @@ class EditUser extends React.Component {
             })
             .then(result => {
                 this.props.history.goBack();
-                NotificationManager.success('Successfuly edited user!');
+                NotificationManager.success('Uspešno izmenjeni podaci!');
             })
             .catch(response => {
-                NotificationManager.error("Unable to update user. ");
+                NotificationManager.error("Ne možete izmeniti podatke o korisniku. ");
                 this.setState({ submitted: false });
             });
     }
@@ -145,7 +153,7 @@ class EditUser extends React.Component {
                                 
                                     id="firstName"
                                     type="text"
-                                    placeholder="firstName"
+                                    placeholder="ime"
                                     value={firstName}
                                     onChange={this.handleChange}
                                 />
@@ -154,7 +162,7 @@ class EditUser extends React.Component {
                                 <FormControl
                                     id="lastName"
                                     type="text"
-                                    placeholder="lastName"
+                                    placeholder="prezime"
                                     value={lastName}
                                     onChange={this.handleChange}
                                 />
@@ -172,12 +180,12 @@ class EditUser extends React.Component {
                                 <FormControl
                                     id="yearOfBirth"
                                     type="text"
-                                    placeholder="yearOfBirth"
+                                    placeholder="godina rodjenja"
                                     value={yearOfBirth}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit user</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Izmeni podatke o korisniku</Button>
                         </form>
                     </Col>
                 </Row>

@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace OpenSourceSoftwareDevelopment.Museum.API.ServiceExtensions
 {
@@ -9,6 +12,26 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.ServiceExtensions
         public static void AddOpenApi(this IServiceCollection services)
         {
             services.AddOpenApiDocument();
+        }
+
+        public static void AddJwtBearerAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(
+                    options =>
+                    {
+                        var tokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidIssuer = configuration["Tokens:Issuer"],
+                            ValidAudience = configuration["Tokens:Issuer"],
+                            IssuerSigningKey =
+                                new SymmetricSecurityKey(
+                                    Encoding.UTF8.GetBytes(configuration["Tokens:Key"]))
+                        };
+
+                        options.TokenValidationParameters = tokenValidationParameters;
+                    });
         }
     }
 }

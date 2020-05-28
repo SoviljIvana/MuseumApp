@@ -12,6 +12,8 @@ namespace OpenSourceSoftwareDevelopment.Museum.API.Models
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+
+        public bool IsAdmin { get; set; }
         public DateTime YearOfBirth { get; set; }
     }
 }
