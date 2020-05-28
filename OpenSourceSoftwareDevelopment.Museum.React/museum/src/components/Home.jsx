@@ -9,6 +9,8 @@ import ShowAllExhibitionsForUser from './ExhibitionActions/ShowAllExhibitionsFor
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
 import CurrentExhibitionsForUser from './ExhibitionActions/CurrentExhibitionsForUser'
 import ComingSoonExhibitionsForUser from './ExhibitionActions/ComingSoonExhibitionsForUser'
+import Contact from '../components/Contact';
+import About from '../components/About';
 import image1 from './Pictures/imagee.jpg';
 import image2 from './Pictures/imagee1.jpg';
 import image3 from './Pictures/imagee2.jpg';
@@ -210,12 +212,12 @@ getUser(username){
                         </Nav>
                         <Nav className="mr-auto">
                             <Container>
-                                <Button className="btn-outline-light" size="lg" active> O MUZEJU </Button>
+                                <Button  href="/home/about" className="btn-outline-light" size="lg" active> O MUZEJU </Button>
                             </Container>
                         </Nav>
                         <Nav className="mr-auto">
                             <Container>
-                                <Button className="btn-outline-light" size="lg" > KONTAKT </Button>
+                                <Button href="/home/contact" className="btn-outline-light" size="lg" > KONTAKT </Button>
                             </Container>
                         </Nav>
                         <Navbar.Collapse className="justify-content-end">
@@ -373,6 +375,8 @@ getUser(username){
                         <Route path="/home/ComingSoonExhibitionsForUser" component={ComingSoonExhibitionsForUser} />
                         <Route path="/home/CurrentExhibitionsForUser" component={CurrentExhibitionsForUser} />
                         <Route path="/home/ExhibitionDetails/:id" component={ExhibitionDetails} />
+                        <Route path="/home/About" component={About} />
+                        <Route path="/home/Contact" component={Contact} />
                     </Switch>
                 </Col>
             </Row>
