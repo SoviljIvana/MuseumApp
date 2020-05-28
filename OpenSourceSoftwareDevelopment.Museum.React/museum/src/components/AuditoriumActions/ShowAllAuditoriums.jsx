@@ -67,14 +67,14 @@ class ShowAllAuditoriums extends Component{
                   return response.statusText;
               })
               .then(result => {
-                  NotificationManager.success('Successfuly removed auditorium with ID: '+ id);
+                  NotificationManager.success('Uspešno izbrisana sala koja ima id: '+ id);
                   const newState = this.state.auditoriums.filter(auditorium => {
                       return auditorium.id !== id;
                   })
                   this.setState({auditoriums: newState});
               })
               .catch(response => {
-                  NotificationManager.error("Unable to remove auditorium.");
+                  NotificationManager.error("Ne možete obrisati salu.");
                   this.setState({ submitted: false });
               });
           }

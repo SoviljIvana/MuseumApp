@@ -71,7 +71,7 @@ class EditExhibition extends React.Component {
         if (auditoriumId && exhibitionId && exhibitionName && typeOfExhibition && startTime && endTime) {
             this.updateExhibition();
         } else {
-            NotificationManager.error('Please fill in data');
+            NotificationManager.error('Molim vas unesite podatak.');
             this.setState({ submitted: false });
         }
     }
@@ -115,10 +115,10 @@ class EditExhibition extends React.Component {
             })
             .then(result => {
                 this.props.history.goBack();
-                NotificationManager.success('Successfuly edited exhibition!');
+                NotificationManager.success('Uspešno izmenjena izložba!');
             })
             .catch(response => {
-                NotificationManager.error("Unable to update exhibition. ");
+                NotificationManager.error("Ne možete izmeniti izložbu. ");
                 this.setState({ submitted: false });
             });
     }
@@ -136,7 +136,7 @@ class EditExhibition extends React.Component {
                                 
                                     id="exhibitionName"
                                     type="text"
-                                    placeholder="exhibitionName"
+                                    placeholder="naziv izložbe"
                                     value={exhibitionName}
                                     onChange={this.handleChange}
                                 />
@@ -146,7 +146,7 @@ class EditExhibition extends React.Component {
                                 
                                     id="typeOfExhibition"
                                     type="text"
-                                    placeholder="typeOfExhibition"
+                                    placeholder="tip izlože"
                                     value={typeOfExhibition}
                                     onChange={this.handleChange}
                                 />
@@ -155,7 +155,7 @@ class EditExhibition extends React.Component {
                                 <FormControl
                                     id="startTime"
                                     type="text"
-                                    placeholder="startTime"
+                                    placeholder="početak"
                                     value={startTime}
                                     onChange={this.handleChange}
                                 />
@@ -164,12 +164,12 @@ class EditExhibition extends React.Component {
                                 <FormControl
                                     id="endTime"
                                     type="text"
-                                    placeholder="endTime"
+                                    placeholder="kraj"
                                     value={endTime}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit exhibition</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Izmena izložbe</Button>
                         </form>
                     </Col>
                 </Row>

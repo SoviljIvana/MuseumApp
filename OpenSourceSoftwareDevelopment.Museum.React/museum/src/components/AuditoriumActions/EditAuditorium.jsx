@@ -10,7 +10,6 @@ class EditAuditorium extends React.Component {
         super(props);
 
         this.state = {
-
             numberOfSeats: 0,
             nameOfAuditorium: '',
             auditoriumId: 0,
@@ -28,7 +27,11 @@ class EditAuditorium extends React.Component {
     }
     getAuditorium(auditoriumId) {
         const requestOptions = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
            
         };
     
@@ -68,7 +71,7 @@ class EditAuditorium extends React.Component {
         if (auditoriumId && museumId && nameOfAuditorium && numberOfSeats) {
             this.updateAuditorium();
         } else {
-            NotificationManager.error('Please fill in data');
+            NotificationManager.error('Molim vas popunite polje.');
             this.setState({ submitted: false });
         }
     }
@@ -85,6 +88,7 @@ class EditAuditorium extends React.Component {
 
         const requestOptions = {
             method: 'PUT',
+            
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -111,10 +115,10 @@ class EditAuditorium extends React.Component {
             })
             .then(result => {
                 this.props.history.goBack();
-                NotificationManager.success('Successfuly edited auditorium!');
+                NotificationManager.success('Uspešno izmenjena sala!');
             })
             .catch(response => {
-                NotificationManager.error("Unable to update auditorium. ");
+                NotificationManager.error("Ne možete izmeniti salu.");
                 this.setState({ submitted: false });
             });
     }
@@ -129,10 +133,9 @@ class EditAuditorium extends React.Component {
                         
                             <FormGroup>
                                 <FormControl
-                                
                                     id="nameOfAuditorium"
                                     type="text"
-                                    placeholder="nameOfAuditorium"
+                                    placeholder="naziv sale"
                                     value={nameOfAuditorium}
                                     onChange={this.handleChange}
                                 />
@@ -141,13 +144,13 @@ class EditAuditorium extends React.Component {
                                 <FormControl
                                     id="numberOfSeats"
                                     type="number"
-                                    placeholder="Number Of Seats"
+                                    placeholder="broj sedišta"
                                     value={numberOfSeats}
                                     onChange={this.handleChange}
                                     max="36"
                                 />
                             </FormGroup>
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit auditorium</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Izmena sale</Button>
                         </form>
                     </Col>
                 </Row>

@@ -33,7 +33,7 @@ class AddAuditorium extends React.Component {
         if (numberOfSeats && nameOfAuditorium) {
             this.newAuditorium();
         } else {
-            NotificationManager.error('Please fill form with data.');
+            NotificationManager.error('Molim vas popunite polje.');
             this.setState({ submitted: false });
         }
     }
@@ -65,7 +65,7 @@ class AddAuditorium extends React.Component {
                 return response.statusText;
             })
             .then(result => {
-                NotificationManager.success('Successfuly added new auditorium!');
+                NotificationManager.success('Uspešno je dodata nova sala!');
                 this.props.history.push('ShowAllAuditoriums');
             })
 
@@ -87,7 +87,7 @@ class AddAuditorium extends React.Component {
                                 <FormControl
                                     id="nameOfAuditorium"
                                     type="text"
-                                    placeholder="Auditorium Name"
+                                    placeholder="naziv sale"
                                     value={nameOfAuditorium}
                                     onChange={this.handleChange}
                                 />
@@ -96,7 +96,7 @@ class AddAuditorium extends React.Component {
                                 <FormControl
                                     id="numberOfSeats"
                                     type="number"
-                                    placeholder="Number Of Seats"
+                                    placeholder="broj sedišta"
                                     value={numberOfSeats}
                                     onChange={this.handleChange}
                                     max="36"
@@ -106,7 +106,7 @@ class AddAuditorium extends React.Component {
                                 <FormControl
                                     id="museumId"
                                     type="number"
-                                    placeholder="Museum Id"
+                                    placeholder="id muzeja"
                                     value={museumId}
                                     onChange={this.handleChange}
                                     
@@ -116,13 +116,13 @@ class AddAuditorium extends React.Component {
                                 <FormControl
                                     id="auditoriumId"
                                     type="number"
-                                    placeholder="Auditorium Id"
+                                    placeholder="id sale"
                                     value={auditoriumId}
                                     onChange={this.handleChange}
                                     
                                 />
                             </FormGroup>
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Add Auditorium</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Dodaj salu</Button>
                         </form>
                     </Col>
                 </Row>
