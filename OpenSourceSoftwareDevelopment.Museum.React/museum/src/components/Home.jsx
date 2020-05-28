@@ -67,7 +67,7 @@ class Home extends Component {
     handleLogOut(e) {
         e.preventDefault();
         this.props.history.push('/home')
-        NotificationManager.warning("Logged out!");
+        NotificationManager.warning("Odjavljeni ste!");
         this.guestToken();
 
     }
@@ -97,7 +97,7 @@ getUser(username){
               }
           })
           .catch(response => {
-              NotificationManager.error("Unable to login. ");
+              NotificationManager.error("Neuspešno prijavljivanje. ");
               this.setState({ submitted: false });
           });
   }
@@ -135,7 +135,7 @@ getUser(username){
                 }
             })
             .catch(response => {
-                NotificationManager.error("Unable to sign in. ");
+                NotificationManager.error("Neuspešno prijavljivanje.");
                 this.setState({ submitted: false });
             });
     }
@@ -159,13 +159,13 @@ getUser(username){
                 return response.json();
             })
             .then(data => {
-                NotificationManager.success('Signed in as admin!');
+                NotificationManager.success('Ulogovani ste kao admin!');
                 if (data.token) {
                     localStorage.setItem("jwt", data.token);
                 }
             })
             .catch(response => {
-                NotificationManager.error("Unable to sign in. ");
+                NotificationManager.error("Neuspešno prijavljivanje. ");
                 this.setState({ submitted: false });
             });
     }
@@ -206,11 +206,6 @@ getUser(username){
                                     <DropdownItem href="/home/ComingSoonExhibitionsForUser" ><button className="button1">Uskoro </button></DropdownItem>
                                     <DropdownItem href="/home/CurrentExhibitionsForUser" ><button className="button1">Trenutno </button></DropdownItem>
                                 </DropdownButton >
-                            </Container>
-                        </Nav>
-                        <Nav className="mr-auto">
-                            <Container>
-                                <Button className="btn-outline-light" size="lg" active> <b>VESTI</b></Button>
                             </Container>
                         </Nav>
                         <Nav className="mr-auto">
@@ -315,7 +310,7 @@ getUser(username){
                             <Form inline onSubmit={this.handleSubmit}>
                                 <FormControl
                                     type="text"
-                                    placeholder="Username"
+                                    placeholder="korisničko ime"
                                     id="username"
                                     value={username}
                                     onChange={this.handleChange}

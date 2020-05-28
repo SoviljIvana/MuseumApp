@@ -23,7 +23,11 @@ class ComingSoonExhibitionsForUser extends Component{
 
     getExhibitions(){
         const requestOptions = {
-            method: 'GET' 
+            method: 'GET' ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
            };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Exhibitions/get/comingSoon`, requestOptions)
@@ -49,6 +53,10 @@ class ComingSoonExhibitionsForUser extends Component{
         removeExhibition(id) {
             const requestOptions = {
               method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+              }
              
           };
       
@@ -60,14 +68,14 @@ class ComingSoonExhibitionsForUser extends Component{
                   return response.statusText;
               })
               .then(result => {
-                  NotificationManager.success('Successfuly removed exhibition with ID: '+ id);
+                  NotificationManager.success('Uspešno izbrisana izložba sa id: '+ id);
                   const newState = this.state.exhibitions.filter(exhibition => {
                       return exhibition.id !== id;
                   })
                   this.setState({auditoriums: newState});
               })
               .catch(response => {
-                  NotificationManager.error("Unable to remove exhibition.");
+                  NotificationManager.error("Ne možete izbrisati izložbu.");
                   this.setState({ submitted: false });
               });
           }

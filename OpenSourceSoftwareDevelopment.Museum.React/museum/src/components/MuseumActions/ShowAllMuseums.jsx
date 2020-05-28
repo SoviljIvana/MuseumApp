@@ -22,7 +22,11 @@ class ShowAllMuseums extends Component{
 
     getMuseums(){
         const requestOptions = {
-            method: 'GET' 
+            method: 'GET' ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
           };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Museums/get`, requestOptions)
@@ -46,7 +50,11 @@ class ShowAllMuseums extends Component{
         }
         removeMuseum(id) {
             const requestOptions = {
-              method: 'DELETE'
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+              }
              
           };
       
@@ -58,14 +66,14 @@ class ShowAllMuseums extends Component{
                   return response.statusText;
               })
               .then(result => {
-                  NotificationManager.success('Successfuly removed museum with ID: '+ id);
+                  NotificationManager.success('Uspešno izbrisan muzej sa id: '+ id);
                   const newState = this.state.museums.filter(museum => {
                       return museum.id !== id;
                   })
                   this.setState({auditoriums: newState});
               })
               .catch(response => {
-                  NotificationManager.error("Unable to remove museum.");
+                  NotificationManager.error("Ne možete izbrisati muzej.");
                   this.setState({ submitted: false });
               });
           }

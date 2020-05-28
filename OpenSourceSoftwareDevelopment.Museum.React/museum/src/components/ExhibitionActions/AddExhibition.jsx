@@ -33,7 +33,7 @@ class AddExhibition extends React.Component {
         if (exhibitionName && typeOfExhibition) {
             this.newExhibition();
         } else {
-            NotificationManager.error('Please fill in data');
+            NotificationManager.error('Popunite polje');
             this.setState({ submitted: false });
         }
     }
@@ -52,7 +52,11 @@ class AddExhibition extends React.Component {
 
         const requestOptions = {
             method: 'POST',
-           
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
+           ,
             body: JSON.stringify(data)
         };
 
@@ -64,7 +68,7 @@ class AddExhibition extends React.Component {
                 return response.statusText;
             })
             .then(result => {
-                NotificationManager.success('Successfuly added exhibition!');
+                NotificationManager.success('Uspešno dodata izložba!');
                 this.props.history.push(`ShowAllExhibitions`);
             })
             .catch(response => {
@@ -85,7 +89,7 @@ class AddExhibition extends React.Component {
                                 <FormControl
                                     id="exhibitionName"
                                     type="text"
-                                    placeholder="exhibitionName"
+                                    placeholder="naziv izložbe"
                                     value={exhibitionName}
                                     onChange={this.handleChange}
                                 />
@@ -95,7 +99,7 @@ class AddExhibition extends React.Component {
                                 <FormControl
                                     id="typeOfExhibition"
                                     type="text"
-                                    placeholder="typeOfExhibition"
+                                    placeholder="tip izložbe"
                                     value={typeOfExhibition}
                                     onChange={this.handleChange}
                                 />
@@ -104,7 +108,7 @@ class AddExhibition extends React.Component {
                                 <FormControl
                                     id="exhibitionId"
                                     type="number"
-                                    placeholder="exhibitionId"
+                                    placeholder="id izložbe"
                                     value={exhibitionId}
                                     onChange={this.handleChange}
                                 />
@@ -113,7 +117,7 @@ class AddExhibition extends React.Component {
                                 <FormControl
                                     id="auditoriumId"
                                     type="number"
-                                    placeholder="auditoriumId"
+                                    placeholder="id sale"
                                     value={auditoriumId}
                                     onChange={this.handleChange}
                                 />
@@ -122,7 +126,7 @@ class AddExhibition extends React.Component {
                                 <FormControl
                                     id="startTime"
                                     type="date"
-                                    placeholder="startTime"
+                                    placeholder="početak"
                                     value={startTime}
                                     onChange={this.handleChange}
                                 />
@@ -131,12 +135,12 @@ class AddExhibition extends React.Component {
                                 <FormControl
                                     id="endTime"
                                     type="date"
-                                    placeholder="endTime"
+                                    placeholder="kraj"
                                     value={endTime}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
-                            <Button  variant="info" type="submit" disabled={submitted || !canSubmit} block>Add Exhibition</Button>
+                            <Button  variant="info" type="submit" disabled={submitted || !canSubmit} block>Dodaj izložbu</Button>
                         </form>
                     </Col>
                 </Row>

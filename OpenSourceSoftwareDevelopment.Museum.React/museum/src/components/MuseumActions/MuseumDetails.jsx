@@ -24,7 +24,11 @@ class MuseumDetails extends React.Component {
     
     getMuseum(id) {
         const requestOptions = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
             
         };
         fetch(`${serviceConfig.baseURL}/api/museums/get/${id}` , requestOptions)

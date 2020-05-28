@@ -21,7 +21,11 @@ class ShowAllTickets extends Component{
 
     getTickets(){
         const requestOptions = {
-            method: 'GET' 
+            method: 'GET' ,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
            };
             this.setState({isLoading: true});
             fetch(`${serviceConfig.baseURL}/api/Tickets/get`, requestOptions)

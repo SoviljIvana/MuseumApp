@@ -76,7 +76,7 @@ class EditExhibit extends React.Component {
         if (auditoriumId && exhibitionId && exhibitId && name && year && picturePath) {
             this.updateExhibit();
         } else {
-            NotificationManager.error('Please fill in data');
+            NotificationManager.error('Molim vas popunite polje.');
             this.setState({ submitted: false });
         }
     }
@@ -122,10 +122,10 @@ class EditExhibit extends React.Component {
             })
             .then(result => {
                 this.props.history.goBack();
-                NotificationManager.success('Successfuly edited exhibit!');
+                NotificationManager.success('Uspešno izmenjen eksponat!');
             })
             .catch(response => {
-                NotificationManager.error("Unable to update exhibit. ");
+                NotificationManager.error("Ne možete izmeniti podatke o eksponatu. ");
                 this.setState({ submitted: false });
             });
     }
@@ -143,7 +143,7 @@ class EditExhibit extends React.Component {
                                 
                                     id="name"
                                     type="text"
-                                    placeholder="name"
+                                    placeholder="naziv"
                                     value={name}
                                     onChange={this.handleChange}
                                 />
@@ -153,7 +153,7 @@ class EditExhibit extends React.Component {
                                 
                                     id="year"
                                     type="number"
-                                    placeholder="year"
+                                    placeholder="godina"
                                     value={year}
                                     onChange={this.handleChange}
                                 />
@@ -162,13 +162,13 @@ class EditExhibit extends React.Component {
                                 <FormControl
                                     id="picturePath"
                                     type="text"
-                                    placeholder="picturePath"
+                                    placeholder="putanja do slike"
                                     value={picturePath}
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
                            
-                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Edit exhibit</Button>
+                            <Button  variant="danger" type="submit" disabled={submitted || !canSubmit} block>Izmeni eksponat</Button>
                         </form>
                     </Col>
                 </Row>
