@@ -89,9 +89,7 @@ class ShowAllExhibitions extends Component{
                     <td>{exhibition.startTime}</td>
                     <td>{exhibition.endTime}</td>
                     <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer"  onClick={() => this.exhibitionDetails(exhibition.exhibitionId)}>vidi detalje</Button></td> 
-                    <td> <Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick={() => this.editExhibition(exhibition.exhibitionId)} >izmeni</Button></td> 
-               <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick={() => this.removeExhibition(exhibition.exhibitionId)} >obriši</Button> </td> 
-                            </tr>
+                         </tr>
             })
         }
 
@@ -113,8 +111,7 @@ class ShowAllExhibitions extends Component{
                                 <th>Datum otvaranja izložbe</th>
                                 <th>Datum zatvaranja izložbe</th>
                                 <th>Detalji</th>
-                                <th>Izmena</th>
-                                <th>Brisanje</th>
+                              
                                 </thead>
                                 <tbody>
                                     {rowsData}

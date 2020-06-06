@@ -7,7 +7,7 @@ class About extends React.Component {
         return (
             <Container>
                 <h1>O muzeju </h1>
-                <h6> Muzej Vojvodine je organizaciono razgranata ustanova, sa bogatim muzejskim fontomkoji broji oko 400.000 predmeta i bibliotečkim
+                <p> Muzej Vojvodine je organizaciono razgranata ustanova, sa bogatim muzejskim fontomkoji broji oko 400.000 predmeta i bibliotečkim
                     fondom sa preko 50.000 publikacija. Redovna muzejska publikacija Rad Muzej Vojvodine, koja izlazi od 1952. godine,
                     nosila je naziv Rad vojvođanskih muzeja od 1995. godine. 
                     U uspostavljanju razgranate muzejske mreže stvoreni su depadansi- Etno park "Brvnara" u Bačkom Jarku i Muzejski kompleks Kulpin, 
@@ -21,9 +21,9 @@ class About extends React.Component {
                     imperijskog Rima, od seobe naroda do smena etničkih zajednica.
                     <br></br>
                     Muzej Vojvodine obavlja poslove matične delatnosti za sve ustanove zaštite pokretnih kulturnih dobara, 
-                    muzeja i muzejskih zbirki na području Vojvodine, odnosno nadzor nad njihovim stručnim radom. </h6>
-              <h6>
-             </h6>
+                    muzeja i muzejskih zbirki na području Vojvodine, odnosno nadzor nad njihovim stručnim radom. 
+            
+             </p>
             </Container>
         );
     }

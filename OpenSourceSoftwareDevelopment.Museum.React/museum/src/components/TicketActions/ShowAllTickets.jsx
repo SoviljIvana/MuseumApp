@@ -55,8 +55,7 @@ class ShowAllTickets extends Component{
                 <td>{ticket.payment}</td>
                 <td>{ticket.userId}</td>  
                 <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick = {() => this.ticketDetails(ticket.ticketId) }>vidi detalje</Button></td> 
-               <td> <Button variant="dark"  width = "1%" className="text-center cursor-pointer" >izmeni</Button></td> 
-               <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
+            
 </tr>
     
     })
@@ -72,9 +71,9 @@ class ShowAllTickets extends Component{
         const table = (<Table striped bordered hover responsive striped variant="dark">
                             <thead>
                             <th>Plaćanje</th>
+                            <th>Id</th>
                             <th>Detalji</th>
-                            <th>Izmene</th>
-                            <th>Brisanje</th>
+                           
                             </thead>
                             <tbody>
                                 {rowsData}
