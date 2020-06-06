@@ -1,23 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component,} from 'react';
 import Search from './Search';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
+import { Canvas } from 'react-canvas-js'
 import Popup from "reactjs-popup";
 import { Fade } from 'react-slideshow-image';
-import { Navbar, Form, Table, Nav, Button, Container, Image, FormControl, ResponsiveEmbed, DropdownButton, ButtonGroup, Dropdown, DropdownItem, Carousel, Col, Row } from 'react-bootstrap';
+import { Navbar, Form, Table, Nav, Button,  Container, Image, FormControl, ResponsiveEmbed, DropdownButton, DropdownItem,  Col, Row } from 'react-bootstrap';
 import ShowAllExhibitionsForUser from './ExhibitionActions/ShowAllExhibitionsForUser';
 import ExhibitionDetails from './ExhibitionActions/ExhibitionDetails';
 import CurrentExhibitionsForUser from './ExhibitionActions/CurrentExhibitionsForUser'
 import ComingSoonExhibitionsForUser from './ExhibitionActions/ComingSoonExhibitionsForUser'
+import Animation from './Animation';
+import Contact from './Contact';
+import About from '../components/About';
 import image1 from './Pictures/imagee.jpg';
 import image2 from './Pictures/imagee1.jpg';
 import image3 from './Pictures/imagee2.jpg';
 import image4 from './Pictures/imagee3.jpg';
 import image6 from './Pictures/imagee5.jpg';
+import image7 from './Pictures/final1.png';
 import { NotificationManager } from 'react-notifications';
 import { serviceConfig } from '../AppSettings';
 import logo from './Pictures/logo1.png'
-const fadeImages = [image1, image2, image3, image4, image6];
+const fadeImages = [image1, image2, image3, image4, image6, image7];
+
 
 const fadeProperties = {
     duration: 5000,
@@ -33,14 +39,19 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
+        this.state = { rotation: 0 };
+        this.tick = this.tick.bind(this);
         this.state = {
             open: false,
             open1: false,
             username: '',
             user: [],
             submitted: false,
+         
+        
         };
-
+        this.state = { angle: 0 };
+        this.updateAnimationState = this.updateAnimationState.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleLogOut = this.handleLogOut.bind(this);
@@ -51,6 +62,16 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        requestAnimationFrame(this.tick);
+      }
+    
+      tick() {
+        const rotation = this.state.rotation + 0.04;
+        this.setState({ rotation });
+        requestAnimationFrame(this.tick);
+      }
+    componentDidMount() {
+
         const token = localStorage.getItem('jwt');
         if (!token) {
             this.guestToken();
@@ -183,13 +204,29 @@ getUser(username){
     closeModal1() {
         this.setState({ open1: false });
     }
-
+    componentDidMount() {
+        this.rAF = requestAnimationFrame(this.updateAnimationState);
+      }
+      
+      componentWillUnmount() {
+        cancelAnimationFrame(this.rAF);
+      }
+      
+      updateAnimationState() {
+        this.setState(prevState => ({ angle: prevState.angle + 1 }));
+        this.rAF = requestAnimationFrame(this.updateAnimationState);
+      }
     render() {
         const { username } = this.state;
         return (
             <Row className="no-gutters pr-0 pl-0" >
                 <Table>
                     <Navbar sticky="top" className="slide-container" expand="lg" bg="light">
+                    <Row>
+                                    <Col xs={6} md={4}>
+                                    <Animation angle={this.state.angle} />
+                                    </Col>
+                                </Row>
                         <Nav className="mr-auto">
                             <Container>
                                 <Row>
@@ -197,8 +234,10 @@ getUser(username){
                                         <Image src={logo} roundedCircle />
                                     </Col>
                                 </Row>
+                               
                             </Container>
                         </Nav>
+                       
                         <Nav className="mr-auto">
                             <Container>
                                 <DropdownButton title="IZLOŽBE" className="btn-outline-light" variant="outline-light" size="lg" active>
@@ -208,16 +247,20 @@ getUser(username){
                                 </DropdownButton >
                             </Container>
                         </Nav>
+                   
                         <Nav className="mr-auto">
                             <Container>
-                                <Button className="btn-outline-light" size="lg" active> O MUZEJU </Button>
+                                <Button  href="/home/about" className="btn-outline-light" size="lg" active> O MUZEJU </Button>
                             </Container>
                         </Nav>
+                   
+                            
                         <Nav className="mr-auto">
                             <Container>
-                                <Button className="btn-outline-light" size="lg" > KONTAKT </Button>
+                                <Button href="/home/contact" className="btn-outline-light" size="lg" > KONTAKT </Button>
                             </Container>
                         </Nav>
+                       
                         <Navbar.Collapse className="justify-content-end">
                             {/* <Dropdown as={ButtonGroup}>
                                 <Dropdown.Toggle split id="dropdown-custom-2"  >
@@ -317,6 +360,11 @@ getUser(username){
                                     className="mr-sm-2" />
                                 <Button type="submit"   variant="outline-danger" className="mr-1">Prijava</Button>
                                 <Button type="submit" onClick={this.handleLogOut} variant="outline-danger" className="mr-1">Odjava</Button>
+                                <Row>
+                                    <Col xs={6} md={4}>
+                                    <Animation angle={this.state.angle} />
+                                    </Col>
+                                </Row>
                             </Form>
                         </Navbar.Collapse>
                     </Navbar>
@@ -365,6 +413,14 @@ getUser(username){
                                 <Search />
                             </Carousel.Caption> */}
                         </div>
+                        <div className="each-fade">
+                            <ResponsiveEmbed aspectRatio="21by9">
+                                <img src={fadeImages[5]} />
+                            </ResponsiveEmbed>
+                            {/* <Carousel.Caption className="welcomeMesssage">
+                                <Search />
+                            </Carousel.Caption> */}
+                        </div>
                     </Fade>
                 </p>
                 <Col className="pt-2 app-content-main">
@@ -373,6 +429,9 @@ getUser(username){
                         <Route path="/home/ComingSoonExhibitionsForUser" component={ComingSoonExhibitionsForUser} />
                         <Route path="/home/CurrentExhibitionsForUser" component={CurrentExhibitionsForUser} />
                         <Route path="/home/ExhibitionDetails/:id" component={ExhibitionDetails} />
+                        <Route path="/home/About" component={About} />
+                        <Route path="/home/Contact" component={Contact} />
+
                     </Switch>
                 </Col>
             </Row>

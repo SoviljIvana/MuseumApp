@@ -56,12 +56,10 @@ class ShowAllUsers extends Component{
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>  
                 <td>{user.username}</td>  
-                <td>{user.password}</td>
                 <td>{user.yearOfBirth}</td>  
                 <td>{user.email}</td>    
                 <td>  <Button  variant="dark"  width = "1%" className="text-center cursor-pointer" onClick = {() => this.userDetails(user.userId)}>vidi detalje</Button></td> 
                 <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer" onClick = {() => this.editUser(user.userId)}>izmeni</Button></td> 
-               <td>  <Button variant="dark"  width = "1%" className="text-center cursor-pointer" >obriši</Button> </td>  
 </tr>
     })
     }
@@ -82,12 +80,12 @@ class ShowAllUsers extends Component{
                             <th>Ime</th>
                             <th>Prezime</th>
                              <th>Korisničko ime</th>
-                            <th>Lozinka</th>
+                         
                             <th>Datum rođenja</th>
                             <th>Email adresa</th>
                             <th>Detalji</th>
                             <th>Izmena</th>
-                            <th>Brisanje</th>
+                          
                             </thead>
                             <tbody>
                                 {rowsData}

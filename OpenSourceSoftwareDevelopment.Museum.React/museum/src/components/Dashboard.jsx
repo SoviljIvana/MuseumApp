@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Switch, Route, Link } from 'react-router-dom';
-import { Navbar, Table, Nav, Button, Container, NavDropdown } from 'react-bootstrap';
+import { Navbar, Table,Image, Nav,ResponsiveEmbed, Button, Container, NavDropdown } from 'react-bootstrap';
 import ShowAllMuseums from './MuseumActions/ShowAllMuseums';
 import ShowAllAuditoriums from './AuditoriumActions/ShowAllAuditoriums';
 import ShowAllExhibitions from './ExhibitionActions/ShowAllExhibitions';
@@ -26,7 +26,8 @@ import EditMuseum from './MuseumActions/EditMuseum'
 import CurrentExhibitions from './ExhibitionActions/CurrentExhibitions'
 import ComingSoonExhibitions from './ExhibitionActions/ComingSoonExhibitions'
 import './App.css';
-import {privateRouteAadmin} from './privateRouteAdmin'
+import photoshopPicture from './Pictures/final1.png';
+
 
 class Dashboard extends Component {
 
@@ -125,9 +126,15 @@ class Dashboard extends Component {
                                 </NavDropdown>
                             </Container>
                         </Nav>
-
                     </Navbar>
                 </Table>
+                <Container>
+                                <Row>
+                                    <Col xs={6} md={4}>
+                                        <Image src={photoshopPicture}  />
+                                    </Col>
+                                </Row>
+                            </Container>
                 <Col className="pt-2 app-content-main">
                     <Switch>
                         <Route path="/dashboard/ShowAllMuseums" component={ShowAllMuseums} />
