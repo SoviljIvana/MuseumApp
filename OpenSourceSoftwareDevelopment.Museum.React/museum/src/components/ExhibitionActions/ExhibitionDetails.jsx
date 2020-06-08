@@ -30,7 +30,11 @@ class ExhibitionDetails extends React.Component {
 
     getExhibition(id) {
         const requestOptions = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
         };
         fetch(`${serviceConfig.baseURL}/api/exhibitions/get/${id}`, requestOptions)
             .then(response => {

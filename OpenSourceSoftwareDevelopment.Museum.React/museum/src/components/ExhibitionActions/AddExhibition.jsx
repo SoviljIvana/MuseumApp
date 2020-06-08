@@ -82,7 +82,7 @@ class AddExhibition extends React.Component {
         const {exhibitionId, exhibitionName, auditoriumId, typeOfExhibition, startTime, endTime,  submitted, canSubmit } = this.state;
         return (
             <Container>
-                <Row>
+                <Row  class = "new-row">
                     <Col>
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup>

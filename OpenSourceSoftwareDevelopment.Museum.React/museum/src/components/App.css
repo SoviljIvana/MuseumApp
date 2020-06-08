@@ -13,6 +13,12 @@
   max-width: 100%;
   align-content: center !important;
 }
+.row{
+  display: flex !important;
+}
+.content-row{
+  display: contents !important;
+}
 .table {
   width: 100%;
   margin-bottom: 0rem !important;
@@ -189,7 +195,7 @@ table {
 }   
 
 body {
-  color: black !important;
+  color: white !important;
   background-color: black !important;
   min-width: 50% !important;
   max-width: 300% !important;

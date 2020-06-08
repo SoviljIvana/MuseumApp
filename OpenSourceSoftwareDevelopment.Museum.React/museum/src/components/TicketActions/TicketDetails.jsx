@@ -23,7 +23,11 @@ class TicketDetails extends React.Component {
     
     getTicket(id) {
         const requestOptions = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+            }
            
         };
         fetch(`${serviceConfig.baseURL}/api/tickets/get/${id}` , requestOptions)

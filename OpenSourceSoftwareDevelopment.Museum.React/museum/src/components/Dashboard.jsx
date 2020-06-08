@@ -33,7 +33,7 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <Row className="no-gutters pr-1 pl-1" >
+            <Row className="no-gutters pr-1 pl-1" className = "content-row">
                 <Table>
                     <Navbar sticky="top" className="slide-container"  expand="lg" bg="dark" variant="dark">
                         <Nav className="mr-auto">
@@ -76,7 +76,7 @@ class Dashboard extends Component {
                                 </NavDropdown>
                             </Container>
                         </Nav>
-                        <Nav className="mr-auto">
+                        {/* <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Sala" id="basic-nav-dropdown">
                                     <NavDropdown.Item className="navbar-item">
@@ -90,7 +90,7 @@ class Dashboard extends Component {
                                     </NavDropdown.Item>
                                 </NavDropdown>
                             </Container>
-                        </Nav>
+                        </Nav> */}
                         <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Eksponat" id="basic-nav-dropdown">
@@ -106,7 +106,7 @@ class Dashboard extends Component {
                                 </NavDropdown>
                             </Container>
                         </Nav>
-                        <Nav className="mr-auto">
+                        {/* <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Karta" id="basic-nav-dropdown">
                                     <NavDropdown.Item className="navbar-item">
@@ -115,7 +115,7 @@ class Dashboard extends Component {
                                     </NavDropdown.Item>
                                 </NavDropdown>
                             </Container>
-                        </Nav>
+                        </Nav> */}
                         <Nav className="mr-auto">
                             <Container>
                                 <NavDropdown title="Korisnik" id="basic-nav-dropdown">
@@ -129,11 +129,11 @@ class Dashboard extends Component {
                     </Navbar>
                 </Table>
                 <Container>
-                                <Row>
+                                {/* <Row>
                                     <Col xs={6} md={4}>
                                         <Image src={photoshopPicture}  />
                                     </Col>
-                                </Row>
+                                </Row> */}
                             </Container>
                 <Col className="pt-2 app-content-main">
                     <Switch>
